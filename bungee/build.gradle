@@ -1,0 +1,22 @@
+plugins {
+    id 'kr.entree.spigradle.bungee'
+    id 'com.github.johnrengelman.shadow'
+}
+
+bungee {
+    name 'MapModCompanion'
+    author 'turikhay'
+}
+
+assemble {
+    dependsOn shadowJar
+}
+
+shadowJar {
+    archiveName("MapModCompanion-Bungee.jar")
+}
+
+dependencies {
+    implementation project(":common")
+    compileOnly bungeecord()
+}

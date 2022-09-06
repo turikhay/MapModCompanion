@@ -1,0 +1,41 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+      - name: Detect version from the tag name
+        id: version
+        run: |
+          TAG=${{ github.ref }}
+          VERSION=${TAG#refs/tags/v}
+          echo "::set-output name=version::$VERSION"
+          IS_PRE_RELEASE=$([[ $VERSION =~ .+(alpha|beta|pre|rc).* ]] && echo "true" || echo "false")
+          echo "::set-output name=pre-release::$IS_PRE_RELEASE"
+      - uses: gradle/gradle-build-action@v2
+        with:
+          arguments: |
+            build
+            -Pversion=${{ steps.version.outputs.version }}
+      - uses: softprops/action-gh-release@v1
+        with:
+          name: ${{ steps.version.outputs.version }}
+          prerelease: ${{ steps.version.outputs.pre-release }}
+          generate_release_notes: true
+          draft: true
+          files: |
+            bungee/build/libs/MapModCompanion-Bungee.jar
+            spigot/build/libs/MapModCompanion-Spigot.jar

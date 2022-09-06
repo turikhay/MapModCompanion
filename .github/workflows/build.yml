@@ -1,0 +1,33 @@
+name: Build
+
+on:
+  push:
+    branches:
+      - '**'
+    tags-ignore:
+      - 'v*.*.*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+      - id: sha
+        run: |
+          SHA=${{ github.sha }}
+          echo "::set-output name=sha8::${SHA:0:8}"
+      - uses: gradle/gradle-build-action@v2
+        with:
+          arguments: |
+            build
+            -Pversion=0.0.0+${{ steps.sha.outputs.sha8 }}
+      - uses: actions/upload-artifact@v3
+        with:
+          name: Artifacts (${{ steps.sha.outputs.sha8 }})
+          path: |
+            bungee/build/libs/MapModCompanion-Bungee.jar
+            spigot/build/libs/MapModCompanion-Spigot.jar

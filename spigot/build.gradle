@@ -1,0 +1,49 @@
+plugins {
+    id 'kr.entree.spigradle'
+    id 'com.github.johnrengelman.shadow'
+}
+
+//configurations {
+//    bukkitNeeds
+//    bukkitProvides
+//    compileOnly.extendsFrom(bukkitProvides)
+//}
+
+spigot {
+    name = 'MapModCompanion'
+    authors = ['turikhay']
+    apiVersion = '1.13'
+    debug {
+        jvmArgs "-Dlog4j.configurationFile=${projectDir}${File.separatorChar}log4j2-debug.xml"
+    }
+    afterEvaluate {
+//        def shaded = project.configurations.bukkitNeeds.resolvedConfiguration.resolvedArtifacts.collect {
+//            it.id.componentIdentifier.displayName
+//        }.join(",")
+        excludeLibraries(
+                "${group}:common:${version}",
+//                shaded
+        )
+    }
+}
+
+dependencies {
+    implementation project(':common')
+    compileOnly spigot('1.19.2')
+}
+
+assemble {
+    dependsOn shadowJar
+}
+
+shadowJar {
+    archiveName("MapModCompanion-Spigot.jar")
+//    dependencies {
+//        exclude(dependency { dep ->
+//            project.configurations.bukkitProvides.resolvedConfiguration.resolvedArtifacts.any {
+//                !project.configurations.bukkitNeeds.resolvedConfiguration.resolvedArtifacts.contains(it)
+//                        && it.id.componentIdentifier.displayName == dep.name
+//            }
+//        })
+//    }
+}
