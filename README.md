@@ -20,7 +20,7 @@ which supported Velocity, Fabric and Spigot at the time of writing.
 | VoxelMap (Refresh-MC)                                                              | 1.11.10 (1.19.2)            | ✅ Supported |
 
 ## Installation
-1. Download the latest release from [Releases](https://github.com/turikhay/xaeros-minimap-companion/releases) page
+1. Download the latest release from [Releases](https://github.com/turikhay/MapModCompanion/releases) page
 2. Put each of them into the corresponding plugins folder
 3. That's it. No configuration required. You can restart your servers now.
 
