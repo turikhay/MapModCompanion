@@ -27,8 +27,11 @@ public class WorldIdHandler extends Handler<WorldId> implements Listener, Plugin
 
     @Override
     public void scheduleLevelIdPacket(Runnable r, EventSource source) {
-        long delay = source == EventSource.PLUGIN_MESSAGE ? 0L : 20L * WORLD_ID_PACKET_DELAY;
-        plugin.getServer().getScheduler().runTaskLater(plugin, r, delay);
+        if (source != EventSource.PLUGIN_MESSAGE) {
+            // This handler should only send worldId on a request
+            return;
+        }
+        r.run();
     }
 
     @Override
