@@ -7,6 +7,10 @@ import java.util.Arrays;
 import java.util.List;
 
 public class CompanionSpigot extends JavaPlugin implements Listener {
+    public static final boolean ENABLE_LOGGING = Boolean.parseBoolean(
+            System.getProperty(CompanionSpigot.class.getPackage().getName() + ".debug", "false")
+    );
+
     List<Handler<?>> handlers = Arrays.asList(
             new XaerosHandler(this),
             new WorldIdHandler(this)

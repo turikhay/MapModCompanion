@@ -9,6 +9,8 @@ import net.md_5.bungee.event.EventHandler;
 
 import javax.annotation.Nullable;
 import java.util.Arrays;
+import java.util.Locale;
+import java.util.logging.Level;
 
 public abstract class PacketHandler<Id2 extends IdMessagePacket<?>, Id extends IdMessagePacket<Id2>> implements Listener {
     private final String channelName;
@@ -33,6 +35,13 @@ public abstract class PacketHandler<Id2 extends IdMessagePacket<?>, Id extends I
         if (!event.getTag().equals(channelName)) {
             return;
         }
+        if (plugin.getLogger().isLoggable(Level.FINEST)) {
+            plugin.getLogger().finest(String.format(Locale.ROOT,
+                    "Data sent from %s to %s (channel %s):",
+                    event.getSender(), event.getReceiver(), channelName
+            ));
+            plugin.getLogger().finest("Data (0): " + Arrays.toString(event.getData()));
+        }
         if (!(event.getSender() instanceof Server)) {
             return;
         }
@@ -41,15 +50,28 @@ public abstract class PacketHandler<Id2 extends IdMessagePacket<?>, Id extends I
             return;
         }
         ProxiedPlayer player = (ProxiedPlayer) event.getReceiver();
-        byte[] data = event.getData();
-        Id oldId = tryRead(data);
+        byte[] oldData = event.getData();
+        Id oldId = tryRead(oldData);
         if (oldId == null) {
-            plugin.getLogger().warning("Possibly corrupted packet from " + channelName + ": " + Arrays.toString(data));
+            plugin.getLogger().warning("Possibly corrupted packet from " + channelName + ": " + Arrays.toString(oldData));
             return;
         }
         event.setCancelled(true);
         Id2 newId = oldId.combineWith(getId(server));
-        player.sendData(channelName, IdMessagePacket.bytesPacket(newId));
+        byte[] newData = IdMessagePacket.bytesPacket(newId);
+        if (plugin.getLogger().isLoggable(Level.FINEST)) {
+            plugin.getLogger().finest(String.format(Locale.ROOT,
+                    "Changing data sent to %s (channel %s):", player.getName(), channelName
+            ));
+            plugin.getLogger().finest("Data (1): " + Arrays.toString(newData));
+        }
+        if (plugin.getLogger().isLoggable(Level.FINE)) {
+            plugin.getLogger().fine(String.format(Locale.ROOT,
+                    "Intercepting world id sent to %s (channel %s): %s -> %s",
+                    player.getName(), channelName, oldId, newId
+            ));
+        }
+        player.sendData(channelName, newData);
     }
 
     @Nullable

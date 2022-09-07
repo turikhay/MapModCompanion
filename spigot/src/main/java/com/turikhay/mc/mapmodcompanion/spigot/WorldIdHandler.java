@@ -7,6 +7,9 @@ import org.bukkit.event.Listener;
 import org.bukkit.plugin.messaging.PluginMessageListener;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Arrays;
+import java.util.Locale;
+
 import static com.turikhay.mc.mapmodcompanion.worldid.WorldIdCompanion.WORLD_ID_CHANNEL_NAME;
 import static com.turikhay.mc.mapmodcompanion.worldid.WorldIdCompanion.WORLD_ID_PACKET_DELAY;
 
@@ -37,6 +40,12 @@ public class WorldIdHandler extends Handler<WorldId> implements Listener, Plugin
     public void onPluginMessageReceived(@NotNull String channel, @NotNull Player player, @NotNull byte[] message) {
         if (!channel.equals(WORLD_ID_CHANNEL_NAME)) {
             return;
+        }
+        if (CompanionSpigot.ENABLE_LOGGING) {
+            plugin.getLogger().info(String.format(Locale.ROOT,
+                    "Responding to %s's request (channel %s): %s",
+                    player.getName(), channel, Arrays.toString(message)
+            ));
         }
         // JourneyMap Server also sends this packet unconditionally
         sendLevelId(player, EventSource.PLUGIN_MESSAGE);

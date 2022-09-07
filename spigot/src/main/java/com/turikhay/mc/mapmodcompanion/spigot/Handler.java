@@ -8,6 +8,9 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerChangedWorldEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 
+import java.util.Arrays;
+import java.util.Locale;
+
 public abstract class Handler<Id extends IdMessagePacket<?>> implements Listener {
     private final String channelName;
     protected final CompanionSpigot plugin;
@@ -37,6 +40,12 @@ public abstract class Handler<Id extends IdMessagePacket<?>> implements Listener
                 () -> {
                     Id id = getId(player.getWorld());
                     byte[] data = IdMessagePacket.bytesPacket(id);
+                    if (CompanionSpigot.ENABLE_LOGGING) {
+                        plugin.getLogger().info(String.format(Locale.ROOT,
+                                "Sending world id to %s (channel: %s): %s. Data: %s",
+                                player.getName(), channelName, id, Arrays.toString(data)
+                        ));
+                    }
                     player.sendPluginMessage(plugin, channelName, data);
                 },
                 source
