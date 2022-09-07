@@ -49,11 +49,10 @@ public class WorldIdHandler extends Handler<WorldId, WorldIdHandler.PlayerWorldI
 
     @Override
     protected Handler.IdRef<WorldId> processRef(Handler.IdRef<WorldId> idRef, Context<PlayerWorldIdRequest> context) {
-        Optional<PlayerWorldIdRequest> aux = context.getAux();
-        if (!aux.isPresent()) {
-            return idRef; // no context, return as-is
+        PlayerWorldIdRequest pr = context.getAux();
+        if (pr == null) {
+            return idRef; // no request context, return as-is
         }
-        PlayerWorldIdRequest pr = aux.get();
         int prefixLength = pr.getRequest().getPrefixLength();
         if (idRef.getId().getPrefixLength() == prefixLength) {
             return idRef; // ok

@@ -105,7 +105,6 @@ public abstract class Handler<Id extends IdMessagePacket<?>, A> implements Liste
 
     static class Context<A> {
         private final EventSource source;
-
         @Nullable
         private final A aux;
 
@@ -118,8 +117,9 @@ public abstract class Handler<Id extends IdMessagePacket<?>, A> implements Liste
             return source;
         }
 
-        public Optional<A> getAux() {
-            return Optional.ofNullable(aux);
+        @Nullable
+        public A getAux() {
+            return aux;
         }
 
         private static <A> Context<A> of(EventSource source) {
