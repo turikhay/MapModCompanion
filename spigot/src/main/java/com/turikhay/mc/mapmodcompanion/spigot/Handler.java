@@ -33,10 +33,12 @@ public abstract class Handler<Id extends IdMessagePacket<?>> implements Listener
     }
 
     public void sendLevelId(Player player, EventSource source) {
-        Id id = getId(player.getWorld());
-        byte[] data = IdMessagePacket.bytesPacket(id);
         scheduleLevelIdPacket(
-                () -> player.sendPluginMessage(plugin, channelName, data),
+                () -> {
+                    Id id = getId(player.getWorld());
+                    byte[] data = IdMessagePacket.bytesPacket(id);
+                    player.sendPluginMessage(plugin, channelName, data);
+                },
                 source
         );
     }
