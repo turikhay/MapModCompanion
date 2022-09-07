@@ -16,6 +16,8 @@ public abstract class Handler<Id extends IdMessagePacket<?>> implements Listener
     private final String channelName;
     protected final CompanionSpigot plugin;
 
+    private IdRef<Id> defaultId;
+
     public Handler(String channelName, CompanionSpigot plugin) {
         this.channelName = channelName;
         this.plugin = plugin;
@@ -24,6 +26,7 @@ public abstract class Handler<Id extends IdMessagePacket<?>> implements Listener
     public void init() {
         plugin.getServer().getMessenger().registerOutgoingPluginChannel(plugin, channelName);
         plugin.getServer().getPluginManager().registerEvents(this, plugin);
+        defaultId = plugin.getDefaultWorld().map(world -> IdRef.of(getId(world))).orElse(null);
     }
 
     @EventHandler(priority = EventPriority.MONITOR)
@@ -39,15 +42,20 @@ public abstract class Handler<Id extends IdMessagePacket<?>> implements Listener
     public void sendLevelId(Player player, EventSource source) {
         scheduleLevelIdPacket(
                 () -> {
-                    Id id = getId(player.getWorld());
-                    byte[] data = IdMessagePacket.bytesPacket(id);
+                    IdRef<Id> idRef;
+                    if (defaultId == null) {
+                        idRef = IdRef.of(getId(player.getWorld()));
+                    } else {
+                        idRef = defaultId;
+                    }
                     if (CompanionSpigot.ENABLE_LOGGING) {
                         plugin.getLogger().info(String.format(Locale.ROOT,
                                 "Sending world id to %s (channel: %s): %s. Data: %s",
-                                player.getName(), channelName, id, Arrays.toString(data)
+                                player.getName(), channelName, idRef.id,
+                                Arrays.toString(idRef.data)
                         ));
                     }
-                    player.sendPluginMessage(plugin, channelName, data);
+                    player.sendPluginMessage(plugin, channelName, idRef.data);
                 },
                 source
         );
@@ -60,5 +68,27 @@ public abstract class Handler<Id extends IdMessagePacket<?>> implements Listener
         JOIN,
         WORLD_CHANGE,
         PLUGIN_MESSAGE
+    }
+
+    private static class IdRef<Id extends IdMessagePacket<?>> {
+        private final Id id;
+        private final byte[] data;
+
+        private IdRef(Id id, byte[] data) {
+            this.id = id;
+            this.data = data;
+        }
+
+        @Override
+        public String toString() {
+            return "DefaultId{" +
+                    "id=" + id +
+                    ", data=" + Arrays.toString(data) +
+                    '}';
+        }
+
+        private static <Id extends IdMessagePacket<?>> IdRef<Id> of(Id id) {
+            return new IdRef<>(id, IdMessagePacket.bytesPacket(id));
+        }
     }
 }
