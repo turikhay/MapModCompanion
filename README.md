@@ -21,7 +21,7 @@ which supported Velocity, Fabric and Spigot at the time of writing.
 
 ## Installation
 1. Download the latest release from [Releases](https://github.com/turikhay/MapModCompanion/releases) page
-2. Put each of them into the corresponding plugins folder
+2. Put each file into the corresponding plugins folder
 3. That's it. No configuration required. You can restart your servers now.
 
 ⚠️ **NOTE** Spigot plugin can be used without BungeeCord counterpart, but it's highly recommended to install
