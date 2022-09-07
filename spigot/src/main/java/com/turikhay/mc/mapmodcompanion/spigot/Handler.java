@@ -4,6 +4,7 @@ import com.turikhay.mc.mapmodcompanion.IdMessagePacket;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerChangedWorldEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -25,12 +26,12 @@ public abstract class Handler<Id extends IdMessagePacket<?>> implements Listener
         plugin.getServer().getPluginManager().registerEvents(this, plugin);
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.MONITOR)
     public void onPlayerJoined(PlayerJoinEvent event) {
         sendLevelId(event.getPlayer(), EventSource.JOIN);
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.MONITOR)
     public void onWorldChanged(PlayerChangedWorldEvent event) {
         sendLevelId(event.getPlayer(), EventSource.WORLD_CHANGE);
     }
