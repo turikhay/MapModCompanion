@@ -15,6 +15,10 @@ public class CompanionSpigot extends JavaPlugin implements Listener {
             System.getProperty(CompanionSpigot.class.getPackage().getName() + ".defaultId", "false")
     );
 
+    public static final boolean USE_TEXTUAL_WORLD_ID = Boolean.parseBoolean(
+            System.getProperty(CompanionSpigot.class.getPackage().getName() + ".useTextualId", "false")
+    );
+
     List<Handler<?>> handlers = Arrays.asList(
             new XaerosHandler(this),
             new WorldIdHandler(this)

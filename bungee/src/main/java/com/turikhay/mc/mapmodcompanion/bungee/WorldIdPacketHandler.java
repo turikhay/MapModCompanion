@@ -20,6 +20,6 @@ public class WorldIdPacketHandler extends PacketHandler<WorldId, WorldId> {
 
     @Override
     public WorldId getId(Server server) {
-        return new WorldId(server.getInfo().getName());
+        return WorldId.textual(server.getInfo().getName());
     }
 }

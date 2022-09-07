@@ -9,6 +9,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
 import java.util.Locale;
+import java.util.UUID;
 
 import static com.turikhay.mc.mapmodcompanion.worldid.WorldIdCompanion.WORLD_ID_CHANNEL_NAME;
 import static com.turikhay.mc.mapmodcompanion.worldid.WorldIdCompanion.WORLD_ID_PACKET_DELAY;
@@ -36,7 +37,12 @@ public class WorldIdHandler extends Handler<WorldId> implements Listener, Plugin
 
     @Override
     public WorldId getId(World world) {
-        return new WorldId(world.getUID().toString());
+        UUID uuid = world.getUID();
+        if (CompanionSpigot.USE_TEXTUAL_WORLD_ID) {
+            return WorldId.textual(uuid.toString());
+        } else {
+            return WorldId.numeric(uuid.hashCode());
+        }
     }
 
     @Override
