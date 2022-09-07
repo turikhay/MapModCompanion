@@ -20,6 +20,6 @@ public class WorldIdPacketHandler extends PacketHandler<WorldId, WorldId> {
 
     @Override
     public WorldId getId(Server server) {
-        return WorldId.createTruncatingLength(server.getInfo().getName());
+        return new WorldId(server.getInfo().getName());
     }
 }

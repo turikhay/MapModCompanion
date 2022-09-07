@@ -30,7 +30,7 @@ public class WorldIdHandler extends Handler<WorldId> implements Listener, Plugin
 
     @Override
     public WorldId getId(World world) {
-        return WorldId.createTruncatingLength(world.getUID().toString());
+        return new WorldId(world.getUID().toString());
     }
 
     @Override

@@ -6,24 +6,18 @@ import javax.annotation.Nullable;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 
-import static com.turikhay.mc.mapmodcompanion.worldid.WorldIdCompanion.WORLD_ID_MAX_LENGTH;
-
 public class WorldId implements IdMessagePacket<WorldId> {
-    private static final int MAX_ID_LENGTH = WORLD_ID_MAX_LENGTH;
-    private static final int HALF_LENGTH = MAX_ID_LENGTH / 2 - 1;
     private static final int MAGIC_MARKER = 42;
 
     private final String id;
 
-    private WorldId(String id) {
+    public WorldId(String id) {
         this.id = id;
     }
 
     @Override
     public WorldId combineWith(WorldId packet) {
-        return createTruncatingLength(
-                truncate(packet.id, HALF_LENGTH) + '_' + truncate(id, HALF_LENGTH)
-        );
+        return new WorldId(packet.id + '_' + id);
     }
 
     @Override
@@ -62,19 +56,5 @@ public class WorldId implements IdMessagePacket<WorldId> {
         return "WorldId{" +
                 "id='" + id + '\'' +
                 '}';
-    }
-
-    public static WorldId createTruncatingLength(String id) {
-        return new WorldId(truncate(id, MAX_ID_LENGTH));
-    }
-
-    private static String truncate(String text, int size) {
-        while (text.getBytes(StandardCharsets.UTF_8).length > size) {
-            if (text.length() == 1) {
-                throw new IllegalArgumentException("cannot truncate");
-            }
-            text = text.substring(0, text.length() - 1);
-        }
-        return text;
     }
 }
