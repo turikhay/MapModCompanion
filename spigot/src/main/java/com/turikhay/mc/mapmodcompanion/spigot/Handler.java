@@ -9,10 +9,12 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerChangedWorldEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 
+import javax.annotation.Nullable;
 import java.util.Arrays;
 import java.util.Locale;
+import java.util.Optional;
 
-public abstract class Handler<Id extends IdMessagePacket<?>> implements Listener {
+public abstract class Handler<Id extends IdMessagePacket<?>, A> implements Listener {
     private final String channelName;
     protected final CompanionSpigot plugin;
 
@@ -31,15 +33,15 @@ public abstract class Handler<Id extends IdMessagePacket<?>> implements Listener
 
     @EventHandler(priority = EventPriority.MONITOR)
     public void onPlayerJoined(PlayerJoinEvent event) {
-        sendLevelId(event.getPlayer(), EventSource.JOIN);
+        sendLevelId(event.getPlayer(), Context.of(EventSource.JOIN));
     }
 
     @EventHandler(priority = EventPriority.MONITOR)
     public void onWorldChanged(PlayerChangedWorldEvent event) {
-        sendLevelId(event.getPlayer(), EventSource.WORLD_CHANGE);
+        sendLevelId(event.getPlayer(), Context.of(EventSource.WORLD_CHANGE));
     }
 
-    public void sendLevelId(Player player, EventSource source) {
+    public void sendLevelId(Player player, Context<A> context) {
         scheduleLevelIdPacket(
                 () -> {
                     IdRef<Id> idRef;
@@ -48,6 +50,7 @@ public abstract class Handler<Id extends IdMessagePacket<?>> implements Listener
                     } else {
                         idRef = defaultId;
                     }
+                    idRef = processRef(idRef, context);
                     if (CompanionSpigot.ENABLE_LOGGING) {
                         plugin.getLogger().info(String.format(Locale.ROOT,
                                 "Sending world id to %s (channel: %s): %s. Data: %s",
@@ -57,11 +60,15 @@ public abstract class Handler<Id extends IdMessagePacket<?>> implements Listener
                     }
                     player.sendPluginMessage(plugin, channelName, idRef.data);
                 },
-                source
+                context
         );
     }
 
-    public abstract void scheduleLevelIdPacket(Runnable r, EventSource source);
+    protected IdRef<Id> processRef(IdRef<Id> idRef, Context<A> context) {
+        return idRef;
+    }
+
+    public abstract void scheduleLevelIdPacket(Runnable r, Context<A> context);
     public abstract Id getId(World world);
 
     public enum EventSource {
@@ -70,13 +77,17 @@ public abstract class Handler<Id extends IdMessagePacket<?>> implements Listener
         PLUGIN_MESSAGE
     }
 
-    private static class IdRef<Id extends IdMessagePacket<?>> {
+    static class IdRef<Id extends IdMessagePacket<?>> {
         private final Id id;
         private final byte[] data;
 
         private IdRef(Id id, byte[] data) {
             this.id = id;
             this.data = data;
+        }
+
+        public Id getId() {
+            return id;
         }
 
         @Override
@@ -87,8 +98,32 @@ public abstract class Handler<Id extends IdMessagePacket<?>> implements Listener
                     '}';
         }
 
-        private static <Id extends IdMessagePacket<?>> IdRef<Id> of(Id id) {
+        static <Id extends IdMessagePacket<?>> IdRef<Id> of(Id id) {
             return new IdRef<>(id, IdMessagePacket.bytesPacket(id));
+        }
+    }
+
+    static class Context<A> {
+        private final EventSource source;
+
+        @Nullable
+        private final A aux;
+
+        Context(EventSource source, @Nullable A aux) {
+            this.source = source;
+            this.aux = aux;
+        }
+
+        public EventSource getSource() {
+            return source;
+        }
+
+        public Optional<A> getAux() {
+            return Optional.ofNullable(aux);
+        }
+
+        private static <A> Context<A> of(EventSource source) {
+            return new Context<>(source, null);
         }
     }
 }

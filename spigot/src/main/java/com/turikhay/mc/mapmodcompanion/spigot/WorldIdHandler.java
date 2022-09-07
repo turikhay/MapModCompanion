@@ -1,20 +1,22 @@
 package com.turikhay.mc.mapmodcompanion.spigot;
 
 import com.turikhay.mc.mapmodcompanion.worldid.WorldId;
+import com.turikhay.mc.mapmodcompanion.worldid.WorldIdRequest;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.messaging.PluginMessageListener;
 import org.jetbrains.annotations.NotNull;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.Locale;
+import java.util.Optional;
 import java.util.UUID;
 
 import static com.turikhay.mc.mapmodcompanion.worldid.WorldIdCompanion.WORLD_ID_CHANNEL_NAME;
-import static com.turikhay.mc.mapmodcompanion.worldid.WorldIdCompanion.WORLD_ID_PACKET_DELAY;
 
-public class WorldIdHandler extends Handler<WorldId> implements Listener, PluginMessageListener {
+public class WorldIdHandler extends Handler<WorldId, WorldIdHandler.PlayerWorldIdRequest> implements Listener, PluginMessageListener {
 
     public WorldIdHandler(CompanionSpigot plugin) {
         super(WORLD_ID_CHANNEL_NAME, plugin);
@@ -27,8 +29,8 @@ public class WorldIdHandler extends Handler<WorldId> implements Listener, Plugin
     }
 
     @Override
-    public void scheduleLevelIdPacket(Runnable r, EventSource source) {
-        if (source != EventSource.PLUGIN_MESSAGE) {
+    public void scheduleLevelIdPacket(Runnable r, Context<PlayerWorldIdRequest> context) {
+        if (context.getSource() != EventSource.PLUGIN_MESSAGE) {
             // This handler should only send worldId on a request
             return;
         }
@@ -46,8 +48,40 @@ public class WorldIdHandler extends Handler<WorldId> implements Listener, Plugin
     }
 
     @Override
+    protected Handler.IdRef<WorldId> processRef(Handler.IdRef<WorldId> idRef, Context<PlayerWorldIdRequest> context) {
+        Optional<PlayerWorldIdRequest> aux = context.getAux();
+        if (!aux.isPresent()) {
+            return idRef; // no context, return as-is
+        }
+        PlayerWorldIdRequest pr = aux.get();
+        int prefixLength = pr.getRequest().getPrefixLength();
+        if (idRef.getId().getPrefixLength() == prefixLength) {
+            return idRef; // ok
+        }
+        if (CompanionSpigot.ENABLE_LOGGING) {
+            plugin.getLogger().info(String.format(Locale.ROOT,
+                    "Modifying response packet for %s (different prefix length)",
+                    pr.getPlayer().getName()
+            ));
+        }
+        return IdRef.of(idRef.getId().withPrefixLength(prefixLength));
+    }
+
+    @Override
     public void onPluginMessageReceived(@NotNull String channel, @NotNull Player player, @NotNull byte[] message) {
         if (!channel.equals(WORLD_ID_CHANNEL_NAME)) {
+            return;
+        }
+        WorldIdRequest request;
+        try {
+            request = WorldIdRequest.parse(message);
+        } catch (IOException e) {
+            plugin.getLogger().info(String.format(Locale.ROOT,
+                    "Received possibly corrupted world id request from %s: %s",
+                    player.getName(),
+                    Arrays.toString(message)
+            ));
+            plugin.getLogger().info("Error message: " + e);
             return;
         }
         if (CompanionSpigot.ENABLE_LOGGING) {
@@ -56,7 +90,24 @@ public class WorldIdHandler extends Handler<WorldId> implements Listener, Plugin
                     player.getName(), channel, Arrays.toString(message)
             ));
         }
-        // JourneyMap Server also sends this packet unconditionally
-        sendLevelId(player, EventSource.PLUGIN_MESSAGE);
+        sendLevelId(player, new Context<>(EventSource.PLUGIN_MESSAGE, new PlayerWorldIdRequest(player, request)));
+    }
+
+    static class PlayerWorldIdRequest {
+        private final Player player;
+        private final WorldIdRequest request;
+
+        public PlayerWorldIdRequest(Player player, WorldIdRequest request) {
+            this.player = player;
+            this.request = request;
+        }
+
+        public Player getPlayer() {
+            return player;
+        }
+
+        public WorldIdRequest getRequest() {
+            return request;
+        }
     }
 }

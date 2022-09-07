@@ -7,14 +7,14 @@ import org.bukkit.event.Listener;
 import static com.turikhay.mc.mapmodcompanion.xaeros.XaerosCompanion.XAEROS_CHANNEL_NAME;
 import static com.turikhay.mc.mapmodcompanion.xaeros.XaerosCompanion.XAEROS_PACKET_REPEAT_TIMES;
 
-public class XaerosHandler extends Handler<LevelMapProperties> implements Listener {
+public class XaerosHandler extends Handler<LevelMapProperties, Void> implements Listener {
     public XaerosHandler(CompanionSpigot plugin) {
         super(XAEROS_CHANNEL_NAME, plugin);
     }
 
     @Override
-    public void scheduleLevelIdPacket(Runnable r, EventSource source) {
-        if (source == EventSource.JOIN) {
+    public void scheduleLevelIdPacket(Runnable r, Context<Void> context) {
+        if (context.getSource() == EventSource.JOIN) {
             // Sometimes Xaero's World Map is not initialized at the time they receive our packet,
             // leading to world not being recognized. We fix this issue by sending our packet more than once.
             for (int i = 0; i < XAEROS_PACKET_REPEAT_TIMES; i++) {
