@@ -14,7 +14,9 @@ spigot {
     authors = ['turikhay']
     apiVersion = '1.13'
     debug {
-        jvmArgs "-Dlog4j.configurationFile=${projectDir}${File.separatorChar}log4j2-debug.xml"
+        jvmArgs "-Xmx2048m",
+                "-Dlog4j.configurationFile=${projectDir}${File.separatorChar}log4j2-debug.xml",
+                "-Dcom.turikhay.mc.mapmodcompanion.spigot.debug=true"
     }
     afterEvaluate {
 //        def shaded = project.configurations.bukkitNeeds.resolvedConfiguration.resolvedArtifacts.collect {

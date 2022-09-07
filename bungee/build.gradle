@@ -6,6 +6,10 @@ plugins {
 bungee {
     name 'MapModCompanion'
     author 'turikhay'
+    debug {
+        jvmArgs "-Xmx256m",
+                "-Dnet.md_5.bungee.console-log-level=ALL"
+    }
 }
 
 assemble {
