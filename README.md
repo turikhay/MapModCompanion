@@ -32,5 +32,6 @@ downstream servers.
 - If you're running Forge or Fabric server, just install the map mod on your server: this will unlock all its
   features.
 - [worldnamepacket](https://github.com/kosma/worldnamepacket) (Velocity, Fabric, Spigot)
+- [journeymap-bukkit](https://github.com/TeamJM/journeymap-bukkit) (Spigot)
 - [JourneyMap Server](https://www.curseforge.com/minecraft/mc-mods/journeymap-server) (Spigot)
 - [Minimap server](https://github.com/Ewpratten/MinimapServer) (Spigot)
