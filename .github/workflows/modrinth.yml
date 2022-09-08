@@ -1,0 +1,51 @@
+name: Modrinth Release
+
+on: workflow_dispatch
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+      - name: Detect version and release type from the tag name
+        id: version
+        run: |
+          TAG=${{ github.ref }}
+          VERSION=${TAG#refs/tags/v}
+          echo "::set-output name=version::$VERSION"
+          RELEASE_TYPE="release"
+          [[ $VERSION =~ .+(beta|pre|rc).* ]] && RELEASE_TYPE="beta"
+          [[ $VERSION =~ .+(alpha).* ]] && RELEASE_TYPE="alpha"
+          echo "::set-output name=release-type::$RELEASE_TYPE"
+      - uses: gradle/gradle-build-action@v2
+        with:
+          arguments: |
+            build
+            -Pversion=${{ steps.version.outputs.version }}
+      - name: Read VERSIONS.txt
+        id: supported_versions
+        uses: juliangruber/read-file-action@v1
+        with:
+          path: ./VERSIONS.txt
+      - uses: Kir-Antipov/mc-publish@v3.2
+        with:
+          name: ${{ steps.version.outputs.version }}
+          version: ${{ steps.version.outputs.version }}
+          files-primary: spigot/build/libs/MapModCompanion-*.jar
+          files-secondary: bungee/build/libs/MapModCompanion-*.jar
+          version-type: ${{ steps.version.outputs.release-type  }}
+          changelog: |
+            Changelog is available on
+            [GitHub](https://github.com/turikhay/MapModCompanion/releases/tag/${{ github.ref }})
+          game-versions: ${{ steps.supported_versions.outputs.content }}
+          loaders: bukkit spigot paper bungeecord waterfall
+          modrinth-id: UO7aDcrF
+          modrinth-featured: true
+          modrinth-token: ${{ secrets.MODRINTH_TOKEN }}
