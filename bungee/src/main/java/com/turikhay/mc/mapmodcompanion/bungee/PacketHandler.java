@@ -15,6 +15,7 @@ import java.util.logging.Level;
 public abstract class PacketHandler<Id2 extends IdMessagePacket<?>, Id extends IdMessagePacket<Id2>> implements Listener {
     private final String channelName;
     private final CompanionBungee plugin;
+    protected boolean logUnconditionally;
 
     public PacketHandler(String channelName, CompanionBungee plugin) {
         this.channelName = channelName;
@@ -69,6 +70,11 @@ public abstract class PacketHandler<Id2 extends IdMessagePacket<?>, Id extends I
             plugin.getLogger().fine(String.format(Locale.ROOT,
                     "Intercepting world id sent to %s (channel %s): %s -> %s",
                     player.getName(), channelName, oldId, newId
+            ));
+        } else if (logUnconditionally) {
+            plugin.getLogger().info(String.format(Locale.ROOT,
+                    "Intercepting world id sent to %s (channel %s): %s",
+                    player.getName(), channelName, newId
             ));
         }
         player.sendData(channelName, newData);

@@ -10,6 +10,7 @@ public class WorldIdPacketHandler extends PacketHandler<WorldId, WorldId> {
 
     public WorldIdPacketHandler(CompanionBungee plugin) {
         super(WORLD_ID_CHANNEL_NAME, plugin);
+        this.logUnconditionally = true;
     }
 
     @Nullable

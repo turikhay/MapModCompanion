@@ -17,6 +17,7 @@ import java.util.Optional;
 public abstract class Handler<Id extends IdMessagePacket<?>, A> implements Listener {
     private final String channelName;
     protected final CompanionSpigot plugin;
+    protected boolean logUnconditionally;
 
     private IdRef<Id> defaultId;
 
@@ -56,6 +57,11 @@ public abstract class Handler<Id extends IdMessagePacket<?>, A> implements Liste
                                 "Sending world id to %s (channel: %s): %s. Data: %s",
                                 player.getName(), channelName, idRef.id,
                                 Arrays.toString(idRef.data)
+                        ));
+                    } else if(logUnconditionally) {
+                        plugin.getLogger().info(String.format(Locale.ROOT,
+                                "Sending world id to %s (channel: %s): %s",
+                                player.getName(), channelName, idRef.id
                         ));
                     }
                     player.sendPluginMessage(plugin, channelName, idRef.data);

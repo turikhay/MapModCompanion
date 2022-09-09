@@ -20,6 +20,7 @@ public class WorldIdHandler extends Handler<WorldId, WorldIdHandler.PlayerWorldI
 
     public WorldIdHandler(CompanionSpigot plugin) {
         super(WORLD_ID_CHANNEL_NAME, plugin);
+        this.logUnconditionally = true;
     }
 
     @Override
