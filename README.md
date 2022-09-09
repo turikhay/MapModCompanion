@@ -11,7 +11,7 @@ the server side.
 It's recommended to install this plugin on a fresh server. Otherwise, after installing this plugin,
 **some players may lose their map data** (waypoints, map cache, etc.) It shouldn't affect
 the in-game progress, though.
-[And there are the ways to restore them](https://github.com/turikhay/MapModCompanion/wiki/Restore-map-data).
+[And there are ways to restore them](https://github.com/turikhay/MapModCompanion/wiki/Restore-map-data).
 
 This plugin was inspired by @kosma's [worldnamepacket](https://github.com/kosma/worldnamepacket),
 which supported Velocity, Fabric and Spigot at the time of writing.
