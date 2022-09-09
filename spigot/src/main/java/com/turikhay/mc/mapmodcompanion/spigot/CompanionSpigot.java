@@ -20,7 +20,8 @@ public class CompanionSpigot extends JavaPlugin implements Listener {
     );
 
     List<Handler<?, ?>> handlers = Arrays.asList(
-            new XaerosHandler(this),
+            new XaerosMinimapHandler(this),
+            new XaerosWorldMapHandler(this),
             new WorldIdHandler(this)
     );
 

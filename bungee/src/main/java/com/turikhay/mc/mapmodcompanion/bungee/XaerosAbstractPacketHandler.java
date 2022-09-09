@@ -5,12 +5,11 @@ import net.md_5.bungee.api.connection.Server;
 import net.md_5.bungee.api.plugin.Listener;
 import org.jetbrains.annotations.Nullable;
 
-import static com.turikhay.mc.mapmodcompanion.xaeros.XaerosCompanion.XAEROS_CHANNEL_NAME;
+public abstract class XaerosAbstractPacketHandler
+        extends PacketHandler<LevelMapProperties, LevelMapProperties> implements Listener {
 
-public class XaerosPacketHandler extends PacketHandler<LevelMapProperties, LevelMapProperties> implements Listener {
-
-    public XaerosPacketHandler(CompanionBungee plugin) {
-        super(XAEROS_CHANNEL_NAME, plugin);
+    public XaerosAbstractPacketHandler(String channelName, CompanionBungee plugin) {
+        super(channelName, plugin);
     }
 
     @Nullable

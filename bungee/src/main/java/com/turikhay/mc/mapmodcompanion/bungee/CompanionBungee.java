@@ -9,7 +9,8 @@ import java.util.List;
 public class CompanionBungee extends Plugin implements Listener {
 
     List<PacketHandler<?, ?>> handlers = Arrays.asList(
-            new XaerosPacketHandler(this),
+            new XaerosMinimapPacketHandler(this),
+            new XaerosWorldMapPacketHandler(this),
             new WorldIdPacketHandler(this)
     );
 

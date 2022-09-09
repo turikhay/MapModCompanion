@@ -4,12 +4,11 @@ import com.turikhay.mc.mapmodcompanion.xaeros.LevelMapProperties;
 import org.bukkit.World;
 import org.bukkit.event.Listener;
 
-import static com.turikhay.mc.mapmodcompanion.xaeros.XaerosCompanion.XAEROS_CHANNEL_NAME;
 import static com.turikhay.mc.mapmodcompanion.xaeros.XaerosCompanion.XAEROS_PACKET_REPEAT_TIMES;
 
-public class XaerosHandler extends Handler<LevelMapProperties, Void> implements Listener {
-    public XaerosHandler(CompanionSpigot plugin) {
-        super(XAEROS_CHANNEL_NAME, plugin);
+public abstract class XaerosAbstractHandler extends Handler<LevelMapProperties, Void> implements Listener {
+    public XaerosAbstractHandler(String channelName, CompanionSpigot plugin) {
+        super(channelName, plugin);
     }
 
     @Override
