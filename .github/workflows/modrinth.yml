@@ -43,7 +43,7 @@ jobs:
           version-type: ${{ steps.version.outputs.release-type  }}
           changelog: |
             Changelog is available on
-            [GitHub](https://github.com/turikhay/MapModCompanion/releases/tag/v${{ steps.version.outputs.version }}
+            [GitHub](https://github.com/turikhay/MapModCompanion/releases/tag/v${{ steps.version.outputs.version }})
           game-versions: ${{ steps.supported_versions.outputs.content }}
           loaders: bukkit spigot paper bungeecord waterfall
           modrinth-id: UO7aDcrF
