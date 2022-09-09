@@ -8,8 +8,9 @@ Unofficial BungeeCord and Spigot (Paper) companion plugin for
 This plugin fixes Multi-world detection in multiplayer by simulating mod presence on
 the server side.
 
-After installing this plugin, **some mods might not migrate your old map data**, essentially
-wiping your existing waypoints on the server, map cache, etc.
+It's recommended to install this plugin on a fresh server. Otherwise, after installing this plugin,
+**some players may lose their map data** (waypoints, map cache, etc.)
+[But there are the ways to restore them](https://github.com/turikhay/MapModCompanion/wiki/Restore-map-data).
 
 This plugin was inspired by @kosma's [worldnamepacket](https://github.com/kosma/worldnamepacket),
 which supported Velocity, Fabric and Spigot at the time of writing.
