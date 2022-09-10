@@ -9,19 +9,20 @@ This plugin fixes Multi-world detection in multiplayer by simulating mod presenc
 the server side.
 
 It's recommended to install this plugin on a fresh server. Otherwise, after installing this plugin,
-**some players may lose their map data** (waypoints, map cache, etc.)
-[But there are the ways to restore them](https://github.com/turikhay/MapModCompanion/wiki/Restore-map-data).
+**some players may lose their map data** (waypoints, map cache, etc.) It shouldn't affect
+the in-game progress, though.
+[And there are ways to restore them](https://github.com/turikhay/MapModCompanion/wiki/Restore-map-data).
 
 This plugin was inspired by @kosma's [worldnamepacket](https://github.com/kosma/worldnamepacket),
 which supported Velocity, Fabric and Spigot at the time of writing.
 
 ## Support table
-| Mod                                                                                | Version                     | Status      |
-|------------------------------------------------------------------------------------|-----------------------------|-------------|
-| [Xaero's Minimap](https://www.curseforge.com/minecraft/mc-mods/xaeros-minimap)     | v22.13.2 (1.19.2)           | ✅ Supported |
-| [Xaero's World Map](https://www.curseforge.com/minecraft/mc-mods/xaeros-world-map) | v22.13.2 (1.19.2)           | ✅ Supported |
-| [JourneyMap](https://www.curseforge.com/minecraft/mc-mods/journeymap)              | 5.9.0beta2 (1.18.2, 1.19.2) | ✅ Supported |
-| VoxelMap [(Refresh-MC)](https://discord.gg/Me4GWVGWhe)                             | 1.11.10 (1.19.2)            | ✅ Supported |
+| Mod                                                                                | Version                     | Status                                         |
+|------------------------------------------------------------------------------------|-----------------------------|------------------------------------------------|
+| [Xaero's Minimap](https://www.curseforge.com/minecraft/mc-mods/xaeros-minimap)     | v22.13.2 (1.19.2)           | ℹ Supported when paired with Xaero's World Map |
+| [Xaero's World Map](https://www.curseforge.com/minecraft/mc-mods/xaeros-world-map) | v22.13.2 (1.19.2)           | ✅ Supported                                    |
+| [JourneyMap](https://www.curseforge.com/minecraft/mc-mods/journeymap)              | 5.9.0beta2 (1.18.2, 1.19.2) | ✅ Supported                                    |
+| VoxelMap [(Refresh-MC)](https://discord.gg/Me4GWVGWhe)                             | 1.11.10 (1.19.2)            | ✅ Supported                                    |
 
 ## Installation
 1. Download the latest release from [Releases](https://github.com/turikhay/MapModCompanion/releases) page
