@@ -17,6 +17,8 @@ It's worth mentioning that the plugin doesn't affect in-game progress.
 This plugin was inspired by @kosma's [worldnamepacket](https://github.com/kosma/worldnamepacket),
 which supported Velocity, Fabric and Spigot at the time of writing.
 
+If you have any questions, please [join my Discord](https://discord.gg/H9ACHEqBrg).
+
 ## Support table
 | Mod                                                                                | Version                     | Status      |
 |------------------------------------------------------------------------------------|-----------------------------|-------------|
