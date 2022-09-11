@@ -3,6 +3,8 @@ plugins {
     id 'com.github.johnrengelman.shadow'
 }
 
+apply from: "$rootDir/gradle/java.gradle"
+
 //configurations {
 //    bukkitNeeds
 //    bukkitProvides

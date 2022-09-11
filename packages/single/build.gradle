@@ -1,0 +1,18 @@
+plugins {
+    id 'com.github.johnrengelman.shadow'
+}
+
+apply from: "$rootDir/gradle/java.gradle"
+
+dependencies {
+    implementation project(':bungee')
+    implementation project(':spigot')
+}
+
+assemble {
+    dependsOn shadowJar
+}
+
+shadowJar {
+    archiveName("MapModCompanion.jar")
+}

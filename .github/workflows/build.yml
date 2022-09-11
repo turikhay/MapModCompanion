@@ -29,5 +29,6 @@ jobs:
         with:
           name: Artifacts (${{ steps.sha.outputs.sha8 }})
           path: |
+            packages/single/build/libs/MapModCompanion.jar
             bungee/build/libs/MapModCompanion-Bungee.jar
             spigot/build/libs/MapModCompanion-Spigot.jar

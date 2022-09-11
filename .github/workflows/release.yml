@@ -36,6 +36,9 @@ jobs:
           prerelease: ${{ steps.version.outputs.pre-release }}
           generate_release_notes: true
           draft: true
+          body: |
+            ℹ️ For your convenience, now we build `MapModCompanion.jar` which is compatible with both BungeeCord and Spigot servers. You can still use separate jars.
           files: |
+            packages/single/build/libs/MapModCompanion.jar
             bungee/build/libs/MapModCompanion-Bungee.jar
             spigot/build/libs/MapModCompanion-Spigot.jar
