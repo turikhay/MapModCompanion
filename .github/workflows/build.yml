@@ -38,11 +38,18 @@ jobs:
         with:
           java-version: '17'
           distribution: 'temurin'
+      - name: Determine target Spigot version
+        id: target
+        run: |
+          TARGET=${{ inputs.spigot-target }}
+          [[ -z "$TARGET" ]] && TARGET=$(tail -n1 VERSIONS.txt)
+          echo "::set-output name=spigot-version::$TARGET"
       - uses: gradle/gradle-build-action@v2
         with:
           arguments: |
             build
             -Pversion=${{ inputs.version }}
+            -Pspigot_version=${{ steps.target.outputs.spigot-version }}
       - uses: actions/upload-artifact@v3
         with:
           name: gradle-build

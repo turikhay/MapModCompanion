@@ -33,7 +33,7 @@ spigot {
 
 dependencies {
     implementation project(':common')
-    compileOnly spigot('1.19.2')
+    compileOnly spigot(rootProject.spigot_version)
 }
 
 assemble {
