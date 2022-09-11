@@ -20,12 +20,12 @@ which supported Velocity, Fabric and Spigot at the time of writing.
 If you have any questions, please [join my Discord](https://discord.gg/H9ACHEqBrg).
 
 ## Support table
-| Mod                                                                                | Version                     | Status      |
-|------------------------------------------------------------------------------------|-----------------------------|-------------|
-| [Xaero's Minimap](https://www.curseforge.com/minecraft/mc-mods/xaeros-minimap)     | v22.13.2 (1.19.2)           | ✅ Supported |
-| [Xaero's World Map](https://www.curseforge.com/minecraft/mc-mods/xaeros-world-map) | v22.13.2 (1.19.2)           | ✅ Supported |
-| [JourneyMap](https://www.curseforge.com/minecraft/mc-mods/journeymap)              | 5.9.0beta2 (1.18.2, 1.19.2) | ✅ Supported |
-| VoxelMap [(Refresh-MC)](https://discord.gg/Me4GWVGWhe)                             | 1.11.10 (1.19.2)            | ✅ Supported |
+| Mod                                                                                | Oldest version             | Latest version                                               | Status      |
+|------------------------------------------------------------------------------------|----------------------------|--------------------------------------------------------------|-------------|
+| [Xaero's Minimap](https://www.curseforge.com/minecraft/mc-mods/xaeros-minimap)     | v20.20.0 / Minecraft 1.8.9 | v22.13.2 / Minecraft 1.19.2                                  | ✅ Supported |
+| [Xaero's World Map](https://www.curseforge.com/minecraft/mc-mods/xaeros-world-map) | v1.10.0 / Minecraft 1.8.9  | v22.13.2 / Minecraft 1.19.2                                  | ✅ Supported |
+| [JourneyMap](https://www.curseforge.com/minecraft/mc-mods/journeymap)              | v5.7.1 / Minecraft 1.16.5  | v5.9.0beta2 / Minecraft 1.19.2                               | ✅ Supported |
+| VoxelMap                                                                           | v1.8 / Minecraft 1.8       | [v1.11.10](https://discord.gg/Me4GWVGWhe) / Minecraft 1.19.2 | ✅ Supported |
 
 ## Installation
 1. Download the latest release from [Releases](https://github.com/turikhay/MapModCompanion/releases) page
