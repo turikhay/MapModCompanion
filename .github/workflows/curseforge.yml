@@ -1,0 +1,39 @@
+name: CurseForge Release
+
+on: workflow_dispatch
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+      - name: Detect version and release type from the tag name
+        id: version
+        run: |
+          TAG=${{ github.ref }}
+          VERSION=${TAG#refs/tags/v}
+          echo "::set-output name=version::$VERSION"
+          RELEASE_TYPE="release"
+          [[ $VERSION =~ .+(beta|pre|rc).* ]] && RELEASE_TYPE="beta"
+          [[ $VERSION =~ .+(alpha).* ]] && RELEASE_TYPE="alpha"
+          echo "::set-output name=release-type::$RELEASE_TYPE"
+      - uses: gradle/gradle-build-action@v2
+        with:
+          arguments: |
+            build
+            -Pversion=${{ steps.version.outputs.version }}
+      - uses: itsmeow/curseforge-upload@v3
+        with:
+          token: ${{ secrets.CURSEFORGE_TOKEN }}
+          game_endpoint: "bukkit"
+          project_id: "674380"
+          release_type: ${{ steps.version.outputs.release-type  }}
+          display_name: ${{ steps.version.outputs.version }}
+          changelog: |
+            Changelog is available on
+            [GitHub](https://github.com/turikhay/MapModCompanion/releases/tag/v${{ steps.version.outputs.version }})
+          file_path: packages/single/build/libs/MapModCompanion.jar
