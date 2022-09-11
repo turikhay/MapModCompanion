@@ -1,0 +1,29 @@
+name: Nightly build
+
+on:
+  push:
+    branches:
+      - '**'
+    tags-ignore:
+      - 'v*.*.*'
+
+jobs:
+  prepare:
+    name: Prepare
+    outputs:
+      sha8: ${{ steps.sha8.outputs.sha8 }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get short commit SHA
+        id: sha8
+        run: |
+          SHA=${{ github.sha }}
+          SHA8=${SHA:0:8}
+          echo "SHA8 = $SHA8"
+          echo "::set-output name=sha8::$SHA8"
+  build:
+    name: Build
+    needs: prepare
+    uses: ./.github/workflows/build.yml
+    with:
+      version: 0.0.0+${{ needs.prepare.outputs.sha8 }}

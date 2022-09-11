@@ -1,0 +1,40 @@
+name: GitHub release
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+permissions:
+  contents: write
+
+jobs:
+  version:
+    name: Detect version
+    uses: ./.github/workflows/version.yml
+  build:
+    name: Build
+    needs: version
+    uses: ./.github/workflows/build.yml
+    with:
+      version: ${{ needs.version.outputs.version }}
+  release:
+    name: Prepare release
+    needs:
+      - version
+      - build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download build artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: gradle-build
+      - uses: softprops/action-gh-release@v1
+        with:
+          name: ${{ needs.version.outputs.version }}
+          prerelease: ${{ needs.version.outputs.pre-release }}
+          generate_release_notes: true
+          draft: true
+          body: |
+            ℹ️ For your convenience, now we build `MapModCompanion.jar` which is compatible with both BungeeCord and Spigot servers. You can still use separate jars.
+          files: ${{ needs.build.outputs.artifacts  }}

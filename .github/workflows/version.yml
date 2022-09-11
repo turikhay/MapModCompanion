@@ -1,0 +1,35 @@
+name: Detect version
+
+on:
+  workflow_call:
+    outputs:
+      version:
+        description: Version (in SemVer format)
+        value: ${{ jobs.detect.outputs.version }}
+      release-type:
+        description: Release type (alpha, beta or release)
+        value: ${{ jobs.detect.outputs.release-type }}
+      pre-release:
+        description: Whether is this version a pre-release (boolean)
+        value: ${{ jobs.detect.outputs.pre-release }}
+
+jobs:
+  detect:
+    name: Detect version
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.version.outputs.version }}
+      release-type: ${{ steps.version.outputs.release-type }}
+      pre-release: ${{ steps.version.outputs.pre-release }}
+    steps:
+      - id: version
+        run: |
+          TAG=${{ github.ref }}
+          VERSION=${TAG#refs/tags/v}
+          echo "::set-output name=version::$VERSION"
+          IS_PRE_RELEASE="false"
+          RELEASE_TYPE="release"
+          [[ $VERSION =~ .+(beta|pre|rc).* ]] && RELEASE_TYPE="beta" && IS_PRE_RELEASE="true"
+          [[ $VERSION =~ .+(alpha).* ]] && RELEASE_TYPE="alpha" && IS_PRE_RELEASE="true"
+          echo "::set-output name=release-type::$RELEASE_TYPE"
+          echo "::set-output name=pre-release::$IS_PRE_RELEASE"

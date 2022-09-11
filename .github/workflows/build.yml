@@ -1,14 +1,36 @@
 name: Build
 
 on:
-  push:
-    branches:
-      - '**'
-    tags-ignore:
-      - 'v*.*.*'
+  workflow_call:
+    inputs:
+      version:
+        required: true
+        type: string
+    outputs:
+      artifacts:
+        description: List of produced artifacts, each on a new line
+        value: ${{ jobs.build.outputs.artifacts }}
+      primary-artifact:
+        description: Path to the primary artifact
+        value: ${{ jobs.build.outputs.primary-artifact }}
+      secondary-artifacts-glob:
+        description: Glob of paths to secondary artifacts
+        value: ${{ jobs.build.outputs.secondary-artifacts-glob }}
 
 jobs:
   build:
+    name: Gradle build
+    env:
+      ARTIFACTS: |
+        packages/single/build/libs/MapModCompanion.jar
+        bungee/build/libs/MapModCompanion-Bungee.jar
+        spigot/build/libs/MapModCompanion-Spigot.jar
+      PRIMARY_ARTIFACT: packages/single/build/libs/MapModCompanion.jar
+      SECONDARY_ARTIFACTS_GLOB: (bungee|spigot)/build/libs/MapModCompanion-*.jar
+    outputs:
+      artifacts: ${{ env.ARTIFACTS }}
+      primary-artifact: ${{ env.PRIMARY_ARTIFACT }}
+      secondary-artifacts-glob: ${{ env.SECONDARY_ARTIFACTS_GLOB }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -16,19 +38,12 @@ jobs:
         with:
           java-version: '17'
           distribution: 'temurin'
-      - id: sha
-        run: |
-          SHA=${{ github.sha }}
-          echo "::set-output name=sha8::${SHA:0:8}"
       - uses: gradle/gradle-build-action@v2
         with:
           arguments: |
             build
-            -Pversion=0.0.0+${{ steps.sha.outputs.sha8 }}
+            -Pversion=${{ inputs.version }}
       - uses: actions/upload-artifact@v3
         with:
-          name: Artifacts (${{ steps.sha.outputs.sha8 }})
-          path: |
-            packages/single/build/libs/MapModCompanion.jar
-            bungee/build/libs/MapModCompanion-Bungee.jar
-            spigot/build/libs/MapModCompanion-Spigot.jar
+          name: gradle-build
+          path: ${{ env.ARTIFACTS }}
