@@ -26,9 +26,8 @@ jobs:
           name: gradle-build
       - name: Read VERSIONS_CF.txt
         id: supported_versions
-        uses: juliangruber/read-file-action@v1
-        with:
-          path: ./VERSIONS_CF.txt
+        run: |
+          echo "::set-output name=list::$(cat VERSIONS_CF.txt | paste -s -d"," -)"
       - uses: itsmeow/curseforge-upload@v3
         with:
           token: ${{ secrets.CURSEFORGE_TOKEN }}
@@ -39,5 +38,5 @@ jobs:
           changelog: |
             Changelog is available on
             [GitHub](https://github.com/turikhay/MapModCompanion/releases/tag/v${{ needs.version.outputs.version }})
-          game_versions: ${{ steps.supported_versions.outputs.content }}
+          game_versions: ${{ steps.supported_versions.outputs.list }}
           file_path: ${{ needs.build.outputs.primary-artifact }}
