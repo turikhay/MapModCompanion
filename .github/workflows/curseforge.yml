@@ -19,10 +19,16 @@ jobs:
       - build
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v3
       - name: Download build artifacts
         uses: actions/download-artifact@v3
         with:
           name: gradle-build
+      - name: Read VERSIONS_CF.txt
+        id: supported_versions
+        uses: juliangruber/read-file-action@v1
+        with:
+          path: ./VERSIONS_CF.txt
       - uses: itsmeow/curseforge-upload@v3
         with:
           token: ${{ secrets.CURSEFORGE_TOKEN }}
@@ -33,4 +39,5 @@ jobs:
           changelog: |
             Changelog is available on
             [GitHub](https://github.com/turikhay/MapModCompanion/releases/tag/v${{ needs.version.outputs.version }})
+          game_versions: ${{ steps.supported_versions.outputs.content }}
           file_path: ${{ needs.build.outputs.primary-artifact }}
