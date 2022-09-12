@@ -18,7 +18,10 @@ public class WorldIdRequest {
         return prefixLength;
     }
 
-    public static WorldIdRequest parse(byte[] message) throws IOException {
+    public static WorldIdRequest parse(byte[] message, boolean legacy) throws IOException {
+        if (legacy) {
+            return new WorldIdRequest(0);
+        }
         int prefixLength = 0;
         try (DataInputStream in = new DataInputStream(new ByteArrayInputStream(message))) {
             if (in.readByte() != 0) {

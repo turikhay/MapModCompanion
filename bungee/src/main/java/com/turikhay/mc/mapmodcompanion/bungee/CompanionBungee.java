@@ -11,7 +11,8 @@ public class CompanionBungee extends Plugin implements Listener {
     List<PacketHandler<?, ?>> handlers = Arrays.asList(
             new XaerosMinimapPacketHandler(this),
             new XaerosWorldMapPacketHandler(this),
-            new WorldIdPacketHandler(this)
+            new WorldIdPacketHandler(this, false),
+            new WorldIdPacketHandler(this, true)
     );
 
     @Override

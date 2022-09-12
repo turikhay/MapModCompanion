@@ -57,17 +57,23 @@ public /* sealed */ abstract class WorldId implements IdMessagePacket<WorldId> {
     }
 
     @Nullable
-    public static WorldId tryRead(byte[] data) {
+    public static WorldId tryRead(byte[] data, boolean legacy) {
         DataInputStream in = new DataInputStream(new ByteArrayInputStream(data));
         try {
-            int prefixSize = -1;
-            int c;
-            do {
-                prefixSize++;
-                c = in.readByte();
-            } while(c == 0);
-            if (c != MAGIC_MARKER) {
-                return null;
+            int prefixSize;
+            if (legacy) {
+                prefixSize = 0;
+                in.readByte(); // always skip first byte
+            } else {
+                prefixSize = -1;
+                int c;
+                do {
+                    prefixSize++;
+                    c = in.readByte();
+                } while(c == 0);
+                if (c != MAGIC_MARKER) {
+                    return null;
+                }
             }
             int length = in.readByte();
             byte[] buf = new byte[length];

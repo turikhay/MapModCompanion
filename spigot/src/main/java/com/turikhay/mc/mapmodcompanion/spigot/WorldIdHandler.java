@@ -15,18 +15,22 @@ import java.util.Optional;
 import java.util.UUID;
 
 import static com.turikhay.mc.mapmodcompanion.worldid.WorldIdCompanion.WORLD_ID_CHANNEL_NAME;
+import static com.turikhay.mc.mapmodcompanion.worldid.WorldIdCompanion.WORLD_ID_LEGACY_CHANNEL_NAME;
 
 public class WorldIdHandler extends Handler<WorldId, WorldIdHandler.PlayerWorldIdRequest> implements Listener, PluginMessageListener {
 
-    public WorldIdHandler(CompanionSpigot plugin) {
-        super(WORLD_ID_CHANNEL_NAME, plugin);
+    private final boolean legacy;
+
+    public WorldIdHandler(CompanionSpigot plugin, boolean legacy) {
+        super(legacy ? WORLD_ID_LEGACY_CHANNEL_NAME : WORLD_ID_CHANNEL_NAME, plugin);
+        this.legacy = legacy;
         this.logUnconditionally = true;
     }
 
     @Override
     public void init() {
         super.init();
-        plugin.getServer().getMessenger().registerIncomingPluginChannel(plugin, WORLD_ID_CHANNEL_NAME, this);
+        plugin.getServer().getMessenger().registerIncomingPluginChannel(plugin, this.channelName, this);
     }
 
     @Override
@@ -69,15 +73,16 @@ public class WorldIdHandler extends Handler<WorldId, WorldIdHandler.PlayerWorldI
 
     @Override
     public void onPluginMessageReceived(@NotNull String channel, @NotNull Player player, @NotNull byte[] message) {
-        if (!channel.equals(WORLD_ID_CHANNEL_NAME)) {
+        if (!channel.equals(this.channelName)) {
             return;
         }
         WorldIdRequest request;
         try {
-            request = WorldIdRequest.parse(message);
+            request = WorldIdRequest.parse(message, legacy);
         } catch (IOException e) {
             plugin.getLogger().info(String.format(Locale.ROOT,
-                    "Received possibly corrupted world id request from %s: %s",
+                    "Received possibly corrupted world id request (channel: %s) from %s: %s",
+                    channel,
                     player.getName(),
                     Arrays.toString(message)
             ));

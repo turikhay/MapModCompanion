@@ -15,7 +15,7 @@ import java.util.Locale;
 import java.util.Optional;
 
 public abstract class Handler<Id extends IdMessagePacket<?>, A> implements Listener {
-    private final String channelName;
+    protected final String channelName;
     protected final CompanionSpigot plugin;
     protected boolean logUnconditionally;
 
