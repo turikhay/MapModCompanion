@@ -25,7 +25,7 @@ If you have any questions, please [join my Discord](https://discord.gg/H9ACHEqBr
 | [Xaero's Minimap](https://www.curseforge.com/minecraft/mc-mods/xaeros-minimap)     | v20.20.0 / Minecraft 1.8.9 | v22.13.2 / Minecraft 1.19.2                                  | ✅ Supported |
 | [Xaero's World Map](https://www.curseforge.com/minecraft/mc-mods/xaeros-world-map) | v1.10.0 / Minecraft 1.8.9  | v22.13.2 / Minecraft 1.19.2                                  | ✅ Supported |
 | [JourneyMap](https://www.curseforge.com/minecraft/mc-mods/journeymap)              | v5.7.1 / Minecraft 1.16.5  | v5.9.0beta2 / Minecraft 1.19.2                               | ✅ Supported |
-| VoxelMap                                                                           | v1.8 / Minecraft 1.8       | [v1.11.10](https://discord.gg/Me4GWVGWhe) / Minecraft 1.19.2 | ✅ Supported |
+| VoxelMap                                                                           | v1.7.10 / Minecraft 1.8    | [v1.11.10](https://discord.gg/Me4GWVGWhe) / Minecraft 1.19.2 | ✅ Supported |
 
 ## Installation
 1. Download the latest release from [Releases](https://github.com/turikhay/MapModCompanion/releases) page
