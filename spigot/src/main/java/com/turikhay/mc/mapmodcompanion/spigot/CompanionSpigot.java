@@ -36,7 +36,16 @@ public class CompanionSpigot extends JavaPlugin implements Listener {
         } else {
             defaultWorld = DefaultWorld.detectDefaultWorld(this);
         }
-        handlers.forEach(Handler::init);
+        handlers.forEach(handler -> {
+            try {
+                handler.init();
+            } catch (Exception e) {
+                getLogger().info(String.format(Locale.ROOT,
+                        "Channel handler %s has failed to initialize: %s",
+                        handler.channelName, e
+                ));
+            }
+        });
     }
 
     Optional<World> getDefaultWorld() {
