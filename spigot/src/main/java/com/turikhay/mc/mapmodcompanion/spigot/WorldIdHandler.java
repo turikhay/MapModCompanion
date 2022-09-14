@@ -28,7 +28,7 @@ public class WorldIdHandler extends Handler<WorldId, WorldIdHandler.PlayerWorldI
     }
 
     @Override
-    public void init() {
+    public void init() throws InitializationException {
         super.init();
         plugin.getServer().getMessenger().registerIncomingPluginChannel(plugin, this.channelName, this);
     }

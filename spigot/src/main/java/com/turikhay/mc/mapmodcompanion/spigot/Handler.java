@@ -26,8 +26,12 @@ public abstract class Handler<Id extends IdMessagePacket<?>, A> implements Liste
         this.plugin = plugin;
     }
 
-    public void init() {
-        plugin.getServer().getMessenger().registerOutgoingPluginChannel(plugin, channelName);
+    public void init() throws InitializationException {
+        try {
+            plugin.getServer().getMessenger().registerOutgoingPluginChannel(plugin, channelName);
+        } catch (Exception e) {
+            throw new InitializationException("Couldn't register plugin channel", e);
+        }
         plugin.getServer().getPluginManager().registerEvents(this, plugin);
         defaultId = plugin.getDefaultWorld().map(world -> IdRef.of(getId(world))).orElse(null);
     }
@@ -130,6 +134,12 @@ public abstract class Handler<Id extends IdMessagePacket<?>, A> implements Liste
 
         private static <A> Context<A> of(EventSource source) {
             return new Context<>(source, null);
+        }
+    }
+
+    public static class InitializationException extends Exception {
+        public InitializationException(String message, Throwable cause) {
+            super(message, cause, false, false);
         }
     }
 }

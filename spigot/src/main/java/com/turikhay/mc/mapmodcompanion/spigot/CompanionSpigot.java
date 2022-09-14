@@ -19,10 +19,12 @@ public class CompanionSpigot extends JavaPlugin implements Listener {
             System.getProperty(CompanionSpigot.class.getPackage().getName() + ".useTextualId", "false")
     );
 
+    Handler<?, ?> legacyWorldIdHandler = new WorldIdHandler(this, false);
+
     List<Handler<?, ?>> handlers = Arrays.asList(
             new XaerosMinimapHandler(this),
             new XaerosWorldMapHandler(this),
-            new WorldIdHandler(this, false),
+            legacyWorldIdHandler,
             new WorldIdHandler(this, true)
     );
 
@@ -39,11 +41,14 @@ public class CompanionSpigot extends JavaPlugin implements Listener {
         handlers.forEach(handler -> {
             try {
                 handler.init();
-            } catch (Exception e) {
-                getLogger().info(String.format(Locale.ROOT,
-                        "Channel handler %s has failed to initialize: %s",
-                        handler.channelName, e
-                ));
+            } catch (Handler.InitializationException e) {
+                if (ENABLE_LOGGING) {
+                    getLogger().info(String.format(Locale.ROOT,
+                            "\"%s\" channel handler will not be available: %s",
+                            handler.channelName, e
+                    ));
+                    e.printStackTrace();
+                }
             }
         });
     }
