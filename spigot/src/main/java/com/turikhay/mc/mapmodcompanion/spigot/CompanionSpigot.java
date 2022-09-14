@@ -19,12 +19,10 @@ public class CompanionSpigot extends JavaPlugin implements Listener {
             System.getProperty(CompanionSpigot.class.getPackage().getName() + ".useTextualId", "false")
     );
 
-    Handler<?, ?> legacyWorldIdHandler = new WorldIdHandler(this, false);
-
     List<Handler<?, ?>> handlers = Arrays.asList(
             new XaerosMinimapHandler(this),
             new XaerosWorldMapHandler(this),
-            legacyWorldIdHandler,
+            new WorldIdHandler(this, false),
             new WorldIdHandler(this, true)
     );
 
@@ -38,7 +36,13 @@ public class CompanionSpigot extends JavaPlugin implements Listener {
         } else {
             defaultWorld = DefaultWorld.detectDefaultWorld(this);
         }
-        handlers.forEach(handler -> {
+        initializeHandlers();
+    }
+
+    private void initializeHandlers() {
+        Iterator<Handler<?, ?>> i = handlers.iterator();
+        while (i.hasNext()) {
+            Handler<?, ?> handler = i.next();
             try {
                 handler.init();
             } catch (Handler.InitializationException e) {
@@ -49,8 +53,9 @@ public class CompanionSpigot extends JavaPlugin implements Listener {
                     ));
                     e.printStackTrace();
                 }
+                i.remove();
             }
-        });
+        }
     }
 
     Optional<World> getDefaultWorld() {
