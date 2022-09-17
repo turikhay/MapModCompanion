@@ -16,22 +16,24 @@ interface DefaultWorld {
         if (worlds.isEmpty()) {
             throw new RuntimeException("world list is empty");
         }
-        Set<World.Environment> expectedEnv = new HashSet<>(Arrays.asList(
-                World.Environment.NORMAL,
-                World.Environment.NETHER,
-                World.Environment.THE_END
-        ));
+        World defaultWorld = null;
         for (World world : worlds) {
             World.Environment env = world.getEnvironment();
-            boolean isExpected = expectedEnv.remove(env);
-            if (!isExpected) {
-                // Non-default server configuration
-                plugin.getLogger().severe("Unexpected world: " + world);
-                plugin.getLogger().severe("For every world plugin will now send their unique IDs");
-                return new Empty();
+            if (env == World.Environment.NORMAL) {
+                if (defaultWorld != null) {
+                    // Non-default server configuration
+                    plugin.getLogger().severe("Unexpected world: " + world);
+                    plugin.getLogger().severe("For every world plugin will now send their unique IDs");
+                    return new Empty();
+                }
+                defaultWorld = world;
             }
         }
-        World defaultWorld = worlds.get(0);
+        if (defaultWorld == null) {
+            plugin.getLogger().severe("Default world not detected");
+            plugin.getLogger().severe("For every world plugin will now send their unique IDs");
+            return new Empty();
+        }
         if (CompanionSpigot.ENABLE_LOGGING) {
             plugin.getLogger().info("Selected default world: " + defaultWorld + " (" + defaultWorld.getUID() + ")");
         }
