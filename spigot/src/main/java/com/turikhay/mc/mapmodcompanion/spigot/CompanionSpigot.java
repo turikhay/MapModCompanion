@@ -19,12 +19,12 @@ public class CompanionSpigot extends JavaPlugin implements Listener {
             System.getProperty(CompanionSpigot.class.getPackage().getName() + ".useTextualId", "false")
     );
 
-    List<Handler<?, ?>> handlers = Arrays.asList(
+    List<Handler<?, ?>> handlers = new ArrayList<>(Arrays.asList(
             new XaerosMinimapHandler(this),
             new XaerosWorldMapHandler(this),
             new WorldIdHandler(this, false),
             new WorldIdHandler(this, true)
-    );
+    ));
 
     DefaultWorld defaultWorld;
 
