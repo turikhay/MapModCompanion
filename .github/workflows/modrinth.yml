@@ -44,5 +44,5 @@ jobs:
           game-versions: ${{ steps.supported_versions.outputs.content }}
           loaders: bukkit spigot paper bungeecord waterfall
           modrinth-id: UO7aDcrF
-          modrinth-featured: ${{ !needs.version.outputs.pre-release }}
+          modrinth-featured: ${{ needs.version.outputs.pre-release != true }}
           modrinth-token: ${{ secrets.MODRINTH_TOKEN }}
