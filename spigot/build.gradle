@@ -5,11 +5,11 @@ plugins {
 
 apply from: "$rootDir/gradle/java.gradle"
 
-//configurations {
-//    bukkitNeeds
-//    bukkitProvides
-//    compileOnly.extendsFrom(bukkitProvides)
-//}
+configurations {
+    bukkitProvides
+    implementation.extendsFrom(bukkitNeeds)
+    compileOnly.extendsFrom(bukkitProvides)
+}
 
 spigot {
     name = 'MapModCompanion'
@@ -21,19 +21,20 @@ spigot {
                 "-Dcom.turikhay.mc.mapmodcompanion.spigot.debug=true"
     }
     afterEvaluate {
-//        def shaded = project.configurations.bukkitNeeds.resolvedConfiguration.resolvedArtifacts.collect {
-//            it.id.componentIdentifier.displayName
-//        }.join(",")
+        def shaded = project.configurations.bukkitNeeds.resolvedConfiguration.resolvedArtifacts.collect {
+            it.id.componentIdentifier.displayName
+        }.join(",")
         excludeLibraries(
                 "${group}:common:${version}",
-//                shaded
+                shaded
         )
     }
 }
 
 dependencies {
     implementation project(':common')
-    compileOnly spigot(rootProject.spigot_version)
+    bukkitNeeds 'org.bstats:bstats-bukkit:3.0.0'
+    bukkitProvides spigot(rootProject.spigot_version)
 }
 
 assemble {
@@ -42,6 +43,7 @@ assemble {
 
 shadowJar {
     archiveName("MapModCompanion-Spigot.jar")
+    relocate("org.bstats", "${project.group}.bstats")
 //    dependencies {
 //        exclude(dependency { dep ->
 //            project.configurations.bukkitProvides.resolvedConfiguration.resolvedArtifacts.any {

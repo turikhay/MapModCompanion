@@ -15,4 +15,5 @@ assemble {
 
 shadowJar {
     archiveName("MapModCompanion.jar")
+    relocate("org.bstats", "${project.group}.bstats")
 }

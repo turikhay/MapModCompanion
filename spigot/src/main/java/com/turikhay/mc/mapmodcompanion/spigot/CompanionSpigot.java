@@ -1,5 +1,6 @@
 package com.turikhay.mc.mapmodcompanion.spigot;
 
+import org.bstats.bukkit.Metrics;
 import org.bukkit.World;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -19,6 +20,8 @@ public class CompanionSpigot extends JavaPlugin implements Listener {
             System.getProperty(CompanionSpigot.class.getPackage().getName() + ".useTextualId", "false")
     );
 
+    private static final int BSTATS_ID = 16539;
+
     List<Handler<?, ?>> handlers = new ArrayList<>(Arrays.asList(
             new XaerosMinimapHandler(this),
             new XaerosWorldMapHandler(this),
@@ -30,6 +33,7 @@ public class CompanionSpigot extends JavaPlugin implements Listener {
 
     @Override
     public void onEnable() {
+        initializeBStats();
         if (DISABLE_DEFAULT_WORLD_ID) {
             getLogger().info("Plugin will not use default world ID for every world");
             defaultWorld = DefaultWorld.empty();
@@ -37,6 +41,10 @@ public class CompanionSpigot extends JavaPlugin implements Listener {
             defaultWorld = DefaultWorld.detectDefaultWorld(this);
         }
         initializeHandlers();
+    }
+
+    private void initializeBStats() {
+        new Metrics(this, BSTATS_ID);
     }
 
     private void initializeHandlers() {
