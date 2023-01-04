@@ -20,7 +20,7 @@ jobs:
           SHA=${{ github.sha }}
           SHA8=${SHA:0:8}
           echo "SHA8 = $SHA8"
-          echo "::set-output name=sha8::$SHA8"
+          echo "sha8=$SHA8" >> $GITHUB_OUTPUT
   build:
     name: Build
     needs: prepare

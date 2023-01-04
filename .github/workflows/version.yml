@@ -26,10 +26,10 @@ jobs:
         run: |
           TAG=${{ github.ref }}
           VERSION=${TAG#refs/tags/v}
-          echo "::set-output name=version::$VERSION"
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
           IS_PRE_RELEASE="false"
           RELEASE_TYPE="release"
           [[ $VERSION =~ .+(beta|pre|rc).* ]] && RELEASE_TYPE="beta" && IS_PRE_RELEASE="true"
           [[ $VERSION =~ .+(alpha).* ]] && RELEASE_TYPE="alpha" && IS_PRE_RELEASE="true"
-          echo "::set-output name=release-type::$RELEASE_TYPE"
-          echo "::set-output name=pre-release::$IS_PRE_RELEASE"
+          echo "release-type=$RELEASE_TYPE" >> $GITHUB_OUTPUT
+          echo "pre-release=$IS_PRE_RELEASE" >> $GITHUB_OUTPUT

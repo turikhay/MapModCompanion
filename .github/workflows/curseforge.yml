@@ -27,7 +27,7 @@ jobs:
       - name: Read VERSIONS_CF.txt
         id: supported_versions
         run: |
-          echo "::set-output name=list::$(cat VERSIONS_CF.txt | paste -s -d"," -)"
+          echo "list=$(cat VERSIONS_CF.txt | paste -s -d"," -)" >> $GITHUB_OUTPUT
       - uses: itsmeow/curseforge-upload@v3
         with:
           token: ${{ secrets.CURSEFORGE_TOKEN }}

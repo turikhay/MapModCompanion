@@ -43,7 +43,7 @@ jobs:
         run: |
           TARGET=${{ inputs.spigot-target }}
           [[ -z "$TARGET" ]] && TARGET=$(tail -n1 VERSIONS.txt)
-          echo "::set-output name=spigot-version::$TARGET"
+          echo "spigot-version=$TARGET" >> $GITHUB_OUTPUT
       - uses: gradle/gradle-build-action@v2
         with:
           arguments: |
