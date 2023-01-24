@@ -1,8 +1,10 @@
 # Companion for map mods
 
-<a href="https://modrinth.com/plugin/modmapcompanion">
-  <img src="https://modrinth-utils.vercel.app/api/badge/downloads?id=UO7aDcrF&logo=true" />
-</a>
+<p>
+  <a href="https://modrinth.com/plugin/modmapcompanion">
+    <img src="https://modrinth-utils.vercel.app/api/badge/downloads?id=UO7aDcrF&logo=true" />
+  </a>
+</p>
 
 Unofficial BungeeCord and Spigot (Paper) companion plugin for
 [Xaero's Minimap](https://www.curseforge.com/minecraft/mc-mods/xaeros-minimap)
