@@ -24,7 +24,7 @@ If you have any questions, please [join my Discord](https://discord.gg/H9ACHEqBr
 |------------------------------------------------------------------------------------|----------------------------|--------------------------------------------------------------|-------------|
 | [Xaero's Minimap](https://www.curseforge.com/minecraft/mc-mods/xaeros-minimap)     | v20.20.0 / Minecraft 1.8.9 | v22.x.x / Minecraft 1.19.3                                   | ✅ Supported |
 | [Xaero's World Map](https://www.curseforge.com/minecraft/mc-mods/xaeros-world-map) | v1.10.0 / Minecraft 1.8.9  | v1.28.x / Minecraft 1.19.3                                   | ✅ Supported |
-| [JourneyMap](https://www.curseforge.com/minecraft/mc-mods/journeymap)              | v5.7.1 / Minecraft 1.16.5  | v5.9.0 / Minecraft 1.19.3                               | ✅ Supported |
+| [JourneyMap](https://www.curseforge.com/minecraft/mc-mods/journeymap)              | v5.7.1 / Minecraft 1.16.5  | v5.9.2 / Minecraft 1.19.3                               | ✅ Supported |
 | VoxelMap                                                                           | v1.7.10 / Minecraft 1.8    | [v1.11.10](https://discord.gg/Me4GWVGWhe) / Minecraft 1.19.2 | ✅ Supported |
 
 ## Installation
