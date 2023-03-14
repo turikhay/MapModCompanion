@@ -1,0 +1,32 @@
+#
+# MapModCompanion (BungeeCord)
+# https://github.com/turikhay/MapModCompanion
+#
+
+# Enable verbose logging
+verbose: false
+
+# world_id packet channel support
+world_id:
+  # Modern; supports:
+  # - VoxelMap since 1.12.0 (Minecraft 1.19.3)
+  # - JourneyMap since 5.7.1 (Minecraft 1.16.5)
+  modern:
+    enabled: true
+  # Legacy; supports:
+  # - VoxelMap 1.11.0 and older (Minecraft 1.19.2)
+  legacy:
+    enabled: true
+
+# Xaero's mod family support
+xaero:
+  # Supported since 20.20.0 (Minecraft 1.8.9)
+  world_map:
+    enabled: true
+  # Supported since 1.10.0 (Minecraft 1.8.9)
+  mini_map:
+    enabled: true
+
+# ID overrides
+overrides:
+  42: 1337
