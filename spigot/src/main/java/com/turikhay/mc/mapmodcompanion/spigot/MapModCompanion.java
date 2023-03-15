@@ -55,8 +55,8 @@ public class MapModCompanion extends JavaPlugin {
         logger.setVerbose(getConfig().getBoolean("verbose", false));
         logger.fine("Verbose logging enabled");
 
-        this.registry = initRegistry();
-        this.handlers = Handler.initialize(logger, this, factories);
+        registry = initRegistry();
+        handlers = Handler.initialize(logger, this, factories);
     }
 
     private IdRegistry initRegistry() {
