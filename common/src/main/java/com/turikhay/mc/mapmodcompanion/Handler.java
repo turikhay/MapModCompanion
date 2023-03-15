@@ -4,9 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
-public interface Handler {
-    void cleanUp();
-
+public interface Handler extends Disposable {
     static <PluginType> List<Handler> initialize(Logger logger, PluginType plugin, List<Factory<PluginType>> factories) {
         ArrayList<Handler> handlers = new ArrayList<>();
         for (Factory<PluginType> factory : factories) {
