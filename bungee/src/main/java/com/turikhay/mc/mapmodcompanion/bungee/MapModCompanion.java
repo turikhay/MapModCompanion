@@ -77,7 +77,7 @@ public class MapModCompanion extends Plugin {
         logger.setVerbose(configuration.getBoolean("verbose", false));
         logger.fine("Verbose logging enabled");
 
-        Handler.initialize(logger, this, factories);
+        handlers = Handler.initialize(logger, this, factories);
     }
 
     @Override
