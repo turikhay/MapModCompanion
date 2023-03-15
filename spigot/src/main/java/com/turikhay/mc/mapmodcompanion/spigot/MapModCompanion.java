@@ -9,6 +9,7 @@ import javax.annotation.Nullable;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.ScheduledExecutorService;
 
 public class MapModCompanion extends JavaPlugin {
     private final List<Handler.Factory<MapModCompanion>> factories = Arrays.asList(
@@ -31,8 +32,10 @@ public class MapModCompanion extends JavaPlugin {
     );
 
     private VerboseLogger logger;
+    private ScheduledExecutorService fileChangeWatchdogScheduler;
     private IdRegistry registry;
     private List<Handler> handlers = Collections.emptyList();
+    private FileChangeWatchdog fileChangeWatchdog;
 
     public VerboseLogger getVerboseLogger() {
         return logger;
@@ -49,7 +52,20 @@ public class MapModCompanion extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        fileChangeWatchdogScheduler = FileChangeWatchdog.createScheduler();
         saveDefaultConfig();
+        load();
+    }
+
+    @Override
+    public void onDisable() {
+        unload();
+        fileChangeWatchdogScheduler.shutdown();
+    }
+
+    private void load() {
+        logger.fine("Loading");
+
         reloadConfig();
 
         logger.setVerbose(getConfig().getBoolean("verbose", false));
@@ -57,6 +73,25 @@ public class MapModCompanion extends JavaPlugin {
 
         registry = initRegistry();
         handlers = Handler.initialize(logger, this, factories);
+        fileChangeWatchdog = new FileChangeWatchdog(
+                logger,
+                fileChangeWatchdogScheduler,
+                getDataFolder().toPath().resolve("config.yml"),
+                () -> getServer().getScheduler().scheduleSyncDelayedTask(this, this::reload)
+        );
+        fileChangeWatchdog.start();
+    }
+
+    private void unload() {
+        logger.fine("Unloading");
+        Handler.cleanUp(logger, handlers);
+        handlers = Collections.emptyList();
+        fileChangeWatchdog.cleanUp();
+    }
+
+    private void reload() {
+        unload();
+        load();
     }
 
     private IdRegistry initRegistry() {
@@ -102,12 +137,6 @@ public class MapModCompanion extends JavaPlugin {
         }
         logger.fine("Selected default world: " + defaultWorld + " (" + defaultWorld.getUID() + ")");
         return defaultWorld;
-    }
-
-    @Override
-    public void onDisable() {
-        Handler.cleanUp(logger, handlers);
-        handlers = Collections.emptyList();
     }
 
     void registerOutgoingChannel(String channelName) throws InitializationException {

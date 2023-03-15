@@ -13,6 +13,7 @@ import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
+import java.util.concurrent.ScheduledExecutorService;
 
 public class MapModCompanion extends Plugin {
 
@@ -43,9 +44,12 @@ public class MapModCompanion extends Plugin {
             )
     );
     private final IdConverter converter = new IdConverter.ConfigBased((path, def) -> getConfig().getInt(path, def));
+
     private VerboseLogger logger;
+    private ScheduledExecutorService fileChangeWatchdogScheduler;
     private Configuration configuration;
     private List<Handler> handlers = Collections.emptyList();
+    private FileChangeWatchdog fileChangeWatchdog;
 
     public IdConverter getConverter() {
         return converter;
@@ -67,31 +71,58 @@ public class MapModCompanion extends Plugin {
 
     @Override
     public void onEnable() {
+        fileChangeWatchdogScheduler = FileChangeWatchdog.createScheduler();
+        load();
+    }
+
+    @Override
+    public void onDisable() {
+        unload();
+        fileChangeWatchdogScheduler.shutdown();
+    }
+
+    private void load() {
+        logger.fine("Loading");
+
+        boolean reload = configuration != null;
         try {
             configuration = readConfig();
         } catch (IOException e) {
             throw new RuntimeException("Couldn't read or save configuration", e);
         }
-        logger.info("Configuration loaded");
+        logger.info("Configuration has been " + (reload ? "reloaded" : "loaded"));
 
         logger.setVerbose(configuration.getBoolean("verbose", false));
         logger.fine("Verbose logging enabled");
 
         handlers = Handler.initialize(logger, this, factories);
+
+        fileChangeWatchdog = new FileChangeWatchdog(
+                logger,
+                fileChangeWatchdogScheduler,
+                getDataFolder().toPath().resolve("config.yml"),
+                this::reload
+        );
+        fileChangeWatchdog.start();
     }
 
-    @Override
-    public void onDisable() {
+    private void unload() {
+        logger.fine("Unloading");
         Handler.cleanUp(logger, handlers);
         handlers = Collections.emptyList();
+        fileChangeWatchdog.cleanUp();
+    }
+
+    private void reload() {
+        unload();
+        load();
     }
 
     private Configuration readConfig() throws IOException {
-        Path dataFolder = getDataFolder().toPath();
-        Path configFile = dataFolder.resolve("config.yml");
+        Path configFile = getConfigFile();
         if (!Files.exists(configFile)) {
             logger.fine("Creating new config file");
-            Files.createDirectories(dataFolder);
+            Files.createDirectories(configFile.getParent());
             try (InputStream in = getResourceAsStream("config_bungee.yml");
                  OutputStream out = Files.newOutputStream(configFile)) {
                 byte[] buffer = new byte[1024];
@@ -106,5 +137,9 @@ public class MapModCompanion extends Plugin {
         try (InputStreamReader reader = new InputStreamReader(Files.newInputStream(configFile))) {
             return ConfigurationProvider.getProvider(YamlConfiguration.class).load(reader);
         }
+    }
+
+    private Path getConfigFile() {
+        return getDataFolder().toPath().resolve("config.yml");
     }
 }
