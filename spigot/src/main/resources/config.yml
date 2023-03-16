@@ -47,4 +47,7 @@ xaero:
 
 # ID overrides
 overrides:
+  # Override by the world name
+  custom_world_8_800: 5553535
+  # Override by its derived ID
   42: 1337

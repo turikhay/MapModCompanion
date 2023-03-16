@@ -108,7 +108,8 @@ public class MapModCompanion extends JavaPlugin {
             registry = new IdRegistry.ConstantRegistry(id);
         }
         registry = new IdRegistry.ConvertingRegistry(
-                new IdConverter.ConfigBased((path, def) -> getConfig().getInt(path, def)),
+                logger,
+                new IdLookup.ConfigBased((path, def) -> getConfig().getInt(path, def)),
                 registry
         );
         return new IdRegistry.CacheableRegistry(registry);

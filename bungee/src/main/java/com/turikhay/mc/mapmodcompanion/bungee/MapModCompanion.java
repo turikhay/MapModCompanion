@@ -43,7 +43,7 @@ public class MapModCompanion extends Plugin {
                     LevelMapProperties.Serializer.instance()
             )
     );
-    private final IdConverter converter = new IdConverter.ConfigBased((path, def) -> getConfig().getInt(path, def));
+    private final IdLookup converter = new IdLookup.ConfigBased((path, def) -> getConfig().getInt(path, def));
 
     private VerboseLogger logger;
     private ScheduledExecutorService fileChangeWatchdogScheduler;
@@ -51,7 +51,7 @@ public class MapModCompanion extends Plugin {
     private List<Handler> handlers = Collections.emptyList();
     private FileChangeWatchdog fileChangeWatchdog;
 
-    public IdConverter getConverter() {
+    public IdLookup getConverter() {
         return converter;
     }
 

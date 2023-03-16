@@ -1,10 +1,14 @@
 package com.turikhay.mc.mapmodcompanion.spigot;
 
-import com.turikhay.mc.mapmodcompanion.IdConverter;
+import com.turikhay.mc.mapmodcompanion.IdLookup;
+import com.turikhay.mc.mapmodcompanion.PrefixLogger;
+import com.turikhay.mc.mapmodcompanion.VerboseLogger;
 import org.bukkit.World;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
+import java.util.logging.Logger;
 
 public interface IdRegistry {
     int getId(World world);
@@ -31,18 +35,30 @@ public interface IdRegistry {
     }
 
     class ConvertingRegistry implements IdRegistry {
-        private final IdConverter converter;
+        private final Logger logger;
+        private final IdLookup lookup;
         private final IdRegistry delegate;
 
-        public ConvertingRegistry(IdConverter converter, IdRegistry delegate) {
-            this.converter = converter;
+        public ConvertingRegistry(VerboseLogger parent, IdLookup lookup, IdRegistry delegate) {
+            this.logger = new PrefixLogger(parent, ConvertingRegistry.class.getSimpleName());
+            this.lookup = lookup;
             this.delegate = delegate;
         }
 
         @Override
         public int getId(World world) {
-            int id = delegate.getId(world);
-            return converter.findMatch(id).orElse(id);
+            Optional<Integer> byName = lookup.findMatch(world.getName());
+            if (byName.isPresent()) {
+                logger.fine("Found override: " + world.getName() + " -> " + byName.get());
+                return byName.get();
+            }
+            int processedId = delegate.getId(world);
+            Optional<Integer> byId = lookup.findMatch(processedId);
+            if (byId.isPresent()) {
+                logger.fine("Found override: " + processedId + " (" + world.getName() + ") -> " + byId.get());
+                return byId.get();
+            }
+            return processedId;
         }
 
         @Override
