@@ -12,6 +12,8 @@
   </a>
 </p>
 
+**With this plugin your minimap will never be confused which world you're in.** Useful when you have a network of three or more different servers.
+
 Unofficial BungeeCord and Spigot (Paper) companion plugin for
 [Xaero's Minimap](https://www.curseforge.com/minecraft/mc-mods/xaeros-minimap)
 (and their [World Map](https://www.curseforge.com/minecraft/mc-mods/xaeros-world-map)),
@@ -20,7 +22,6 @@ VoxelMap (both [old](https://www.curseforge.com/minecraft/mc-mods/voxelmap) and 
 
 This plugin fixes Multi-world detection in multiplayer by simulating mod presence on
 the server side.
-
 
 It's recommended to install this plugin on a fresh server, otherwise **existing map data**
 (waypoints, map cache, etc.) **may no longer be visible to some players**. Fortunately,
