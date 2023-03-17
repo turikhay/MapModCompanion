@@ -49,6 +49,10 @@ If you have any questions, please [join my Discord](https://discord.gg/H9ACHEqBr
 plugins on both sides. On the contrary, BungeeCord plugin is useless if you don't install Spigot plugin on
 downstream servers.
 
+## Configuration
+The configuration file is stored at `plugins/MapModCompanion/config.yml` for both Spigot and BungeeCord.
+The file reloads automatically if it's modified.
+
 ## Alternatives
 - If you're running Forge or Fabric server, just install the map mod on your server: this will unlock all its
   features.
