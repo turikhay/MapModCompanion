@@ -43,7 +43,7 @@ If you have any questions, please [join my Discord](https://discord.gg/H9ACHEqBr
 ## Installation
 1. Download the latest release from [Releases](https://github.com/turikhay/MapModCompanion/releases) page
 2. Put each file into the corresponding plugins folder
-3. That's it. No configuration required. You can restart your servers now.
+3. That's it. No configuration is required. You can restart your servers now.
 
 ⚠️ **NOTE** Spigot plugin can be used without BungeeCord counterpart, but it's highly recommended to install
 plugins on both sides. On the contrary, BungeeCord plugin is useless if you don't install Spigot plugin on
