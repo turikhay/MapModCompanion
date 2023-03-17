@@ -1,0 +1,53 @@
+#
+# MapModCompanion (Spigot)
+# https://github.com/turikhay/MapModCompanion
+#
+
+# Enable verbose logging
+verbose: false
+
+# Send only default world ID to the clients
+# Mods are (mostly) capable of distinguishing between different dimensions
+preferDefaultWorld: true
+
+# World id channel support
+world_id:
+  # Modern; supports:
+  # - VoxelMap since 1.12.0 (Minecraft 1.19.3)
+  # - JourneyMap since 5.7.1 (Minecraft 1.16.5)
+  modern:
+    enabled: true
+  # Legacy; supports:
+  # - VoxelMap 1.11.0 and older (Minecraft 1.19.2)
+  legacy:
+    enabled: true
+
+# Xaero's mod family support
+xaero:
+  # Supported since 20.20.0 (Minecraft 1.8.9)
+  world_map:
+    enabled: true
+    events:
+      join:
+        enabled: true
+        # Sometimes the mod doesn't pick up the initial packet
+        repeat_times: 3
+      world_change:
+        enabled: true
+  # Supported since 1.10.0 (Minecraft 1.8.9)
+  mini_map:
+    enabled: true
+    events:
+      join:
+        enabled: true
+        # Sometimes the mod doesn't pick up the initial packet
+        repeat_times: 3
+      world_change:
+        enabled: true
+
+# ID overrides
+overrides:
+  # Override by the world name
+  custom_world_8_800: 5553535
+  # Override by its derived ID
+  42: 1337
