@@ -79,7 +79,7 @@ public class PacketHandler<IdType extends Id> implements Handler, Listener {
         IdType newId = plugin.getConverter()
                 .findMatch(id.getId())
                 .map(id::<IdType>withId)
-                .orElseGet(() -> IdBlender.DEFAULT.blend(id, server.getInfo().hashCode()));
+                .orElseGet(() -> IdBlender.DEFAULT.blend(id, server.getInfo().getName().hashCode()));
 
         logger.fine(String.format(Locale.ROOT,
                 "Intercepting world_id packet sent to %s (channel %s): %s -> %s",
