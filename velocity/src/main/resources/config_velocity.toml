@@ -1,0 +1,27 @@
+#
+# MapModCompanion (Velocity)
+# https://github.com/turikhay/MapModCompanion
+#
+
+# Modern world_id channel; supports:
+# - VoxelMap since 1.12.0 (Minecraft 1.19.3)
+# - JourneyMap since 5.7.1 (Minecraft 1.16.5)
+[world_id.modern]
+enabled = true
+
+# Legacy world_id channel; supports:
+# - VoxelMap 1.11.0 and older (Minecraft 1.19.2)
+[world_id.legacy]
+enabled = true
+
+# Xaero's World Map is supported since 20.20.0 (Minecraft 1.8.9)
+[xaero.world_map]
+enabled = true
+
+# Xaero's Minimap is supported since 1.10.0 (Minecraft 1.8.9)
+[xaero.mini_map]
+enabled = true
+
+# ID overrides
+[overrides]
+42 = 1337
