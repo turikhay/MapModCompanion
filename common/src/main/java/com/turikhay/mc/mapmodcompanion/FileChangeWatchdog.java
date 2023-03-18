@@ -5,20 +5,27 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.attribute.FileTime;
 import java.util.concurrent.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class FileChangeWatchdog implements Disposable {
-    private final Logger logger;
+    private final ILogger logger;
     private final ScheduledExecutorService scheduler;
     private final Path path;
     private final Runnable callback;
 
-    public FileChangeWatchdog(VerboseLogger parent, ScheduledExecutorService scheduler, Path path, Runnable callback) {
-        this.logger = new PrefixLogger(parent, FileChangeWatchdog.class.getSimpleName());
+    public FileChangeWatchdog(ILogger logger, ScheduledExecutorService scheduler, Path path, Runnable callback) {
+        this.logger = logger;
         this.scheduler = scheduler;
         this.path = path;
         this.callback = callback;
+    }
+
+    public FileChangeWatchdog(VerboseLogger parent, ScheduledExecutorService scheduler, Path path, Runnable callback) {
+        this(
+                ILogger.ofJava(new PrefixLogger(parent, FileChangeWatchdog.class.getSimpleName())),
+                scheduler,
+                path,
+                callback
+        );
     }
 
     private ScheduledFuture<?> task;
@@ -35,7 +42,7 @@ public class FileChangeWatchdog implements Disposable {
         try {
             time = Files.getLastModifiedTime(path);
         } catch (IOException e) {
-            logger.log(Level.WARNING, "Couldn't poll last modification time of " + path, e);
+            logger.warn("Couldn't poll last modification time of " + path, e);
             return;
         }
         if (lastTime == null) {
@@ -47,7 +54,7 @@ public class FileChangeWatchdog implements Disposable {
             try {
                 callback.run();
             } catch (RuntimeException e) {
-                logger.log(Level.SEVERE, "File change callback error", e);
+                logger.error("File change callback error", e);
             }
         }
     }
