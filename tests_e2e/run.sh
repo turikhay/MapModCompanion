@@ -87,7 +87,7 @@ function perform_test {
   local auto=1
   [[ "$1" == "manual" ]] && local auto=""
 
-  docker_compose "up --no-build --force-recreate $([[ "$auto" ]] && echo "--detach" || echo "")"
+  docker_compose "up --force-recreate $([[ "$auto" ]] && echo "--detach" || echo "")"
 
   if [[ "$auto" ]]; then
     trap perform_stop SIGINT
