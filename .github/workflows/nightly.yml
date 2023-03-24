@@ -6,24 +6,25 @@ on:
       - '**'
     tags-ignore:
       - 'v*.*.*'
+  workflow_call:
 
 jobs:
   prepare:
     name: Prepare
     outputs:
-      sha8: ${{ steps.sha8.outputs.sha8 }}
+      version: ${{ steps.sha8.outputs.version }}
     runs-on: ubuntu-latest
     steps:
-      - name: Get short commit SHA
+      - name: Generate version string
         id: sha8
         run: |
           SHA=${{ github.sha }}
           SHA8=${SHA:0:8}
           echo "SHA8 = $SHA8"
-          echo "sha8=$SHA8" >> $GITHUB_OUTPUT
+          echo "version=0.0.0+$SHA8" >> $GITHUB_OUTPUT
   build:
     name: Build
     needs: prepare
     uses: ./.github/workflows/build.yml
     with:
-      version: 0.0.0+${{ needs.prepare.outputs.sha8 }}
+      version: ${{ needs.prepare.outputs.version }}
