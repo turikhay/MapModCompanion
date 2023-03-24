@@ -72,6 +72,37 @@ services:
 EOF
 
 debug_echo "Writing $OVERRIDE_FILE_NAME"
+
+proxy_extra=""
+server_extra=""
+
+if [[ "$ACTION" == "manual" ]]; then
+  proxy_extra=$(cat <<-EOF
+    ports:
+      - 25565:25565
+EOF
+)
+  set +u
+  if [[ "$JAVA_DEBUG" ]]; then
+    echo "[NOTE] Java debugging enabled. Use 127.0.0.1:9010 for proxy, 127.0.0.1 for server"
+    proxy_extra+=$(cat <<-EOF
+
+      - 9010:9001
+    environment:
+      - JVM_XX_OPTS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:9001
+EOF
+)
+    server_extra=$(cat <<-EOF
+    ports:
+      - 9011:9001
+    environment:
+      - JVM_XX_OPTS=-Ddisable.watchdog=true -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=$([[ "$JAVA_VERSION" -lt 9 ]] && echo "9001" || echo "*:9001")
+EOF
+)
+  fi
+  set -u
+fi
+
 cat << EOF > "$OVERRIDE_FILE"
 services:
   bot:
@@ -79,10 +110,11 @@ services:
   proxy:
     volumes:
       - $TEST_ENV/plugins_proxy:/server/plugins
-    $([[ "$ACTION" == "manual" ]] && echo "ports: [\"25565:25565\"]" || echo "")
+$proxy_extra
   server:
     volumes:
       - $TEST_ENV/plugins_server:/data/plugins
+$server_extra
 EOF
 
 FILES=(
