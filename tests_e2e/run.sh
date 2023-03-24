@@ -104,7 +104,7 @@ function perform_stop() {
 
 function perform_test {
   debug_echo "Stopping old containers"
-  docker_compose down >/dev/null 2>/dev/null
+  docker_compose down >/dev/null
 
   debug_echo "Starting container"
 
