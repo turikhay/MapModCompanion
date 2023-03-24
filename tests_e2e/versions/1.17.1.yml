@@ -1,0 +1,12 @@
+services:
+  bot:
+    environment:
+      - BOT_VERSION=1.17.1
+  server:
+    build:
+      args:
+        - TAG=java17
+      tags:
+        - "mmc-e2e-server:java17"
+    environment:
+      - VERSION=1.17.1

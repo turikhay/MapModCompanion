@@ -1,0 +1,14 @@
+[overrides]
+1337 = 1337
+
+[world_id.modern]
+enabled = true
+
+[world_id.legacy]
+enabled = true
+
+[xaero.world_map]
+enabled = true
+
+[xaero.mini_map]
+enabled = true

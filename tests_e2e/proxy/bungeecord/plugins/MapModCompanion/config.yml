@@ -1,0 +1,16 @@
+verbose: true
+
+overrides:
+  1337: 1337
+
+world_id:
+  modern:
+    enabled: true
+  legacy:
+    enabled: true
+
+xaero:
+  world_map:
+    enabled: true
+  mini_map:
+    enabled: true

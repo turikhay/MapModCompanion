@@ -1,0 +1,23 @@
+{
+  "name": "mmc-bot",
+  "private": "true",
+  "module": "true",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.mjs",
+  "scripts": {
+    "debug": "DEBUG=minecraft-protocol node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "args-parser": "^1.3.0",
+    "minecraft-data": "^3.31.0",
+    "minecraft-protocol": "^1.41.1"
+  },
+  "devDependencies": {
+    "prettier": "^2.8.6"
+  }
+}
