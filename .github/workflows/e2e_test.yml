@@ -1,0 +1,35 @@
+name: E2E test
+
+on:
+  workflow_call:
+    inputs:
+      proxy:
+        required: true
+        type: string
+      version:
+        required: true
+        type: string
+
+jobs:
+  build:
+    name: Build
+    uses: ./.github/workflows/nightly.yml
+  test:
+    name: E2E test (${{ inputs.version }}, ${{ inputs.proxy }})
+    needs: build
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./tests_e2e
+    env:
+     # Legacy builder doesn't seem to properly mount /data folder inside server container for some reason
+     DOCKER_BUILDKIT: 1
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/download-artifact@v3
+        with:
+          name: gradle-build
+      - name: Build
+        run: ./run.sh ${{ inputs.proxy }} ${{ inputs.version }} build
+      - name: Test
+        run: ./run.sh ${{ inputs.proxy }} ${{ inputs.version }} test

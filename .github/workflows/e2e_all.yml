@@ -1,0 +1,34 @@
+name: E2E test on all supported versions
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - 'v*.*.*'
+
+jobs:
+  proxy_test:
+    name: E2E test
+    strategy:
+      matrix:
+        proxy:
+          - velocity
+          - bungeecord
+          - waterfall
+        version:
+          - 1.19.3
+          - 1.18.2
+          - 1.17.1
+          - 1.16.5
+          - 1.15.2
+          - 1.14.4
+          - 1.13.2
+          - 1.12.2
+          - 1.11.2
+          - 1.10.2
+          - 1.9.4
+          - 1.8.9
+    uses: ./.github/workflows/e2e_test.yml
+    with:
+      proxy: ${{ matrix.proxy }}
+      version: ${{ matrix.version }}
