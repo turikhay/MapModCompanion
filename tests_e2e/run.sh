@@ -106,10 +106,13 @@ function perform_test {
   debug_echo "Stopping old containers"
   docker_compose down >/dev/null
 
-  debug_echo "Starting container"
-
   local auto=1
-  [[ "$1" == "manual" ]] && local auto=""
+  if [[ "$1" == "manual" || "$1" == "debug" ]]; then
+    local auto=""
+    (cd .. && ./gradlew build)
+  fi
+
+  debug_echo "Starting container"
 
   docker_compose "up --force-recreate $([[ "$auto" ]] && echo "--detach" || echo "--build")"
 
