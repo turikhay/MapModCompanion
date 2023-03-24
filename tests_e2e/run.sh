@@ -14,6 +14,9 @@ TEST_CONTAINER_NAME="$NAME"
 TEST_ENV="$SELF/test_env/$NAME"
 PLUGINS_SERVER="$TEST_ENV/plugins_server"
 PLUGINS_PROXY="$TEST_ENV/plugins_proxy"
+VERSION_INFO_FILE_NAME="docker-compose.version_info.yml"
+VERSION_INFO_FILE="$TEST_ENV/$VERSION_INFO_FILE_NAME"
+VERSION_INFO_SOURCE="$SELF/versions/$VERSION.sh"
 OVERRIDE_FILE_NAME="docker-compose.override.yml"
 OVERRIDE_FILE="$TEST_ENV/$OVERRIDE_FILE_NAME"
 
@@ -31,6 +34,9 @@ function debug_echo {
   fi
 }
 
+debug_echo "Reading $VERSION_INFO_SOURCE"
+source "$VERSION_INFO_SOURCE"
+
 debug_echo "Working in: $TEST_ENV"
 rm -rf "$TEST_ENV"
 mkdir -p "$TEST_ENV"
@@ -46,6 +52,24 @@ rm -rf "$PLUGINS_PROXY"
 mkdir -p "$PLUGINS_PROXY"
 cp -r "$JAR" "$PLUGINS_PROXY/"
 cp -r "$SELF/proxy/$PROXY_TYPE/plugins/"* "$PLUGINS_PROXY/"
+
+debug_echo "Writing $VERSION_INFO_FILE_NAME"
+
+cat << EOF > "$VERSION_INFO_FILE"
+services:
+  bot:
+    environment:
+      - BOT_VERSION=$CLIENT_VERSION
+  server:
+    build:
+      args:
+        - TAG=java$JAVA_VERSION
+      tags:
+        - "mmc-e2e-server:java$JAVA_VERSION"
+    environment:
+      - VERSION=$SERVER_VERSION
+
+EOF
 
 debug_echo "Writing $OVERRIDE_FILE_NAME"
 cat << EOF > "$OVERRIDE_FILE"
@@ -64,7 +88,7 @@ EOF
 FILES=(
     "$SELF/docker-compose.yml"
     "$SELF/docker-compose.$PROXY_TYPE.yml"
-    "$SELF/versions/$VERSION.yml"
+    "$VERSION_INFO_FILE"
     "$OVERRIDE_FILE"
 )
 
