@@ -55,6 +55,7 @@ services:
   proxy:
     volumes:
       - $TEST_ENV/plugins_proxy:/server/plugins
+    $([[ "$ACTION" == "manual" ]] && echo "ports: [\"25565:25565\"]" || echo "")
   server:
     volumes:
       - $TEST_ENV/plugins_server:/data/plugins
@@ -82,25 +83,31 @@ function perform_test {
   docker_compose down >/dev/null 2>/dev/null
 
   debug_echo "Starting container"
-  docker_compose "up --no-build --force-recreate --detach"
 
-  trap perform_stop SIGINT
+  local auto=1
+  [[ "$1" == "manual" ]] && local auto=""
 
-  if [[ $DEBUG ]]; then
-    docker compose logs -f &
-  else
-    docker compose logs -f bot &
-  fi
+  docker_compose "up --no-build --force-recreate $([[ "$auto" ]] && echo "--detach" || echo "")"
 
-  debug_echo "Waiting for bot container to exit: $TEST_CONTAINER_NAME"
-  TEST_EXIT=`docker wait "$TEST_CONTAINER_NAME"`
-  debug_echo "Done: $TEST_EXIT"
+  if [[ "$auto" ]]; then
+    trap perform_stop SIGINT
 
-  docker_compose down >/dev/null 2>/dev/null
+    if [[ $DEBUG ]]; then
+      docker compose logs -f &
+    else
+      docker compose logs -f bot &
+    fi
 
-  if [[ "$TEST_EXIT" != "0" ]]; then
-    echo "⚠️  Test failed" >&2
-    exit 1
+    debug_echo "Waiting for bot container to exit: $TEST_CONTAINER_NAME"
+    TEST_EXIT=`docker wait "$TEST_CONTAINER_NAME"`
+    debug_echo "Done: $TEST_EXIT"
+
+    docker_compose down >/dev/null 2>/dev/null
+
+    if [[ "$TEST_EXIT" != "0" ]]; then
+      echo "⚠️  Test failed" >&2
+      exit 1
+    fi
   fi
 }
 
@@ -117,7 +124,12 @@ case $ACTION in
 
   test)
     echo "[ACTION] Performing test; version: $VERSION; proxy: $PROXY_TYPE"
-    perform_test
+    perform_test "auto"
+    ;;
+
+  manual)
+    echo "[ACTION] Starting manual test; version: $VERSION; proxy: $PROXY_TYPE"
+    perform_test "manual"
     ;;
 
   cleanup)
