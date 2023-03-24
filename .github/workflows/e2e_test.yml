@@ -12,7 +12,7 @@ on:
 
 jobs:
   test:
-    name: E2E test (${{ inputs.proxy }}, ${{ inputs.version }})
+    name: E2E test (${{ inputs.version }}, ${{ inputs.proxy }})
     runs-on: ubuntu-latest
     defaults:
       run:

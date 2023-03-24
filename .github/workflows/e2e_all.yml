@@ -15,10 +15,6 @@ jobs:
     needs: build
     strategy:
       matrix:
-        proxy:
-          - velocity
-          - bungeecord
-          - waterfall
         version:
           - 1.19.3
           - 1.18.2
@@ -32,6 +28,10 @@ jobs:
           - 1.10.2
           - 1.9.4
           - 1.8.9
+        proxy:
+          - velocity
+          - bungeecord
+          - waterfall
     uses: ./.github/workflows/e2e_test.yml
     with:
       proxy: ${{ matrix.proxy }}
