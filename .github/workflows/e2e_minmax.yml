@@ -1,4 +1,4 @@
-name: E2E test on oldest and latest versions
+name: Short E2E test
 
 on:
   workflow_dispatch:

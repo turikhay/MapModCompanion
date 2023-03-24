@@ -1,4 +1,4 @@
-name: E2E test on all supported versions
+name: Full E2E test
 
 on:
   workflow_dispatch:
