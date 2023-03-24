@@ -84,7 +84,7 @@ EOF
 )
   set +u
   if [[ "$JAVA_DEBUG" ]]; then
-    echo "[NOTE] Java debugging enabled. Use 127.0.0.1:9010 for proxy, 127.0.0.1 for server"
+    echo "[NOTE] Java debugging enabled. Use 127.0.0.1:9010 for proxy, 127.0.0.1:9011 for server"
     proxy_extra+=$(cat <<-EOF
 
       - 9010:9001
