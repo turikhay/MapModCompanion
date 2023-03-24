@@ -182,12 +182,12 @@ case $ACTION in
     ;;
 
   test)
-    echo "[ACTION] Performing test; version: $VERSION; proxy: $PROXY_TYPE"
+    echo "[ACTION] Performing automatic test; version: $VERSION, proxy: $PROXY_TYPE"
     perform_test "auto"
     ;;
 
   manual)
-    echo "[ACTION] Starting manual test; version: $VERSION; proxy: $PROXY_TYPE"
+    echo "[ACTION] Spinning up the server for manual test; version: $VERSION, proxy: $PROXY_TYPE"
     perform_test "manual"
     ;;
 
