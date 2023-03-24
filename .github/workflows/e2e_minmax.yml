@@ -8,8 +8,12 @@ on:
       - e2e
 
 jobs:
-  proxy_test:
+  build:
+    name: Build
+    uses: ./.github/workflows/nightly.yml
+  test:
     name: E2E test
+    needs: build
     strategy:
       matrix:
         proxy:

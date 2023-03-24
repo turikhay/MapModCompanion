@@ -11,12 +11,8 @@ on:
         type: string
 
 jobs:
-  build:
-    name: Build
-    uses: ./.github/workflows/nightly.yml
   test:
-    name: E2E test (${{ inputs.version }}, ${{ inputs.proxy }})
-    needs: build
+    name: E2E test (${{ inputs.proxy }}, ${{ inputs.version }})
     runs-on: ubuntu-latest
     defaults:
       run:
