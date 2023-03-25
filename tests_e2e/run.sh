@@ -26,6 +26,9 @@ if [[ "$ACTIONS_STEP_DEBUG" == "true" ]] || [[ "$DEBUG" ]]; then
 else
   DEBUG=""
 fi
+if [[ "$DEBUG" ]] || [[ "$GRADLE_REBUILD" ]]; then
+  (cd .. && ./gradlew build)
+fi
 set -u
 
 function debug_echo {
@@ -141,7 +144,6 @@ function perform_test {
   local auto=1
   if [[ "$1" == "manual" || "$1" == "debug" ]]; then
     local auto=""
-    (cd .. && ./gradlew build)
   fi
 
   set +u
