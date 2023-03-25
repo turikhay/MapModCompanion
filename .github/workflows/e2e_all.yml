@@ -5,6 +5,9 @@ on:
   push:
     tags:
       - 'v*.*.*'
+  push:
+    branches:
+      - e2e
 
 jobs:
   build:
