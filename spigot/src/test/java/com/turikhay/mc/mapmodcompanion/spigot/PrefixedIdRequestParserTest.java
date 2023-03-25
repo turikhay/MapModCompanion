@@ -1,49 +1,42 @@
 package com.turikhay.mc.mapmodcompanion.spigot;
 
-import com.turikhay.mc.mapmodcompanion.MalformedPacketException;
+import com.turikhay.mc.mapmodcompanion.*;
 import org.junit.jupiter.api.Test;
-
-import java.io.ByteArrayOutputStream;
 
 import static com.turikhay.mc.mapmodcompanion.spigot.PrefixedIdRequest.parse;
 import static org.junit.jupiter.api.Assertions.*;
 
 class PrefixedIdRequestParserTest {
+
     @Test
-    void firstByteNonZeroTest() {
-        assertThrows(MalformedPacketException.class, () -> parse(new byte[]{42, 1, 49}));
+    void voxelMapForge1_12_2() throws MalformedPacketException {
+        test(new PrefixedIdRequest(1, false), new byte[] { 0, 0 });
     }
 
     @Test
-    void firstByteAfterPaddingNonMagicalTest() {
-        assertThrows(MalformedPacketException.class, () -> parse(new byte[]{0, 0, 0, 43}));
+    void standardFormTest() throws MalformedPacketException {
+        // JourneyMap 1.16.5, VoxelMap 1.19.2+
+        test(
+                new PrefixedIdRequest(1, true),
+                new byte[] { 0, 42, 0 }
+        );
     }
 
     @Test
-    void singularPaddingTest() throws MalformedPacketException {
-        assertEquals(new PrefixedIdRequest(1), parse(new byte[]{0, 42, 0}));
+    void voxelMapFixTest() throws MalformedPacketException {
+        // VoxelMap LiteLoader 1.8.9 - 1.12.2, VoxelMap Fabric 1.14.4 - 1.19.x
+        test(
+                new PrefixedIdRequest(0, true),
+                new byte[] { 0, 0, 0, 42 }
+        );
+    }
+
+    private void test(PrefixedIdRequest expected, byte[] data) throws MalformedPacketException {
+        assertEquals(expected, parse(data));
     }
 
     @Test
-    void doublePaddingTest() {
-        assertThrows(MalformedPacketException.class, () -> parse(new byte[]{0, 0, 42, 0}));
-    }
-
-    @Test
-    void voxelMapPaddingTest() throws MalformedPacketException {
-        assertEquals(new PrefixedIdRequest(0), parse(new byte[]{0, 0, 0, 42, 0}));
-    }
-
-    @Test
-    void largePaddingTest() {
-        for (int padding = 4; padding < 8; padding++) {
-            ByteArrayOutputStream array = new ByteArrayOutputStream();
-            for (int i = 0; i < padding; i++) {
-                array.write(0);
-            }
-            array.write(42);
-            assertThrows(MalformedPacketException.class, () -> parse(array.toByteArray()));
-        }
+    void zeroTest() {
+        assertThrows(MalformedPacketException.class, () -> parse(new byte[]{ 0 }));
     }
 }
-

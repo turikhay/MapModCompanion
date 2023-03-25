@@ -9,8 +9,9 @@ public class PrefixedIdRequestTest {
 
     @Test
     void constructIdTest() {
-        assertEquals(new PrefixedId(0, 1337), new PrefixedIdRequest(0).constructId(1337));
-        assertEquals(new PrefixedId(1, 1337), new PrefixedIdRequest(1).constructId(1337));
-        assertEquals(new PrefixedId(3, 1337), new PrefixedIdRequest(3).constructId(1337));
+        assertEquals(new PrefixedId(0, true, 1337), new PrefixedIdRequest(0, true).constructId(1337));
+        assertEquals(new PrefixedId(1, true, 1337), new PrefixedIdRequest(1, true).constructId(1337));
+        assertEquals(new PrefixedId(3, true, 1337), new PrefixedIdRequest(3, true).constructId(1337));
+        assertEquals(new PrefixedId(4, false, 1337), new PrefixedIdRequest(4, false).constructId(1337));
     }
 }
