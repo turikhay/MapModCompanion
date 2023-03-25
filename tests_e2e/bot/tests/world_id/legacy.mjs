@@ -1,6 +1,8 @@
 import { Client } from "minecraft-protocol";
 import test from "./common.mjs";
 
+const responseBuffer = Buffer.from("1337");
+
 export default {
   groups: ["voxelmap"],
   test: (/** @type Client */ client, /** @type number */ protocolVersion) =>
@@ -12,8 +14,8 @@ export default {
           // use non-prefixed version when < 1.13
           protocolVersion <= 340 ? "world_id" : "worldinfo:world_id",
           {
-            requestPadding: 3,
-            responsePadding: 0,
+            request: [0, 0, 0, 42],
+            response: [42, responseBuffer.byteLength, ...responseBuffer],
           }
         ),
 };
