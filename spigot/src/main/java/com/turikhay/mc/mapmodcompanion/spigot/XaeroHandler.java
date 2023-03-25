@@ -15,6 +15,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 
 import java.util.Arrays;
 import java.util.Locale;
+import java.util.UUID;
 import java.util.logging.Logger;
 
 public class XaeroHandler implements Handler, Listener {
@@ -54,13 +55,10 @@ public class XaeroHandler implements Handler, Listener {
     }
 
     private void sendPacket(PlayerEvent event, Type type) {
-        Player player = event.getPlayer();
-        int id = plugin.getRegistry().getId(player.getWorld());
+        Player p = event.getPlayer();
+        int id = plugin.getRegistry().getId(p.getWorld());
         byte[] payload = LevelMapProperties.Serializer.instance().serialize(id);
-        Runnable task = () -> {
-            logger.fine(() -> "Sending Xaero's LevelMapProperties to " + player.getName() + ": " + Arrays.toString(payload));
-            player.sendPluginMessage(plugin, channelName, payload);
-        };
+        SendPayloadTask task = new SendPayloadTask(logger, plugin, p.getUniqueId(), channelName, payload);
         int repeatTimes = plugin.getConfig().getInt(
                 configPath + ".events." + type.name().toLowerCase(Locale.ROOT) + ".repeat_times",
                 1
@@ -102,6 +100,32 @@ public class XaeroHandler implements Handler, Listener {
             );
             handler.init();
             return handler;
+        }
+    }
+
+    private static class SendPayloadTask implements Runnable {
+        private final Logger logger;
+        private final MapModCompanion plugin;
+        private final UUID playerId;
+        private final String channelName;
+        private final byte[] payload;
+
+        public SendPayloadTask(Logger logger, MapModCompanion plugin, UUID playerId, String channelName, byte[] payload) {
+            this.logger = logger;
+            this.plugin = plugin;
+            this.playerId = playerId;
+            this.channelName = channelName;
+            this.payload = payload;
+        }
+
+        @Override
+        public void run() {
+            Player player = plugin.getServer().getPlayer(playerId);
+            if (player == null) {
+                return;
+            }
+            logger.fine(() -> "Sending Xaero's LevelMapProperties to " + player.getName() + ": " + Arrays.toString(payload));
+            player.sendPluginMessage(plugin, channelName, payload);
         }
     }
 }
