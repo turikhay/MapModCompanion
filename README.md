@@ -1,6 +1,7 @@
 # Companion for map mods
 
 <p>
+  <img src="https://github.com/turikhay/MapModCompanion/actions/workflows/e2e_minmax.yml/badge.svg" />
   <a href="https://modrinth.com/plugin/modmapcompanion">
     <img src="https://modrinth-utils.vercel.app/api/badge/downloads?id=UO7aDcrF&logo=true" />
   </a>
