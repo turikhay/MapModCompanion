@@ -12,7 +12,13 @@
   </a>
 </p>
 
-<img align="right" width="200" height="200" src="https://raw.githubusercontent.com/turikhay/MapModCompanion-design/main/allaylogo3_1000_10.png" />
+<img
+  align="right"
+  width="200"
+  height="200"
+  src="https://raw.githubusercontent.com/turikhay/MapModCompanion-design/main/allaylogo3_1000_10.png"
+  alt="Allay from Minecraft holding a compass and waving with their other hand at the viewer"
+/>
 
 **With this plugin your minimap will never be confused which world you're in.**
 
