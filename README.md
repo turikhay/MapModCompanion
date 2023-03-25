@@ -12,16 +12,14 @@
   </a>
 </p>
 
-**With this plugin your minimap will never be confused which world you're in.** Useful when you have a network of three or more different servers.
+**With this plugin your minimap will never be confused which world you're in.**
 
-Unofficial BungeeCord, Velocity and Spigot (Paper) companion plugin for
+Companion plugin for
 [Xaero's Minimap](https://www.curseforge.com/minecraft/mc-mods/xaeros-minimap)
 (and their [World Map](https://www.curseforge.com/minecraft/mc-mods/xaeros-world-map)),
 [JourneyMap](https://www.curseforge.com/minecraft/mc-mods/journeymap) and
 VoxelMap (both [old](https://www.curseforge.com/minecraft/mc-mods/voxelmap) and [updated](https://modrinth.com/mod/voxelmap-updated)).
-
-This plugin fixes Multi-world detection in multiplayer by simulating mod presence on
-the server side.
+Provides a way for these mods to identify worlds on BungeeCord/Velocity servers.
 
 It's recommended to install this plugin on a fresh server, otherwise **existing map data**
 (waypoints, map cache, etc.) **may no longer be visible to some players**. Fortunately,
