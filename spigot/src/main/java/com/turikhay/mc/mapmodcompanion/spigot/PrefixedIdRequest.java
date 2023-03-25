@@ -86,9 +86,4 @@ public class PrefixedIdRequest {
                 throw new MalformedPacketException("unexpected prefix length in the request packet");
         }
     }
-
-    @Deprecated
-    public static PrefixedIdRequest parse(byte[] payload) throws MalformedPacketException {
-        return parse(payload, null);
-    }
 }
