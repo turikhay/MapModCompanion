@@ -27,7 +27,9 @@ export default function test(
       if (isValid) {
         resolve();
       } else {
-        reject(`unexpected response`);
+        reject(
+          `unexpected response: ${[...buffer]}; expected: ${[...response]}`
+        );
       }
     });
   });
