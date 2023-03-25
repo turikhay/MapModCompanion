@@ -21,14 +21,14 @@ public class MapModCompanion extends Plugin {
             new PacketHandler.Factory<>(
                     "world_id.modern",
                     Channels.WORLDID_CHANNEL,
-                    PrefixedId.Deserializer.ofModern(),
-                    PrefixedId.Serializer.ofAny()
+                    PrefixedId.Deserializer.instance(),
+                    PrefixedId.Serializer.instance()
             ),
             new PacketHandler.Factory<>(
                     "world_id.legacy",
                     Channels.WORLDID_LEGACY_CHANNEL,
-                    PrefixedId.Deserializer.ofLegacy(),
-                    PrefixedId.Serializer.ofAny()
+                    PrefixedId.Deserializer.instance(),
+                    PrefixedId.Serializer.instance()
             ),
             new PacketHandler.Factory<>(
                     "xaero.mini_map",

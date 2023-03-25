@@ -6,11 +6,18 @@ import java.util.Objects;
 
 public class PrefixedId implements Id {
     private final int padding;
+    private final boolean usesMagicByte;
     private final int id;
 
-    public PrefixedId(int padding, int id) {
+    public PrefixedId(int padding, boolean usesMagicByte, int id) {
         this.padding = padding;
+        this.usesMagicByte = usesMagicByte;
         this.id = id;
+    }
+
+    @Deprecated
+    public PrefixedId(int padding, int id) {
+        this(padding, true, id);
     }
 
     @Override
@@ -24,7 +31,7 @@ public class PrefixedId implements Id {
 
     @Override
     public PrefixedId withIdUnchecked(int id) {
-        return new PrefixedId(this.padding, id);
+        return new PrefixedId(this.padding, this.usesMagicByte, id);
     }
 
     @Override
@@ -32,47 +39,44 @@ public class PrefixedId implements Id {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         PrefixedId that = (PrefixedId) o;
-        return padding == that.padding && id == that.id;
+        return padding == that.padding && usesMagicByte == that.usesMagicByte && id == that.id;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(padding, id);
+        return Objects.hash(padding, usesMagicByte, id);
     }
 
     @Override
     public String toString() {
         return "PrefixedId{" +
-                "prefixLength=" + padding +
+                "padding=" + padding +
+                ", usesMagicByte=" + usesMagicByte +
                 ", id=" + id +
                 '}';
     }
 
     public static class Deserializer implements Id.Deserializer<PrefixedId> {
-        private final boolean legacy;
-
-        public Deserializer(boolean legacy) {
-            this.legacy = legacy;
-        }
+        private static Deserializer INSTANCE;
 
         @Override
         public PrefixedId deserialize(byte[] data) throws MalformedPacketException {
             DataInputStream in = new DataInputStream(new ByteArrayInputStream(data));
             try {
-                int prefixSize;
-                if (legacy) {
-                    prefixSize = 0;
-                    in.readByte(); // always skip first byte
-                } else {
-                    prefixSize = -1;
-                    int c;
+                int prefixSize = -1;
+                int c;
+                try {
                     do {
                         prefixSize++;
                         c = in.readByte();
-                    } while(c == 0);
-                    if (c != MAGIC_MARKER) {
-                        throw new MalformedPacketException("missing magic marker in the prefixed id packet");
-                    }
+                    } while (c == 0);
+                } catch (EOFException e) {
+                    // zero-filled response
+                    throw new MalformedPacketException("zero-filled prefixed id packet");
+                }
+                boolean usesMagicNumber = true;
+                if (c != MAGIC_MARKER) {
+                    throw new MalformedPacketException("missing magic byte in the prefixed id packet");
                 }
                 int length = in.readByte();
                 byte[] buf = new byte[length];
@@ -87,18 +91,14 @@ public class PrefixedId implements Id {
                 } catch (NumberFormatException e) {
                     throw new MalformedPacketException("couldn't parse an integer from prefixed id packet", e);
                 }
-                return new PrefixedId(prefixSize, numeric);
+                return new PrefixedId(prefixSize, usesMagicNumber, numeric);
             } catch (IOException e) {
                 throw new MalformedPacketException("unexpected error reading prefixed id packet", e);
             }
         }
 
-        public static Deserializer ofModern() {
-            return new Deserializer(false);
-        }
-
-        public static Deserializer ofLegacy() {
-            return new Deserializer(true);
+        public static Deserializer instance() {
+            return INSTANCE == null ? INSTANCE = new Deserializer() : INSTANCE;
         }
     }
 
@@ -112,7 +112,9 @@ public class PrefixedId implements Id {
                 for (int i = 0; i < id.getPadding(); i++) {
                     out.writeByte(0);      // packetId, or prefix
                 }
-                out.writeByte(MAGIC_MARKER); // 42 (literally)
+                if (id.usesMagicByte) {
+                    out.writeByte(MAGIC_MARKER); // 42 (literally)
+                }
                 byte[] data = String.valueOf(id.getId()).getBytes(StandardCharsets.UTF_8);
                 out.write(data.length);      // length
                 out.write(data);             // UTF
@@ -122,7 +124,7 @@ public class PrefixedId implements Id {
             return array.toByteArray();
         }
 
-        public static Serializer ofAny() {
+        public static Serializer instance() {
             return INSTANCE == null ? INSTANCE = new Serializer() : INSTANCE;
         }
     }

@@ -33,22 +33,16 @@ public class LevelIdHandler implements Handler, PluginMessageListener {
     @Override
     public void onPluginMessageReceived(String channel, Player player, byte[] requestBytes) {
         int id = plugin.getRegistry().getId(player.getWorld());
-        PrefixedId prefixedId;
-        if (Channels.WORLDID_LEGACY_CHANNEL.equals(channelName)) {
-            // Special case for legacy channel
-            prefixedId = new PrefixedId(0, id);
-        } else {
-            PrefixedIdRequest request;
-            try {
-                request = PrefixedIdRequest.parse(requestBytes);
-            } catch (MalformedPacketException e) {
-                logger.log(Level.WARNING, "world_id request from " + player.getName() + " might be corrupted", e);
-                logger.fine(() -> "Payload: " + Arrays.toString(requestBytes));
-                return;
-            }
-            prefixedId = request.constructId(id);
+        PrefixedIdRequest request;
+        try {
+            request = PrefixedIdRequest.parse(requestBytes);
+        } catch (MalformedPacketException e) {
+            logger.log(Level.WARNING, "world_id request from " + player.getName() + " might be corrupted", e);
+            logger.fine(() -> "Payload: " + Arrays.toString(requestBytes));
+            return;
         }
-        byte[] responseBytes = PrefixedId.Serializer.ofAny().serialize(prefixedId);
+        PrefixedId prefixedId = request.constructId(id);
+        byte[] responseBytes = PrefixedId.Serializer.instance().serialize(prefixedId);
         logger.fine(() -> "Sending world_id packet to " + player.getName() + ": " + Arrays.toString(responseBytes));
         player.sendPluginMessage(plugin, channelName, responseBytes);
     }

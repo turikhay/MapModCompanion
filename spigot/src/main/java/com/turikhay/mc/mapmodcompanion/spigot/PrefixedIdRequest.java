@@ -1,10 +1,10 @@
 package com.turikhay.mc.mapmodcompanion.spigot;
 
-import com.turikhay.mc.mapmodcompanion.MalformedPacketException;
-import com.turikhay.mc.mapmodcompanion.PrefixedId;
+import com.turikhay.mc.mapmodcompanion.*;
 
 import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
+import java.io.EOFException;
 import java.io.IOException;
 import java.util.Objects;
 
@@ -12,13 +12,15 @@ import static com.turikhay.mc.mapmodcompanion.Id.MAGIC_MARKER;
 
 public class PrefixedIdRequest {
     private final int padding;
+    private final boolean usesMagicByte;
 
-    public PrefixedIdRequest(int padding) {
+    public PrefixedIdRequest(int padding, boolean usesMagicByte) {
         this.padding = padding;
+        this.usesMagicByte = usesMagicByte;
     }
 
     public PrefixedId constructId(int id) {
-        return new PrefixedId(padding, id);
+        return new PrefixedId(padding, usesMagicByte, id);
     }
 
     @Override
@@ -26,49 +28,52 @@ public class PrefixedIdRequest {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         PrefixedIdRequest that = (PrefixedIdRequest) o;
-        return padding == that.padding;
+        return padding == that.padding && usesMagicByte == that.usesMagicByte;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(padding);
+        return Objects.hash(padding, usesMagicByte);
     }
 
     @Override
     public String toString() {
         return "PrefixedIdRequest{" +
-                "prefixLength=" + padding +
+                "padding=" + padding +
+                ", usesMagicByte=" + usesMagicByte +
                 '}';
     }
 
     public static PrefixedIdRequest parse(byte[] payload) throws MalformedPacketException {
-        int padding = 0;
+        int padding = -1;
         try (DataInputStream in = new DataInputStream(new ByteArrayInputStream(payload))) {
-            if (in.readByte() != 0) {
-                throw new MalformedPacketException("unexpected first byte in the request");
-            }
             int c;
-            do {
-                padding++;
-                c = in.readByte();
-            } while(c == 0);
-            if (c != MAGIC_MARKER) {
-                throw new MalformedPacketException("first byte after zero padding in the request is not a magic number");
+            try {
+                do {
+                    padding++;
+                    c = in.readByte();
+                } while (c == 0);
+                if (c != MAGIC_MARKER) {
+                    throw new MalformedPacketException("first byte after zero padding in the request is not a magic byte");
+                }
+            } catch (EOFException e) {
+                throw new MalformedPacketException("ambiguous zero-filled request packet");
             }
         } catch (IOException e) {
             throw new MalformedPacketException("unexpected exception reading the request packet", e);
         }
         switch (padding) {
             case 1:
-                // Normal request
-                break;
+                // VoxelMap Forge 1.16.4+
+                // VoxelMap Fabric 1.19.3+
+                // JourneyMap 1.16.5+
+                return new PrefixedIdRequest(padding, true);
             case 3:
-                // VoxelMap fix
-                padding = 0;
-                break;
+                // VoxelMap LiteLoader 1.18.9 - 1.12.2
+                // VoxelMap Fabric 1.14.4 - 1.19.x
+                return new PrefixedIdRequest(0, true);
             default:
                 throw new MalformedPacketException("unexpected prefix length in the request packet");
         }
-        return new PrefixedIdRequest(padding);
     }
 }
