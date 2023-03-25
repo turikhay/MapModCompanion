@@ -14,7 +14,7 @@
 
 **With this plugin your minimap will never be confused which world you're in.** Useful when you have a network of three or more different servers.
 
-Unofficial BungeeCord and Spigot (Paper) companion plugin for
+Unofficial BungeeCord, Velocity and Spigot (Paper) companion plugin for
 [Xaero's Minimap](https://www.curseforge.com/minecraft/mc-mods/xaeros-minimap)
 (and their [World Map](https://www.curseforge.com/minecraft/mc-mods/xaeros-world-map)),
 [JourneyMap](https://www.curseforge.com/minecraft/mc-mods/journeymap) and
@@ -47,13 +47,15 @@ If you have any questions, please [join my Discord](https://discord.gg/H9ACHEqBr
 2. Put each file into the corresponding plugins folder
 3. That's it. No configuration is required. You can restart your servers now.
 
-⚠️ **NOTE** Spigot plugin can be used without BungeeCord counterpart, but it's highly recommended to install
-plugins on both sides. On the contrary, BungeeCord plugin is useless if you don't install Spigot plugin on
+⚠️ **NOTE** Spigot plugin can be used without BungeeCord/Velocity counterpart, but it's highly recommended to install
+plugins on both sides. On the contrary, BungeeCord/Velocity plugin is useless if you don't install Spigot plugin on
 downstream servers.
 
 ## Configuration
 The configuration file is stored at `plugins/MapModCompanion/config.yml` for both Spigot and BungeeCord.
-The file reloads automatically if it's modified.
+Velocity uses `plugins/mapmodcompanion/config.toml`.
+
+The configuration file reloads automatically if it's modified.
 
 ## Alternatives
 - If you're running Forge or Fabric server, just install the map mod on your server: this will unlock all its
