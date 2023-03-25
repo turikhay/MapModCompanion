@@ -25,8 +25,9 @@ jobs:
         packages/single/build/libs/MapModCompanion.jar
         bungee/build/libs/MapModCompanion-Bungee.jar
         spigot/build/libs/MapModCompanion-Spigot.jar
+        velocity/build/libs/MapModCompanion-Spigot.jar
       PRIMARY_ARTIFACT: packages/single/build/libs/MapModCompanion.jar
-      SECONDARY_ARTIFACTS_GLOB: (bungee|spigot)/build/libs/MapModCompanion-*.jar
+      SECONDARY_ARTIFACTS_GLOB: (bungee|spigot|velocity)/build/libs/MapModCompanion-*.jar
     outputs:
       artifacts: ${{ env.ARTIFACTS }}
       primary-artifact: ${{ env.PRIMARY_ARTIFACT }}
