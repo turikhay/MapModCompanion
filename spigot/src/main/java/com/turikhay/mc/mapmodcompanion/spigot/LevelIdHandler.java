@@ -32,10 +32,11 @@ public class LevelIdHandler implements Handler, PluginMessageListener {
 
     @Override
     public void onPluginMessageReceived(String channel, Player player, byte[] requestBytes) {
+        Integer protocolVersion = plugin.getProtocolLib().map(lib -> lib.getProtocolVersion(player)).orElse(null);
         int id = plugin.getRegistry().getId(player.getWorld());
         PrefixedIdRequest request;
         try {
-            request = PrefixedIdRequest.parse(requestBytes);
+            request = PrefixedIdRequest.parse(requestBytes, protocolVersion);
         } catch (MalformedPacketException e) {
             logger.log(Level.WARNING, "world_id request from " + player.getName() + " might be corrupted", e);
             logger.fine(() -> "Payload: " + Arrays.toString(requestBytes));
