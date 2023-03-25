@@ -9,6 +9,7 @@ import javax.annotation.Nullable;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.ScheduledExecutorService;
 
 public class MapModCompanion extends JavaPlugin {
@@ -34,6 +35,7 @@ public class MapModCompanion extends JavaPlugin {
     private VerboseLogger logger;
     private ScheduledExecutorService fileChangeWatchdogScheduler;
     private IdRegistry registry;
+    private @Nullable ProtocolLib protocolLib;
     private List<Handler> handlers = Collections.emptyList();
     private FileChangeWatchdog fileChangeWatchdog;
 
@@ -43,6 +45,10 @@ public class MapModCompanion extends JavaPlugin {
 
     public IdRegistry getRegistry() {
         return registry;
+    }
+
+    public Optional<ProtocolLib> getProtocolLib() {
+        return Optional.ofNullable(protocolLib);
     }
 
     @Override
@@ -72,6 +78,7 @@ public class MapModCompanion extends JavaPlugin {
         logger.fine("Verbose logging enabled");
 
         registry = initRegistry();
+        protocolLib = Handler.initialize(logger, this, new ProtocolLib.Factory());
         handlers = Handler.initialize(logger, this, factories);
         fileChangeWatchdog = new FileChangeWatchdog(
                 logger,
@@ -86,6 +93,7 @@ public class MapModCompanion extends JavaPlugin {
         logger.fine("Unloading");
         Handler.cleanUp(logger, handlers);
         handlers = Collections.emptyList();
+        getProtocolLib().ifPresent(Handler::cleanUp);
         fileChangeWatchdog.cleanUp();
     }
 
