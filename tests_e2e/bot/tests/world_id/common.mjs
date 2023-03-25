@@ -1,5 +1,11 @@
 import { Client } from "minecraft-protocol";
 
+const expectedResponseBuffer = Buffer.from("1337");
+export const expectedResponseBytes = [
+  expectedResponseBuffer.byteLength,
+  ...expectedResponseBuffer,
+];
+
 /**
  * @typedef {Object} Options
  * @property {number[]} request

@@ -1,7 +1,5 @@
 import { Client } from "minecraft-protocol";
-import test from "./common.mjs";
-
-const responseBuffer = Buffer.from("1337");
+import test, { expectedResponseBytes } from "./common.mjs";
 
 export default {
   groups: ["voxelmap"],
@@ -15,7 +13,7 @@ export default {
           protocolVersion <= 340 ? "world_id" : "worldinfo:world_id",
           {
             request: [0, 0, 0, 42],
-            response: [42, responseBuffer.byteLength, ...responseBuffer],
+            response: [42, ...expectedResponseBytes],
           }
         ),
 };
