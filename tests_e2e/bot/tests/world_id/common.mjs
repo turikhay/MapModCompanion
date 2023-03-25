@@ -44,6 +44,7 @@ function readResponse(/** @type Buffer */ buffer, /** @type number */ offset) {
     read++;
     if (lastByte != 0) {
       if (lastByte == MAGIC_NUMBER) {
+        read++;
         idLength = buffer.readInt8(i + 1);
       } else {
         idLength = lastByte;
@@ -51,7 +52,7 @@ function readResponse(/** @type Buffer */ buffer, /** @type number */ offset) {
       break;
     }
   }
-  const value = Buffer.alloc(read + idLength + 1);
+  const value = Buffer.alloc(read + idLength);
   buffer.copy(value, 0, offset);
   return { value, size: value.byteLength };
 }
