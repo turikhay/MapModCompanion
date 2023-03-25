@@ -4,6 +4,7 @@ import dataProvider from "minecraft-data";
 import xaeroMinimapTest from "./tests/xaero/minimap.mjs";
 import xaeroWorldMapTest from "./tests/xaero/worldmap.mjs";
 import voxelMapLegacy from "./tests/world_id/legacy.mjs";
+import voxelMapForge from "./tests/world_id/forge.mjs";
 import worldIdModern from "./tests/world_id/modern.mjs";
 import startTestClient from "./testClient.mjs";
 
@@ -11,6 +12,7 @@ const tests = [
   { name: "Xaero's Minimap", test: xaeroMinimapTest },
   { name: "Xaero's Worldmap", test: xaeroWorldMapTest },
   { name: "VoxelMap (legacy)", test: voxelMapLegacy },
+  { name: "Forge VoxelMap", test: voxelMapForge },
   { name: "worldinfo:world_id (modern)", test: worldIdModern },
 ];
 
