@@ -144,13 +144,16 @@ function perform_test {
     (cd .. && ./gradlew build)
   fi
 
+  set +u
   if [[ "$PROTOCOLLIB_VERSION" ]]; then
+    set -u
     local protocollib_path="$PLUGINS_SERVER/ProtocolLib.jar"
     debug_echo "Will use ProtocolLib: $protocollib_path"
     if [[ ! -f "$protocollib_path"  ]]; then
       wget "https://github.com/dmulloy2/ProtocolLib/releases/download/$PROTOCOLLIB_VERSION/ProtocolLib.jar" -O "$protocollib_path"
     fi
   fi
+  set -u
 
   debug_echo "Starting container"
   docker_compose "up --force-recreate --build $([[ "$auto" ]] && echo "--detach" || echo "")"
