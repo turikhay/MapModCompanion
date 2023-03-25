@@ -12,6 +12,8 @@
   </a>
 </p>
 
+<img align="right" width="200" height="200" src="https://raw.githubusercontent.com/turikhay/MapModCompanion-design/main/allaylogo3_1000_10.png" />
+
 **With this plugin your minimap will never be confused which world you're in.**
 
 Companion plugin for
