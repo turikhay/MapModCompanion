@@ -9,7 +9,9 @@ public interface Handler extends Disposable {
         ArrayList<Handler> handlers = new ArrayList<>();
         for (Factory<PluginType> factory : factories) {
             Handler handler = initialize(logger, plugin, factory);
-            handlers.add(handler);
+            if (handler != null) {
+                handlers.add(handler);
+            }
         }
         return handlers;
     }
