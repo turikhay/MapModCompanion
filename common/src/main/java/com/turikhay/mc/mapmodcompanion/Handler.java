@@ -3,10 +3,9 @@ package com.turikhay.mc.mapmodcompanion;
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 
 public interface Handler extends Disposable {
-    static <PluginType> List<Handler> initialize(Logger logger, PluginType plugin, List<Factory<PluginType>> factories) {
+    static <PluginType> List<Handler> initialize(ILogger logger, PluginType plugin, List<Factory<PluginType>> factories) {
         ArrayList<Handler> handlers = new ArrayList<>();
         for (Factory<PluginType> factory : factories) {
             Handler handler = initialize(logger, plugin, factory);
@@ -16,7 +15,7 @@ public interface Handler extends Disposable {
     }
 
     @SuppressWarnings({"unchecked"})
-    static <HandlerType, PluginType> @Nullable HandlerType initialize(Logger logger, PluginType plugin, Factory<PluginType> factory) {
+    static <HandlerType, PluginType> @Nullable HandlerType initialize(ILogger logger, PluginType plugin, Factory<PluginType> factory) {
         logger.fine("Calling the handler factory: " + factory.getName());
         Handler handler;
         try {
@@ -29,9 +28,21 @@ public interface Handler extends Disposable {
         return (HandlerType) handler;
     }
 
-    static void cleanUp(Logger logger, List<Handler> handlers) {
+    static <PluginType> List<Handler> initialize(java.util.logging.Logger logger, PluginType plugin, List<Factory<PluginType>> factories) {
+        return initialize(ILogger.ofJava(logger), plugin, factories);
+    }
+
+    static <HandlerType, PluginType> @Nullable HandlerType initialize(java.util.logging.Logger logger, PluginType plugin, Factory<PluginType> factory) {
+        return initialize(ILogger.ofJava(logger), plugin, factory);
+    }
+
+    static void cleanUp(ILogger logger, List<Handler> handlers) {
         logger.fine("Cleaning up " + handlers.size() + " handlers");
         handlers.forEach(Handler::cleanUp);
+    }
+
+    static void cleanUp(java.util.logging.Logger logger, List<Handler> handlers) {
+        cleanUp(ILogger.ofJava(logger), handlers);
     }
 
     interface Factory<PluginType> {

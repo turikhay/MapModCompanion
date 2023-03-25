@@ -1,5 +1,4 @@
-package com.turikhay.mc.mapmodcompanion.bungee;
-
+import com.turikhay.mc.mapmodcompanion.IdBlender;
 import com.turikhay.mc.mapmodcompanion.StandardId;
 import org.junit.jupiter.api.Test;
 

@@ -1,6 +1,4 @@
-package com.turikhay.mc.mapmodcompanion.bungee;
-
-import com.turikhay.mc.mapmodcompanion.Id;
+package com.turikhay.mc.mapmodcompanion;
 
 import java.util.Objects;
 
