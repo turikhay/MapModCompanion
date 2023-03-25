@@ -153,7 +153,7 @@ function perform_test {
   fi
 
   debug_echo "Starting container"
-  docker_compose "up --force-recreate $([[ "$auto" ]] && echo "--detach" || echo "--build")"
+  docker_compose "up --force-recreate --build $([[ "$auto" ]] && echo "--detach" || echo "")"
 
   if [[ "$auto" ]]; then
     trap perform_stop SIGINT
