@@ -1,7 +1,7 @@
 import { createClient } from "minecraft-protocol";
 
 const RETRY_SECONDS = 3;
-const RETRY_MAX_COUNT = 30;
+const RETRY_MAX_COUNT = 60;
 const skipped = new Set();
 
 export default async function startTestClient(clientOptions) {
