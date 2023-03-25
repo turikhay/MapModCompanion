@@ -1,0 +1,17 @@
+version: "3.8"
+services:
+  bot:
+    build:
+      context: bot
+    environment:
+      - BOT_HOST=proxy
+    depends_on:
+      - proxy
+  server:
+    build:
+      context: server
+  proxy:
+    build:
+      context: proxy
+    depends_on:
+      - server
