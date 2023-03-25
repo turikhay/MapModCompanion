@@ -81,6 +81,7 @@ function performTests({
       } catch (e) {
         console.warn(`${clientName} 💀  failed: ${testName}: ${e}`);
         reject(e);
+        return;
       }
       console.log(`${clientName} ✅  OK: ${testName}`);
     });
