@@ -5,6 +5,10 @@ plugins {
 
 apply from: "$rootDir/gradle/java.gradle"
 
+repositories {
+    maven { url "https://repo.dmulloy2.net/repository/public/" }
+}
+
 //configurations {
 //    bukkitNeeds
 //    bukkitProvides
@@ -15,6 +19,7 @@ spigot {
     name = 'MapModCompanion'
     authors = ['turikhay']
     apiVersion = '1.13'
+    softDepends = ['ProtocolLib']
     debug {
         jvmArgs "-Xmx2048m",
                 "-Dlog4j.configurationFile=${projectDir}${File.separatorChar}log4j2-debug.xml",
@@ -34,6 +39,7 @@ spigot {
 dependencies {
     implementation project(':common')
     compileOnly spigot(rootProject.spigot_version)
+    compileOnly "com.comphenix.protocol:ProtocolLib:${rootProject.protocolLib_version}"
 }
 
 assemble {
