@@ -2,6 +2,7 @@ package com.turikhay.mc.mapmodcompanion.spigot;
 
 import com.turikhay.mc.mapmodcompanion.*;
 
+import javax.annotation.Nullable;
 import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
 import java.io.EOFException;
@@ -44,7 +45,7 @@ public class PrefixedIdRequest {
                 '}';
     }
 
-    public static PrefixedIdRequest parse(byte[] payload) throws MalformedPacketException {
+    public static PrefixedIdRequest parse(byte[] payload, @Nullable Integer protocolVersion) throws MalformedPacketException {
         int padding = -1;
         try (DataInputStream in = new DataInputStream(new ByteArrayInputStream(payload))) {
             int c;
@@ -69,6 +70,10 @@ public class PrefixedIdRequest {
         }
         switch (padding) {
             case 1:
+                if (protocolVersion != null && protocolVersion <= ProtocolVersion.MINECRAFT_1_16_3) {
+                    // VoxelMap Forge 1.13.2 - 1.16.3
+                    return new PrefixedIdRequest(1, false);
+                }
                 // VoxelMap Forge 1.16.4+
                 // VoxelMap Fabric 1.19.3+
                 // JourneyMap 1.16.5+
@@ -80,5 +85,10 @@ public class PrefixedIdRequest {
             default:
                 throw new MalformedPacketException("unexpected prefix length in the request packet");
         }
+    }
+
+    @Deprecated
+    public static PrefixedIdRequest parse(byte[] payload) throws MalformedPacketException {
+        return parse(payload, null);
     }
 }
