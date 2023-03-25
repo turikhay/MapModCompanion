@@ -21,7 +21,7 @@ OVERRIDE_FILE_NAME="docker-compose.override.yml"
 OVERRIDE_FILE="$TEST_ENV/$OVERRIDE_FILE_NAME"
 
 set +u
-if [ "$ACTIONS_STEP_DEBUG" == "true" ]; then
+if [[ "$ACTIONS_STEP_DEBUG" == "true" ]] || [[ "$DEBUG" ]]; then
   DEBUG="true"
 else
   DEBUG=""
