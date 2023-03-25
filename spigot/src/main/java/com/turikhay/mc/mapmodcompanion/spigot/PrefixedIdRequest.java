@@ -57,7 +57,12 @@ public class PrefixedIdRequest {
                     throw new MalformedPacketException("first byte after zero padding in the request is not a magic byte");
                 }
             } catch (EOFException e) {
-                throw new MalformedPacketException("ambiguous zero-filled request packet");
+                if (padding == 2) {
+                    // VoxelMap Forge 1.12.2
+                    return new PrefixedIdRequest(1, false);
+                } else {
+                    throw new MalformedPacketException("ambiguous zero-filled request packet");
+                }
             }
         } catch (IOException e) {
             throw new MalformedPacketException("unexpected exception reading the request packet", e);

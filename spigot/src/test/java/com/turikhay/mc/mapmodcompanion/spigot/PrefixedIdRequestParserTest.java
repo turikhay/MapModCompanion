@@ -9,6 +9,11 @@ import static org.junit.jupiter.api.Assertions.*;
 class PrefixedIdRequestParserTest {
 
     @Test
+    void voxelMapForge1_12_2() throws MalformedPacketException {
+        test(new PrefixedIdRequest(1, false), new byte[] { 0, 0 });
+    }
+
+    @Test
     void standardFormTest() throws MalformedPacketException {
         // JourneyMap 1.16.5, VoxelMap 1.19.2+
         test(

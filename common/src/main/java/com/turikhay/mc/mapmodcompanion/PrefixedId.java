@@ -63,6 +63,7 @@ public class PrefixedId implements Id {
         public PrefixedId deserialize(byte[] data) throws MalformedPacketException {
             DataInputStream in = new DataInputStream(new ByteArrayInputStream(data));
             try {
+                int length;
                 int prefixSize = -1;
                 int c;
                 try {
@@ -76,9 +77,12 @@ public class PrefixedId implements Id {
                 }
                 boolean usesMagicNumber = true;
                 if (c != MAGIC_MARKER) {
-                    throw new MalformedPacketException("missing magic byte in the prefixed id packet");
+                    // 1.12.2 <= VoxelMap Forge <= 1.16.3 doesn't use MAGIC_MARKER in the response
+                    usesMagicNumber = false;
+                    length = c;
+                } else {
+                    length = in.readByte();
                 }
-                int length = in.readByte();
                 byte[] buf = new byte[length];
                 int read = in.read(buf, 0, length);
                 if (read < length) {
