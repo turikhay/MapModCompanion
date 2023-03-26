@@ -54,8 +54,8 @@ If you have any questions, please [join my Discord](https://discord.gg/H9ACHEqBr
 2. Put each file into the corresponding plugins folder
 3. That's it. No configuration is required. You can restart your servers now.
 
-⚠️ **NOTE** Spigot plugin can be used without BungeeCord/Velocity counterpart, but it's highly recommended to install
-plugins on both sides. On the contrary, BungeeCord/Velocity plugin is useless if you don't install Spigot plugin on
+⚠️ **NOTE** Spigot plugin may not work without BungeeCord/Velocity counterpart. I highly recommend installing
+plugins on both sides. BungeeCord/Velocity plugin is useless if you don't install Spigot plugin on
 downstream servers.
 
 ## Configuration
