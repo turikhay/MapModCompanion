@@ -3,17 +3,13 @@ plugins {
     id 'com.github.johnrengelman.shadow'
 }
 
+String bStats = "org.bstats:bstats-bukkit:3.0.0"
+
 apply from: "$rootDir/gradle/java.gradle"
 
 repositories {
     maven { url "https://repo.dmulloy2.net/repository/public/" }
 }
-
-//configurations {
-//    bukkitNeeds
-//    bukkitProvides
-//    compileOnly.extendsFrom(bukkitProvides)
-//}
 
 spigot {
     name = 'MapModCompanion'
@@ -26,18 +22,17 @@ spigot {
                 "-Dcom.turikhay.mc.mapmodcompanion.spigot.debug=true"
     }
     afterEvaluate {
-//        def shaded = project.configurations.bukkitNeeds.resolvedConfiguration.resolvedArtifacts.collect {
-//            it.id.componentIdentifier.displayName
-//        }.join(",")
-        excludeLibraries(
-                "${group}:common:${version}",
-//                shaded
-        )
+        ArrayList<String> excluded = []
+        excluded.addAll(rootProject.allprojects.collect { new String("${group}:${it.name}:${version}") })
+        excluded += bStats
+        excludeLibraries((String[]) excluded.toArray())
     }
 }
 
 dependencies {
     implementation project(':common')
+    implementation bStats
+
     compileOnly spigot(rootProject.spigot_version)
     compileOnly "com.comphenix.protocol:ProtocolLib:${rootProject.protocolLib_version}"
 }
@@ -48,12 +43,4 @@ assemble {
 
 shadowJar {
     archiveName("MapModCompanion-Spigot.jar")
-//    dependencies {
-//        exclude(dependency { dep ->
-//            project.configurations.bukkitProvides.resolvedConfiguration.resolvedArtifacts.any {
-//                !project.configurations.bukkitNeeds.resolvedConfiguration.resolvedArtifacts.contains(it)
-//                        && it.id.componentIdentifier.displayName == dep.name
-//            }
-//        })
-//    }
 }
