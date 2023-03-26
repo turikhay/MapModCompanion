@@ -24,5 +24,6 @@ shadowJar {
 
 dependencies {
     implementation project(":common")
+    implementation "org.bstats:bstats-bungeecord:3.0.0"
     compileOnly bungeecord()
 }
