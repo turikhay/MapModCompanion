@@ -12,7 +12,7 @@
     <img src="https://cf.way2muchnoise.eu/full_674380_downloads.svg">
   </a>
   <a href="https://www.spigotmc.org/resources/mapmodcompanion.105128/">
-    <img src="https://pluginbadges.glitch.me/api/v1/dl/Spigot%20downloads-ed8107.svg?spigot=105128">
+    <img src="https://img.shields.io/spiget/downloads/105128?label=Spigot%20%28downloads%29">
   </a>
   <a href="https://www.buymeacoffee.com/turikhay">
     <img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" height="20px">
