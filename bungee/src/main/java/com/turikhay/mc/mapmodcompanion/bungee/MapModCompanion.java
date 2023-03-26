@@ -5,6 +5,7 @@ import net.md_5.bungee.api.plugin.Plugin;
 import net.md_5.bungee.config.Configuration;
 import net.md_5.bungee.config.ConfigurationProvider;
 import net.md_5.bungee.config.YamlConfiguration;
+import org.bstats.bungeecord.Metrics;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -16,6 +17,7 @@ import java.util.*;
 import java.util.concurrent.ScheduledExecutorService;
 
 public class MapModCompanion extends Plugin {
+    private static final int BSTATS_ID = 17976;
 
     private final List<Handler.Factory<MapModCompanion>> factories = Arrays.asList(
             new PacketHandler.Factory<>(
@@ -72,6 +74,7 @@ public class MapModCompanion extends Plugin {
     @Override
     public void onEnable() {
         fileChangeWatchdogScheduler = FileChangeWatchdog.createScheduler();
+        new Metrics(this, BSTATS_ID);
         load();
     }
 

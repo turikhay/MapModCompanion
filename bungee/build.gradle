@@ -4,6 +4,7 @@ plugins {
 }
 
 apply from: "$rootDir/gradle/java.gradle"
+apply from: "$rootDir/gradle/shadow.gradle"
 
 bungee {
     name 'MapModCompanion'
@@ -24,5 +25,6 @@ shadowJar {
 
 dependencies {
     implementation project(":common")
+    implementation "org.bstats:bstats-bungeecord:3.0.0"
     compileOnly bungeecord()
 }
