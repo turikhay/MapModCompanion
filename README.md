@@ -3,7 +3,7 @@
 <p>
   <img src="https://github.com/turikhay/MapModCompanion/actions/workflows/e2e_minmax.yml/badge.svg" />
   <a href="https://modrinth.com/plugin/modmapcompanion">
-    <img src="https://modrinth-utils.vercel.app/api/badge/downloads?id=UO7aDcrF&logo=true" />
+    <img src="https://img.shields.io/modrinth/dt/UO7aDcrF?label=Modrinth%20%28downloads%29" />
   </a>
   <a href="https://www.curseforge.com/minecraft/bukkit-plugins/mapmodcompanion">
     <img src="https://cf.way2muchnoise.eu/full_674380_downloads.svg">
