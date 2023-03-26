@@ -4,6 +4,7 @@ plugins {
 }
 
 apply from: "$rootDir/gradle/java.gradle"
+apply from: "$rootDir/gradle/shadow.gradle"
 
 bungee {
     name 'MapModCompanion'
