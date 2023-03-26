@@ -9,6 +9,7 @@ import com.velocitypowered.api.event.proxy.ProxyShutdownEvent;
 import com.velocitypowered.api.plugin.Plugin;
 import com.velocitypowered.api.plugin.annotation.DataDirectory;
 import com.velocitypowered.api.proxy.ProxyServer;
+import org.bstats.velocity.Metrics;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -31,6 +32,8 @@ import static com.turikhay.mc.mapmodcompanion.velocity.Channels.*;
         authors = {"turikhay"}
 )
 public class MapModCompanion {
+    private static final int BSTATS_ID = 17977;
+
     private final List<Handler.Factory<MapModCompanion>> factories = List.of(
             new MessageHandler.Factory<>(
                     "world_id.modern",
@@ -61,6 +64,7 @@ public class MapModCompanion {
     private final ProxyServer server;
     private final Logger logger;
     private final Path dataDirectory;
+    private final Metrics.Factory metricsFactory;
 
     private final IdLookup converter = new IdLookup.ConfigBased((path, def) ->
             getConfig().getLong(path, (long) def).intValue()
@@ -72,11 +76,15 @@ public class MapModCompanion {
     private FileChangeWatchdog fileChangeWatchdog;
 
     @Inject
-    public MapModCompanion(ProxyServer server, Logger logger, @DataDirectory Path dataDirectory) {
+    public MapModCompanion(ProxyServer server, Logger logger,
+                           @DataDirectory Path dataDirectory,
+                           Metrics.Factory metricsFactory
+    ) {
         logger.info("Initialized");
         this.server = server;
         this.logger = logger;
         this.dataDirectory = dataDirectory;
+        this.metricsFactory = metricsFactory;
     }
 
     public Toml getConfig() {
@@ -95,6 +103,7 @@ public class MapModCompanion {
     public void onProxyInitialization(ProxyInitializeEvent event) {
         logger.info("onProxyInitialization");
         fileChangeWatchdogScheduler = FileChangeWatchdog.createScheduler();
+        metricsFactory.make(this, BSTATS_ID);
         load();
     }
 
