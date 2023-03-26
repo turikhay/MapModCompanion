@@ -133,13 +133,13 @@ function docker_compose {
   bash -c "docker compose$FILES_FMT $@"
 }
 
-function perform_stop() {
-  docker_compose down
+function docker_compose_down() {
+  docker_compose down --rmi local
 }
 
 function perform_test {
   debug_echo "Stopping old containers"
-  docker_compose down >/dev/null
+  docker_compose_down >/dev/null
 
   local auto=1
   if [[ "$1" == "manual" || "$1" == "debug" ]]; then
@@ -161,7 +161,7 @@ function perform_test {
   docker_compose "up --force-recreate --build $([[ "$auto" ]] && echo "--detach" || echo "")"
 
   if [[ "$auto" ]]; then
-    trap perform_stop SIGINT
+    trap docker_compose_down SIGINT
 
     if [[ $DEBUG ]]; then
       docker compose logs -f &
@@ -173,7 +173,7 @@ function perform_test {
     TEST_EXIT=`docker wait "$TEST_CONTAINER_NAME"`
     debug_echo "Done: $TEST_EXIT"
 
-    docker_compose down >/dev/null 2>/dev/null
+    docker_compose_down >/dev/null 2>/dev/null
 
     if [[ "$TEST_EXIT" != "0" ]]; then
       echo "⚠️  Test failed" >&2
