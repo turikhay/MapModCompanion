@@ -6,7 +6,7 @@ I wanted to verify if the plugin actually works on all Minecraft versions we cla
 
 ## How?
 
-Thanks to [@itzg's](https://github.com/itzg) who probably spent countless hours on [Docker image for hosting Minecraft server](https://github.com/itzg/docker-minecraft-server) it was easy. We just spin up a test server using Docker Compose and log into the game. The bot (which is built using [node-minecraft-protocol](https://github.com/PrismarineJS/node-minecraft-protocol)) only needs to join the server and listen to specific plugin channels.
+Thanks to [@itzg](https://github.com/itzg) who probably spent countless hours on [Docker image for hosting Minecraft server](https://github.com/itzg/docker-minecraft-server) it was easy. We just spin up a test server using Docker Compose and log into the game. The bot (which is built using [node-minecraft-protocol](https://github.com/PrismarineJS/node-minecraft-protocol)) only needs to join the server and listen to specific plugin channels.
 
 But automatic bot test is not _that_ useful. It doesn't behave like real Minecraft client.
 
