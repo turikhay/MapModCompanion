@@ -4,7 +4,9 @@
   <a href="https://github.com/turikhay/MapModCompanion/blob/main/LICENSE.txt">
     <img src="https://img.shields.io/github/license/turikhay/MapModCompanion">
   </a>
-  <img src="https://github.com/turikhay/MapModCompanion/actions/workflows/e2e_minmax.yml/badge.svg" />
+  <a href="https://github.com/turikhay/MapModCompanion/actions/workflows/e2e_minmax.yml">
+    <img src="https://github.com/turikhay/MapModCompanion/actions/workflows/e2e_minmax.yml/badge.svg" />
+  </a>
   <a href="https://modrinth.com/plugin/modmapcompanion">
     <img src="https://img.shields.io/modrinth/dt/UO7aDcrF?label=Modrinth%20%28downloads%29" />
   </a>
