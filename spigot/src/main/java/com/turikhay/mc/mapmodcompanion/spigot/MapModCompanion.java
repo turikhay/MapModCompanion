@@ -1,6 +1,7 @@
 package com.turikhay.mc.mapmodcompanion.spigot;
 
 import com.turikhay.mc.mapmodcompanion.*;
+import org.bstats.bukkit.Metrics;
 import org.bukkit.World;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.plugin.messaging.PluginMessageListener;
@@ -13,6 +14,8 @@ import java.util.Optional;
 import java.util.concurrent.ScheduledExecutorService;
 
 public class MapModCompanion extends JavaPlugin {
+    private static final int BSTATS_ID = 16539;
+
     private final List<Handler.Factory<MapModCompanion>> factories = Arrays.asList(
             new XaeroHandler.Factory(
                     "xaero.mini_map",
@@ -59,6 +62,7 @@ public class MapModCompanion extends JavaPlugin {
     @Override
     public void onEnable() {
         fileChangeWatchdogScheduler = FileChangeWatchdog.createScheduler();
+        new Metrics(this, BSTATS_ID);
         saveDefaultConfig();
         load();
     }
