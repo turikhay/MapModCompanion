@@ -80,7 +80,6 @@ public class MapModCompanion {
                            @DataDirectory Path dataDirectory,
                            Metrics.Factory metricsFactory
     ) {
-        logger.info("Initialized");
         this.server = server;
         this.logger = logger;
         this.dataDirectory = dataDirectory;
@@ -101,7 +100,6 @@ public class MapModCompanion {
 
     @Subscribe
     public void onProxyInitialization(ProxyInitializeEvent event) {
-        logger.info("onProxyInitialization");
         fileChangeWatchdogScheduler = FileChangeWatchdog.createScheduler();
         metricsFactory.make(this, BSTATS_ID);
         load();
@@ -109,7 +107,6 @@ public class MapModCompanion {
 
     @Subscribe
     public void onProxyShutdown(ProxyShutdownEvent event) {
-        logger.info("onProxyShutdown");
         fileChangeWatchdogScheduler.shutdown();
         unload();
     }
