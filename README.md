@@ -11,6 +11,9 @@
   <a href="https://www.spigotmc.org/resources/mapmodcompanion.105128/">
     <img src="https://pluginbadges.glitch.me/api/v1/dl/Spigot%20downloads-ed8107.svg?spigot=105128">
   </a>
+  <a href="https://www.buymeacoffee.com/turikhay">
+    <img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" height="20px">
+  </a>
 </p>
 
 <img
