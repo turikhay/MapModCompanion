@@ -31,6 +31,16 @@
 
 **With this plugin your minimap will never be confused which world you're in.**
 
+<details><summary>How it should look like</summary>
+
+| Mod | Screenshot |
+| ----|------------|
+| Xaero's Worldmap | <img src="https://raw.githubusercontent.com/turikhay/MapModCompanion-design/main/2023-03-28_00.32.04_1.png" width="200" /> |
+| VoxelMap | <img src="https://raw.githubusercontent.com/turikhay/MapModCompanion-design/main/2023-03-28_00.34.50_1.png" width="200" /> <img src="https://raw.githubusercontent.com/turikhay/MapModCompanion-design/main/2023-03-28_00.35.04_1.png" width="200" /> |
+| JourneyMap | It just works 😄 |
+
+</details> 
+
 Companion plugin for
 [Xaero's Minimap](https://www.curseforge.com/minecraft/mc-mods/xaeros-minimap)
 (and their [World Map](https://www.curseforge.com/minecraft/mc-mods/xaeros-world-map)),
