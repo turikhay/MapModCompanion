@@ -35,8 +35,8 @@
 
 | Mod | Screenshot |
 | ----|------------|
-| Xaero's WorldMap | <img src="https://raw.githubusercontent.com/turikhay/MapModCompanion-design/main/2023-03-28_00.32.04_1.png" width="200" /> |
-| VoxelMap | <img src="https://raw.githubusercontent.com/turikhay/MapModCompanion-design/main/2023-03-28_00.34.50_1.png" width="200" /> <img src="https://raw.githubusercontent.com/turikhay/MapModCompanion-design/main/2023-03-28_00.35.04_1.png" width="200" /> |
+| Xaero's WorldMap | <img src="https://raw.githubusercontent.com/turikhay/MapModCompanion-design/main/2023-03-28_00.32.04_1.png" width="200" alt="Screenshot of Xaero's WorldMap menu" /> |
+| VoxelMap | <img src="https://raw.githubusercontent.com/turikhay/MapModCompanion-design/main/2023-03-28_00.34.50_1.png" width="200" alt="Screenshot of the game with a minimap on the top-right corner" /> <img src="https://raw.githubusercontent.com/turikhay/MapModCompanion-design/main/2023-03-28_00.35.04_1.png" width="200" alt="Screenshot of a map" /> |
 | Xaero's Minimap | See Xaero's WorldMap |
 | JourneyMap | It just works 😄 |
 
