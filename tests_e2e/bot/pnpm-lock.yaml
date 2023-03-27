@@ -3,13 +3,13 @@ lockfileVersion: 5.4
 specifiers:
   args-parser: ^1.3.0
   minecraft-data: ^3.31.0
-  minecraft-protocol: ^1.41.1
+  minecraft-protocol: ^1.41.2
   prettier: ^2.8.7
 
 dependencies:
   args-parser: 1.3.0
   minecraft-data: 3.31.0
-  minecraft-protocol: 1.41.1
+  minecraft-protocol: 1.41.2
 
 devDependencies:
   prettier: 2.8.7
@@ -30,14 +30,14 @@ packages:
       uuid: 8.3.2
     dev: false
 
-  /@types/node/18.15.7:
-    resolution: {integrity: sha512-LFmUbFunqmBn26wJZgZPYZPrDR1RwGOu2v79Mgcka1ndO6V0/cwjivPTc4yoK6n9kmw4/ls1r8cLrvh2iMibFA==}
+  /@types/node/18.15.10:
+    resolution: {integrity: sha512-9avDaQJczATcXgfmMAW3MIWArOO7A+m90vuCFLr8AotWf8igO/mRoYukrk2cqZVtv38tHs33retzHEilM7FpeQ==}
     dev: false
 
   /@types/readable-stream/2.3.15:
     resolution: {integrity: sha512-oM5JSKQCcICF1wvGgmecmHldZ48OZamtMxcGGVICOJA8o8cahXC1zEVAif8iwoc5j8etxFaRFnf095+CDsuoFQ==}
     dependencies:
-      '@types/node': 18.15.7
+      '@types/node': 18.15.10
       safe-buffer: 5.1.2
     dev: false
 
@@ -238,8 +238,8 @@ packages:
     resolution: {integrity: sha512-qaUSbKWoOsH9brn0JQuBhxNAzTDMwrOXorwuRxdJKKKDYvZhtml+6GVCUrY5HRiEsieBEjCUnhVpDuQiKsiFaw==}
     dev: false
 
-  /minecraft-protocol/1.41.1:
-    resolution: {integrity: sha512-Bxhv94gzbCdKNP+zlb5k1ZAc/xrwhlSUzPWIOEZjqe3651NxEwxhavKjy3AirZHE4bWMgaYBYc3vrjT41VbSCA==}
+  /minecraft-protocol/1.41.2:
+    resolution: {integrity: sha512-r2TbsyKtXK9IAxZYmBju/aHtseXBSgegUbqnnhCDW3qe60c0nFkUAoSJNNRMDHIxFUq1iVgkxHhKPRxgRs3Omg==}
     engines: {node: '>=14'}
     dependencies:
       '@types/readable-stream': 2.3.15
