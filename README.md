@@ -58,6 +58,9 @@ If you have any questions, please [join my Discord](https://discord.gg/H9ACHEqBr
 
 
 ## Installation
+
+ℹ️ You should install this plugin on both sides: on BungeeCord/Velocity and on Spigot/Paper.
+
 1. Download the latest release from [Releases](https://github.com/turikhay/MapModCompanion/releases) page
 2. Put each file into the corresponding plugins folder
 3. That's it. No configuration is required. You can restart your servers now.
