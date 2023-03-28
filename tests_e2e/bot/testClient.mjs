@@ -44,6 +44,10 @@ function performTests({
     username,
     version,
   });
+  client.on("login", () => {
+    client.registerChannel('minecraft:register', ['registerarr', []]);
+    client.registerChannel('minecraft:unregister', ['registerarr', []]);
+  })
   const results = tests.map(({ name, test }) => ({
     name,
     result: test.test ? test.test(client, protocolVersion) : undefined,
