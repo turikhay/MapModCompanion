@@ -20,9 +20,8 @@ export default function test(
   const request = Buffer.from(options.request);
   const response = Buffer.from(options.response);
 
-  client.registerChannel(channel, [readResponse, writeRequest, sizeOfRequest]);
-
   client.on("login", function () {
+    client.registerChannel(channel, ["restBuffer", []]);
     client.writeChannel(channel, request);
   });
 
@@ -39,41 +38,4 @@ export default function test(
       }
     });
   });
-}
-
-const MAGIC_NUMBER = 42;
-
-function readResponse(/** @type Buffer */ buffer, /** @type number */ offset) {
-  let read = 0,
-    idLength = Number.NaN,
-    lastByte;
-  for (let i = offset; i < buffer.byteLength; i++) {
-    lastByte = buffer.readInt8(i);
-    read++;
-    if (lastByte != 0) {
-      if (lastByte == MAGIC_NUMBER) {
-        read++;
-        idLength = buffer.readInt8(i + 1);
-      } else {
-        idLength = lastByte;
-      }
-      break;
-    }
-  }
-  const value = Buffer.alloc(read + idLength);
-  buffer.copy(value, 0, offset);
-  return { value, size: value.byteLength };
-}
-
-function writeRequest(
-  /** @type Buffer */ value,
-  /** @type Buffer */ buffer,
-  /** @type number */ offset
-) {
-  value.copy(buffer, offset);
-  return offset + value.byteLength;
-}
-
-function sizeOfRequest(/** @type Buffer */ value) {
-  return value.byteLength;
 }

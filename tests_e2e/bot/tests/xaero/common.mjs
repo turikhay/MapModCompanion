@@ -6,7 +6,7 @@ export default function test(
 ) {
   // register channel
   client.once("login", () => {
-    client.registerChannel(channel, undefined);
+    client.registerChannel(channel, ["restBuffer", []]);
   });
 
   return new Promise((resolve, reject) => {
