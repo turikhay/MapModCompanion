@@ -21,12 +21,13 @@ OVERRIDE_FILE_NAME="docker-compose.override.yml"
 OVERRIDE_FILE="$TEST_ENV/$OVERRIDE_FILE_NAME"
 
 set +u
-if [[ "$ACTIONS_STEP_DEBUG" == "true" ]] || [[ "$DEBUG" ]]; then
-  DEBUG="true"
-else
+if [[ ! -v $DEBUG ]]; then
   DEBUG=""
+  if [[ $ACTIONS_STEP_DEBUG == "true" ]]; then
+    DEBUG="1"
 fi
-if [[ "$DEBUG" ]] || [[ "$GRADLE_REBUILD" ]]; then
+fi
+if [[ $DEBUG ]] || [[ $GRADLE_REBUILD ]]; then
   (cd .. && ./gradlew build)
 fi
 set -u
