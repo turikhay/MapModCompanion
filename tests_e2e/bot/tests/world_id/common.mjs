@@ -21,7 +21,7 @@ export default function test(
   const response = Buffer.from(options.response);
 
   client.on("login", function () {
-    client.registerChannel(channel, ["restBuffer", []]);
+    client.registerChannel(channel, ["restBuffer", []], true);
     client.writeChannel(channel, request);
   });
 
