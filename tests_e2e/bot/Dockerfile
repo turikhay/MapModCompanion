@@ -10,4 +10,7 @@ RUN pnpm install --prod --frozen-lockfile
 
 COPY . .
 
+ARG DEBUG=""
+ENV DEBUG=${DEBUG}
+
 CMD [ "node", "index.mjs" ]

@@ -25,7 +25,7 @@ if [[ ! -v $DEBUG ]]; then
   DEBUG=""
   if [[ $ACTIONS_STEP_DEBUG == "true" ]]; then
     DEBUG="1"
-fi
+  fi
 fi
 if [[ $DEBUG ]] || [[ $GRADLE_REBUILD ]]; then
   (cd .. && ./gradlew build)
@@ -111,6 +111,9 @@ cat << EOF > "$OVERRIDE_FILE"
 services:
   bot:
     container_name: "$TEST_CONTAINER_NAME"
+    build:
+      args:
+        - DEBUG=$([[ "$DEBUG" -gt 1 ]] && echo "minecraft-protocol" || echo "")
   proxy:
     volumes:
       - $TEST_ENV/plugins_proxy:/server/plugins
