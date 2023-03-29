@@ -65,9 +65,11 @@ public class FileChangeWatchdog implements Disposable {
         task.cancel(true);
     }
 
-    public static ScheduledExecutorService createScheduler() {
-        return Executors.newSingleThreadScheduledExecutor(r ->
+    public static ScheduledThreadPoolExecutor createScheduler() {
+        ScheduledThreadPoolExecutor service = new ScheduledThreadPoolExecutor(1, r ->
                 new Thread(r, "MapModCompanion-" + FileChangeWatchdog.class.getSimpleName())
         );
+        service.setExecuteExistingDelayedTasksAfterShutdownPolicy(false);
+        return service;
     }
 }
