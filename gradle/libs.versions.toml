@@ -2,7 +2,7 @@
 spigradle = "2.4.3"
 spotbugs = "4.7.3"
 shadow = "8.1.1"
-junit = "5.8.1"
+junit = "5.9.2"
 bstats = "3.0.2"
 velocity-api = "3.1.1"
 
