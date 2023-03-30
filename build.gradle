@@ -1,8 +1,8 @@
 plugins {
     id 'java'
-    id 'kr.entree.spigradle' version '2.4.2' apply false
-    id 'kr.entree.spigradle.bungee' version '2.4.2' apply false
-    id 'com.github.johnrengelman.shadow' version '7.1.2' apply false
+    alias libs.plugins.spigradle apply false
+    alias libs.plugins.spigradle.bungee apply false
+    alias libs.plugins.shadow apply false
 }
 
 group 'com.turikhay.mc'
