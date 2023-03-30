@@ -1,6 +1,6 @@
 [versions]
 spigradle = "2.4.3"
-spotbugs = "4.7.1"
+spotbugs = "4.7.3"
 shadow = "8.1.1"
 junit = "5.8.1"
 bstats = "3.0.2"
