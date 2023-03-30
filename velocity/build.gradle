@@ -32,7 +32,7 @@ classes {
 }
 
 shadowJar {
-    archiveName("mapmodcompanion.jar")
+    archiveFileName = "mapmodcompanion.jar"
 }
 
 dependencies {
