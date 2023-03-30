@@ -3,7 +3,7 @@ spigradle = "2.4.2"
 spotbugs = "4.7.1"
 shadow = "7.1.2"
 junit = "5.8.1"
-bstats = "3.0.0"
+bstats = "3.0.2"
 velocity-api = "3.1.1"
 
 [libraries]
