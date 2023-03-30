@@ -11,10 +11,10 @@ repositories {
 }
 
 dependencies {
-    compileOnly 'com.github.spotbugs:spotbugs-annotations:4.7.1'
+    compileOnly libs.spotbugs.annotations
 
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+    testImplementation libs.junit.api
+    testRuntimeOnly libs.junit.engine
 }
 
 test {

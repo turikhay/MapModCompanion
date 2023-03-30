@@ -1,0 +1,22 @@
+[versions]
+spigradle = "2.4.2"
+spotbugs = "4.7.1"
+shadow = "7.1.2"
+junit = "5.8.1"
+bstats = "3.0.0"
+velocity-api = "3.1.1"
+
+[libraries]
+spotbugs-annotations = { module = "com.github.spotbugs:spotbugs-annotations", version.ref = "spotbugs" }
+junit-api = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "junit" }
+junit-engine = { module = "org.junit.jupiter:junit-jupiter-engine", version.ref = "junit" }
+bstats-bungeecord = { module = "org.bstats:bstats-bungeecord", version.ref = "bstats" }
+bstats-bukkit = { module = "org.bstats:bstats-bukkit", version.ref = "bstats" }
+bstats-velocity = { module = "org.bstats:bstats-velocity", version.ref = "bstats" }
+velocity-api = { module = "com.velocitypowered:velocity-api", version.ref = "velocity-api" }
+
+
+[plugins]
+spigradle = { id = "kr.entree.spigradle", version.ref = "spigradle" }
+spigradle-bungee = { id = "kr.entree.spigradle.bungee", version.ref = "spigradle" }
+shadow = { id = "com.github.johnrengelman.shadow", version.ref = "shadow" }
