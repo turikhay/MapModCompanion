@@ -1,0 +1,10 @@
+version: 2
+updates:
+  - package-ecosystem: gradle
+    directory: "/" 
+    schedule:
+      interval: "daily"
+  - package-ecosystem: npm
+    directory: "/tests_e2e/bot"
+    schedule:
+      interval: "daily"
