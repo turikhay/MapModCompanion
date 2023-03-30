@@ -43,5 +43,5 @@ assemble {
 }
 
 shadowJar {
-    archiveName("MapModCompanion-Spigot.jar")
+    archiveFileName = "MapModCompanion-Spigot.jar"
 }

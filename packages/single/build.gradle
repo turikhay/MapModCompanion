@@ -16,5 +16,5 @@ assemble {
 }
 
 shadowJar {
-    archiveName("MapModCompanion.jar")
+    archiveFileName = "MapModCompanion.jar"
 }

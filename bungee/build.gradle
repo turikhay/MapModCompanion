@@ -20,7 +20,7 @@ assemble {
 }
 
 shadowJar {
-    archiveName("MapModCompanion-Bungee.jar")
+    archiveFileName = "MapModCompanion-Bungee.jar"
 }
 
 dependencies {
