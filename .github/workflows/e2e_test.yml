@@ -25,6 +25,8 @@ jobs:
       - uses: actions/download-artifact@v3
         with:
           name: gradle-build
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
       - name: Build
         run: ./run.sh ${{ inputs.proxy }} ${{ inputs.version }} build
       - name: Test
