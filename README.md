@@ -7,14 +7,14 @@
   <a href="https://github.com/turikhay/MapModCompanion/actions/workflows/e2e_notable.yml">
     <img src="https://github.com/turikhay/MapModCompanion/actions/workflows/e2e_notable.yml/badge.svg" />
   </a>
+  <a href="https://www.spigotmc.org/resources/mapmodcompanion.105128/">
+    <img src="https://img.shields.io/spiget/downloads/105128?label=Spigot%20%28downloads%29">
+  </a>
   <a href="https://modrinth.com/plugin/modmapcompanion">
     <img src="https://img.shields.io/modrinth/dt/UO7aDcrF?label=Modrinth%20%28downloads%29" />
   </a>
   <a href="https://www.curseforge.com/minecraft/bukkit-plugins/mapmodcompanion">
     <img src="https://cf.way2muchnoise.eu/full_674380_downloads.svg">
-  </a>
-  <a href="https://www.spigotmc.org/resources/mapmodcompanion.105128/">
-    <img src="https://img.shields.io/spiget/downloads/105128?label=Spigot%20%28downloads%29">
   </a>
   <a href="https://www.buymeacoffee.com/turikhay">
     <img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" height="20px">
