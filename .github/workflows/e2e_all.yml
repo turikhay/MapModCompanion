@@ -19,6 +19,7 @@ jobs:
     name: E2E test
     needs: build
     strategy:
+      fail-fast: false
       matrix:
         version:
           - 1.19.3
