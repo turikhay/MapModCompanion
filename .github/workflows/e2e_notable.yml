@@ -20,6 +20,10 @@ jobs:
       matrix:
         version:
           - 1.19.3
+          - 1.16.5
+          - 1.16.3
+          - 1.13.2
+          - 1.12.2
           - 1.8.9
         proxy:
           - velocity
