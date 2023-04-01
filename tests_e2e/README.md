@@ -1,5 +1,11 @@
 # E2E tests for MapModCompanion
 
+⚠️ In order to run E2E tests you'll need at least 2 GiB of _available_ RAM. Check it by running:
+
+```shell
+$ free -h
+```
+
 ## Why?
 
 I wanted to verify if the plugin actually works on all Minecraft versions we claim it supports. Setting up 30+ Paper, Bungeecord and Velocity instances manually was just too much work for me.
