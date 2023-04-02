@@ -1,0 +1,19 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "debug proxy (in Docker)",
+            "request": "attach",
+            "hostName": "localhost",
+            "port": 9010,
+        },
+        {
+            "type": "java",
+            "name": "debug server (in Docker)",
+            "request": "attach",
+            "hostName": "localhost",
+            "port": 9011,
+        }
+    ]
+}
