@@ -41,6 +41,8 @@ jobs:
         with:
           java-version: '17'
           distribution: 'temurin'
+      - name: Validate Gradle wrapper
+        uses: gradle/wrapper-validation-action@v1
       - name: Determine target Spigot version
         id: target
         run: |
