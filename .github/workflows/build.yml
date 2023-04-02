@@ -6,6 +6,8 @@ on:
       version:
         required: true
         type: string
+      spigot-target:
+        type: string
     outputs:
       artifacts:
         description: List of produced artifacts, each on a new line
