@@ -1,3 +1,6 @@
+assemble {
+    dependsOn shadowJar
+}
 
 shadowJar {
     relocate "org.bstats", "${rootProject.group}.${rootProject.name}.shade.org.bstats"
