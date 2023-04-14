@@ -15,10 +15,6 @@ dependencies {
 }
 
 tasks {
-    assemble {
-        dependsOn(shadowJar)
-    }
-
     shadowJar {
         archiveFileName.set("MapModCompanion.jar")
     }
