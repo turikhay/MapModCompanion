@@ -8,7 +8,6 @@ plugins {
 
 apply {
     from("$rootDir/gradle/java.gradle")
-    from("$rootDir/gradle/shadow.gradle")
 }
 
 bungee {

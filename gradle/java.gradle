@@ -20,3 +20,13 @@ dependencies {
 test {
     useJUnitPlatform()
 }
+
+pluginManager.withPlugin('com.github.johnrengelman.shadow') {
+    assemble {
+        dependsOn shadowJar
+    }
+
+    shadowJar {
+        relocate "org.bstats", "${rootProject.group}.${rootProject.name}.shade.org.bstats"
+    }
+}
