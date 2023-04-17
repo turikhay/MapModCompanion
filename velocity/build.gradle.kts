@@ -6,10 +6,6 @@ plugins {
     alias(libs.plugins.shadow)
 }
 
-apply {
-    from("$rootDir/gradle/java.gradle")
-}
-
 java {
     sourceCompatibility = JavaVersion.VERSION_11
     targetCompatibility = JavaVersion.VERSION_11

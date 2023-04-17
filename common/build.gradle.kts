@@ -1,3 +1,3 @@
-apply {
-    from("$rootDir/gradle/java.gradle")
+plugins {
+    java
 }

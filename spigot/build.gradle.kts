@@ -6,10 +6,6 @@ plugins {
     alias(libs.plugins.shadow)
 }
 
-apply {
-    from("$rootDir/gradle/java.gradle")
-}
-
 repositories {
     maven {
         url = uri("https://repo.dmulloy2.net/repository/public/")
