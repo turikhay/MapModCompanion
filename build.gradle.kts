@@ -5,4 +5,4 @@ plugins {
     alias(libs.plugins.shadow) apply false
 }
 
-group "com.turikhay.mc"
+group = "com.turikhay.mc"
