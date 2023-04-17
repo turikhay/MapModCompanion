@@ -34,7 +34,7 @@ spigot {
     }
     afterEvaluate {
         excludeLibraries = listOf(
-                rootProject.allprojects.map { "$group:$name:$version" },
+                rootProject.allprojects.map { "${it.group}:${it.name}:${it.version}" },
                 listOf(bStats)
         ).flatten()
     }
