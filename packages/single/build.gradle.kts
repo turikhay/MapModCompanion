@@ -9,8 +9,6 @@ dependencies {
     implementation(project(":velocity"))
 }
 
-tasks {
-    shadowJar {
-        archiveFileName.set("MapModCompanion.jar")
-    }
+tasks.shadowJar {
+    archiveFileName.set("MapModCompanion.jar")
 }
