@@ -5,6 +5,7 @@ plugins {
     alias(libs.plugins.shadow)
 }
 
+// TODO Migrate to buildSrc plugin; see: https://github.com/gradle/gradle/issues/15383
 subprojects {
     plugins.withType<JavaPlugin> {
         val libs = rootProject.project.libs
