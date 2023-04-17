@@ -59,6 +59,8 @@ which supported Velocity, Fabric and Spigot at the time of writing.
 
 If you have any questions, please [join my Discord](https://discord.gg/H9ACHEqBrg).
 
+[![](https://bstats.org/signatures/bukkit/MapModCompanion.svg)](https://bstats.org/plugin/bukkit/MapModCompanion/16539 "MapModCompanion on bStats")
+
 ## Support table
 | Mod                                                                                | Oldest version             | Latest version                                               | Status      |
 |------------------------------------------------------------------------------------|----------------------------|--------------------------------------------------------------|-------------|
