@@ -8,10 +8,6 @@ tasks {
         dependsOn(shadowJar)
     }
 
-    jar {
-        setEnabled(false)
-    }
-
     shadowJar {
         archiveFileName.set("MapModCompanion-${
             project.name.replaceFirstChar {
