@@ -14,6 +14,7 @@ bstats-bungeecord = { module = "org.bstats:bstats-bungeecord", version.ref = "bs
 bstats-bukkit = { module = "org.bstats:bstats-bukkit", version.ref = "bstats" }
 bstats-velocity = { module = "org.bstats:bstats-velocity", version.ref = "bstats" }
 velocity-api = { module = "com.velocitypowered:velocity-api", version.ref = "velocity-api" }
+shadow = { module = "com.github.johnrengelman:shadow", version.ref = "shadow" }
 
 
 [plugins]
