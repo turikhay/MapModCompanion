@@ -15,6 +15,10 @@ tasks {
             }
         }.jar")
         
-        relocate("org.bstats", "${rootProject.group}.${rootProject.name}.shade.org.bstats")
+        listOf(
+            "org.bstats",
+        ).forEach { pkg ->
+            relocate(pkg, with(rootProject) { "${group}.${name}.shade.${pkg}" })
+        }
     }
 }
