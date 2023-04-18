@@ -2,8 +2,7 @@ import groovy.json.JsonSlurper
 import groovy.json.JsonOutput
 
 plugins {
-    java
-    alias(libs.plugins.shadow)
+    id("java-shadow")
 }
 
 java {
