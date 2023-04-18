@@ -8,8 +8,6 @@ plugins {
 // TODO Migrate to buildSrc plugin; see: https://github.com/gradle/gradle/issues/15383
 subprojects {
     plugins.withType<JavaPlugin> {
-        val libs = rootProject.project.libs
-
         java {
             sourceCompatibility = JavaVersion.VERSION_1_8
             targetCompatibility = JavaVersion.VERSION_1_8
