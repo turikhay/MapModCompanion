@@ -1,5 +1,6 @@
 plugins {
-    id("java-shadow")
+    java
+    alias(libs.plugins.shadow)
 }
 
 dependencies {

@@ -1,8 +1,9 @@
 import kr.entree.spigradle.kotlin.bungeecord
 
 plugins {
-    id("java-shadow")
+    java
     alias(libs.plugins.spigradle.bungee)
+    alias(libs.plugins.shadow)
 }
 
 bungee {

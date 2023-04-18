@@ -1,8 +1,9 @@
 import kr.entree.spigradle.kotlin.spigot
 
 plugins {
-    id("java-shadow")
+    java
     alias(libs.plugins.spigradle)
+    alias(libs.plugins.shadow)
 }
 
 repositories {
