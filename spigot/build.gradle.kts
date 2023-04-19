@@ -43,7 +43,3 @@ dependencies {
     compileOnly(spigot(spigot_version))
     compileOnly("com.comphenix.protocol:ProtocolLib:${protocolLib_version}")
 }
-
-tasks.shadowJar {
-    archiveFileName.set("MapModCompanion-Spigot.jar")
-}

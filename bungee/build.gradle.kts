@@ -18,7 +18,3 @@ dependencies {
     implementation(libs.bstats.bungeecord)
     compileOnly(bungeecord())
 }
-
-tasks.shadowJar {
-    archiveFileName.set("MapModCompanion-Bungee.jar")
-}
