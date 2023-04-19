@@ -12,8 +12,6 @@ repositories {
 }
 
 val bStats = with(libs.bstats.bukkit.get()) { "$module:$versionConstraint" }
-val spigot_version: String by project
-val protocolLib_version: String by project
 
 spigot {
     name = "MapModCompanion"
@@ -34,6 +32,10 @@ spigot {
         ).flatten()
     }
 }
+
+// From gradle.properties
+val spigot_version: String by project
+val protocolLib_version: String by project
 
 dependencies {
     implementation(project(":common"))
