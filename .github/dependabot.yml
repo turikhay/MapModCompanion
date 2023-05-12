@@ -3,8 +3,8 @@ updates:
   - package-ecosystem: gradle
     directory: "/" 
     schedule:
-      interval: "daily"
+      interval: monthly
   - package-ecosystem: npm
     directory: "/tests_e2e/bot"
     schedule:
-      interval: "daily"
+      interval: monthly
