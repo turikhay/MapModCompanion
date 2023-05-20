@@ -3,6 +3,9 @@ name: E2E test (common)
 on:
   workflow_call:
     inputs:
+      artifact-dir:
+        required: true
+        type: string
       proxy:
         required: true
         type: string
@@ -25,6 +28,7 @@ jobs:
       - uses: actions/download-artifact@v3
         with:
           name: gradle-build
+          path: ${{ inputs.artifact-dir }}
       - name: Build
         run: ./run.sh ${{ inputs.proxy }} ${{ inputs.version }} build
       - name: Test

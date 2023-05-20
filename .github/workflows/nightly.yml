@@ -7,6 +7,13 @@ on:
     tags-ignore:
       - 'v*.*.*'
   workflow_call:
+    outputs:
+      artifact:
+        description: Path to the jar artifact
+        value: ${{ jobs.build.outputs.artifact }}
+      artifact-dir:
+        description: Path to the original artifact directory
+        value: ${{ jobs.build.outputs.artifact-dir }}
 
 jobs:
   prepare:
