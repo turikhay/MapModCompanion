@@ -39,4 +39,4 @@ jobs:
             Changelog is available on
             [GitHub](https://github.com/turikhay/MapModCompanion/releases/tag/v${{ needs.version.outputs.version }})
           game_versions: ${{ steps.supported_versions.outputs.list }}
-          file_path: ${{ needs.build.outputs.primary-artifact }}
+          file_path: ${{ needs.build.outputs.artifact }}

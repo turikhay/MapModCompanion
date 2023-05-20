@@ -33,7 +33,7 @@ jobs:
         with:
           name: ${{ needs.version.outputs.version }}
           version: ${{ needs.version.outputs.version }}
-          files-primary: ${{ needs.build.outputs.primary-artifact }}
+          files-primary: ${{ needs.build.outputs.artifact }}
           version-type: ${{ needs.version.outputs.release-type  }}
           changelog: |
             Changelog is available on
