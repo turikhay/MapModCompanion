@@ -35,4 +35,4 @@ jobs:
           prerelease: ${{ needs.version.outputs.pre-release }}
           generate_release_notes: true
           draft: true
-          files: ${{ needs.build.outputs.primary-artifact  }}
+          files: ${{ needs.build.outputs.artifact  }}

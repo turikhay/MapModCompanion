@@ -9,31 +9,17 @@ on:
       spigot-target:
         type: string
     outputs:
-      artifacts:
-        description: List of produced artifacts, each on a new line
-        value: ${{ jobs.build.outputs.artifacts }}
-      primary-artifact:
-        description: Path to the primary artifact
-        value: ${{ jobs.build.outputs.primary-artifact }}
-      secondary-artifacts-glob:
-        description: Glob of paths to secondary artifacts
-        value: ${{ jobs.build.outputs.secondary-artifacts-glob }}
+      artifact:
+        description: Path to the jar artifact
+        value: ${{ jobs.build.outputs.artifact }}
 
 jobs:
   build:
     name: Gradle build
     env:
-      ARTIFACTS: |
-        packages/single/build/libs/MapModCompanion.jar
-        bungee/build/libs/MapModCompanion-Bungee.jar
-        spigot/build/libs/MapModCompanion-Spigot.jar
-        velocity/build/libs/MapModCompanion-Spigot.jar
-      PRIMARY_ARTIFACT: packages/single/build/libs/MapModCompanion.jar
-      SECONDARY_ARTIFACTS_GLOB: (bungee|spigot|velocity)/build/libs/MapModCompanion-*.jar
+      ARTIFACT: packages/single/build/libs/MapModCompanion.jar
     outputs:
-      artifacts: ${{ env.ARTIFACTS }}
-      primary-artifact: ${{ env.PRIMARY_ARTIFACT }}
-      secondary-artifacts-glob: ${{ env.SECONDARY_ARTIFACTS_GLOB }}
+      artifact: ${{ env.ARTIFACT }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -59,4 +45,4 @@ jobs:
       - uses: actions/upload-artifact@v3
         with:
           name: gradle-build
-          path: ${{ env.ARTIFACTS }}
+          path: ${{ env.ARTIFACT }}
