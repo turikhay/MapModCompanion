@@ -46,4 +46,6 @@ jobs:
       - uses: actions/upload-artifact@v3
         with:
           name: gradle-build
-          path: ${{ env.ARTIFACT }}
+          path: |
+            .empty
+            ${{ env.ARTIFACT }}
