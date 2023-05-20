@@ -12,14 +12,19 @@ on:
       artifact:
         description: Path to the jar artifact
         value: ${{ jobs.build.outputs.artifact }}
+      artifact-dir:
+        description: Path to the original artifact directory
+        value: ${{ jobs.build.outputs.artifact-dir }}
 
 jobs:
   build:
     name: Gradle build
     env:
+      ARTIFACT_DIR: packages/single/build/libs
       ARTIFACT: packages/single/build/libs/MapModCompanion.jar
     outputs:
       artifact: ${{ env.ARTIFACT }}
+      artifact-dir: ${{ env.ARTIFACT_DIR }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3

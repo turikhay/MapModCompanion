@@ -24,6 +24,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: gradle-build
+          path: ${{ needs.build.outputs.artifact-dir }}
       - name: Read VERSIONS_CF.txt
         id: supported_versions
         run: |

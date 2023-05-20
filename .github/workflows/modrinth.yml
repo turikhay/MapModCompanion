@@ -24,6 +24,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: gradle-build
+          path: ${{ needs.build.outputs.artifact-dir }}
       - name: Read VERSIONS.txt
         id: supported_versions
         uses: juliangruber/read-file-action@v1
