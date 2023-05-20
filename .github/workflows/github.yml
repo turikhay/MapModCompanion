@@ -29,7 +29,6 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: gradle-build
-          path: ${{ needs.build.outputs.artifact-dir }}
       - uses: softprops/action-gh-release@v1
         with:
           name: ${{ needs.version.outputs.version }}

@@ -35,6 +35,5 @@ jobs:
           - waterfall
     uses: ./.github/workflows/e2e_test.yml
     with:
-      artifact-dir: ${{ needs.build.outputs.artifact-dir }}
       proxy: ${{ matrix.proxy }}
       version: ${{ matrix.version }}
