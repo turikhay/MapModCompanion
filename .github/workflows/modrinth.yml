@@ -29,11 +29,11 @@ jobs:
         uses: juliangruber/read-file-action@v1
         with:
           path: ./VERSIONS.txt
-      - uses: Kir-Antipov/mc-publish@v3.2
+      - uses: Kir-Antipov/mc-publish@v3.3
         with:
           name: ${{ needs.version.outputs.version }}
           version: ${{ needs.version.outputs.version }}
-          files-primary: ${{ needs.build.outputs.artifact }}
+          files: ${{ needs.build.outputs.artifact }}
           version-type: ${{ needs.version.outputs.release-type  }}
           changelog: |
             Changelog is available on
