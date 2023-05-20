@@ -42,7 +42,8 @@ jobs:
             -Pversion=${{ inputs.version }}
             -Pspigot_version=${{ steps.target.outputs.spigot-version }}
             -PprotocolLib_version=4.2.1
-      - run: touch .empty
+      - name: Force original path preservation (for upload-artifact@v3)
+        run: touch .empty
       - uses: actions/upload-artifact@v3
         with:
           name: gradle-build
