@@ -9,11 +9,11 @@ tasks {
     }
 
     shadowJar {
-        archiveFileName.set("MapModCompanion-${
+        archiveFileName = "MapModCompanion-${
             project.name.replaceFirstChar {
                 it.uppercaseChar()
             }
-        }.jar")
+        }.jar"
         
         listOf(
             "org.bstats",
