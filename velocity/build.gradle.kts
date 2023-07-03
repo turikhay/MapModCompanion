@@ -37,6 +37,6 @@ tasks {
     }
 
     shadowJar {
-        archiveFileName.set("mapmodcompanion.jar")
+        archiveFileName = "mapmodcompanion.jar"
     }
 }

@@ -9,5 +9,5 @@ dependencies {
 }
 
 tasks.shadowJar {
-    archiveFileName.set("MapModCompanion.jar")
+    archiveFileName = "MapModCompanion.jar"
 }
