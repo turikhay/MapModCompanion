@@ -57,8 +57,8 @@ public class MessageHandler<IdType extends Id> implements Handler {
         try {
             id = deserializer.deserialize(event.getData());
         } catch (MalformedPacketException e) {
-            logger.warn("Received possibly malformed packet in {}", channelId, e);
             if (logger.isDebugEnabled()) {
+                logger.debug("Received possibly malformed packet in {}", channelId, e);
                 logger.debug("Packet data: {}", Arrays.toString(event.getData()));
             }
             return;
