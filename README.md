@@ -67,7 +67,7 @@ If you have any questions, please [join my Discord](https://discord.gg/H9ACHEqBr
 | [Xaero's Minimap](https://www.curseforge.com/minecraft/mc-mods/xaeros-minimap)     | v20.20.0 / Minecraft 1.8.9 | v23.x.x / Minecraft 1.20.x                                   | ✅ Supported |
 | [Xaero's World Map](https://www.curseforge.com/minecraft/mc-mods/xaeros-world-map) | v1.10.0 / Minecraft 1.8.9  | v1.30.x / Minecraft 1.20.x                                   | ✅ Supported |
 | [JourneyMap](https://www.curseforge.com/minecraft/mc-mods/journeymap)              | v5.7.1 / Minecraft 1.16.5  | v5.9.9 / Minecraft 1.20.1                               | ✅ Supported |
-| VoxelMap                                                                           | [v1.7.10](https://www.curseforge.com/minecraft/mc-mods/voxelmap) / Minecraft 1.8    | [v1.12.x](https://modrinth.com/mod/voxelmap-updated) / Minecraft 1.20.10 | ✅ Supported<sup class="reference">[[1]](https://github.com/turikhay/MapModCompanion/issues/8)</sup> |
+| VoxelMap                                                                           | [v1.7.10](https://www.curseforge.com/minecraft/mc-mods/voxelmap) / Minecraft 1.8    | [v1.12.x](https://modrinth.com/mod/voxelmap-updated) / Minecraft 1.20.1 | ✅ Supported<sup class="reference">[[1]](https://github.com/turikhay/MapModCompanion/issues/8)</sup> |
 
 
 ## Installation
