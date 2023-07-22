@@ -27,11 +27,13 @@ public class MapModCompanion extends JavaPlugin {
             ),
             new LevelIdHandler.Factory(
                     "world_id.modern",
-                    Channels.WORLDID_CHANNEL
+                    Channels.WORLDID_CHANNEL,
+                    false
             ),
             new LevelIdHandler.Factory(
                     "world_id.legacy",
-                    Channels.WORLDID_LEGACY_CHANNEL
+                    Channels.WORLDID_LEGACY_CHANNEL,
+                    true
             )
     );
 
@@ -166,13 +168,21 @@ public class MapModCompanion extends JavaPlugin {
         getServer().getMessenger().unregisterOutgoingPluginChannel(this, channelName);
     }
 
-    void registerIncomingChannel(String channelName, PluginMessageListener listener) throws InitializationException {
+    void registerIncomingChannel(String channelName, boolean legacyChannel, PluginMessageListener listener) throws InitializationException {
         logger.fine("Registering incoming plugin channel: " + channelName);
         try {
             getServer().getMessenger().registerIncomingPluginChannel(this, channelName, listener);
         } catch (Exception e) {
-            throw new InitializationException("couldn't register incoming plugin channel: " + channelName, e);
+            String message = "couldn't register incoming plugin channel: " + channelName;
+            if (legacyChannel) {
+                message += " (can be safely ignored on 1.13+)";
+            }
+            throw new InitializationException(message, e);
         }
+    }
+
+    void registerIncomingChannel(String channelName, PluginMessageListener listener) throws InitializationException {
+        registerIncomingChannel(channelName, false, listener);
     }
 
     void unregisterIncomingChannel(String channelName, PluginMessageListener listener) {

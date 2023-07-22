@@ -11,16 +11,18 @@ import java.util.logging.Logger;
 public class LevelIdHandler implements Handler, PluginMessageListener {
     private final Logger logger;
     private final String channelName;
+    private final boolean legacyChannel;
     private final MapModCompanion plugin;
 
-    public LevelIdHandler(Logger logger, String channelName, MapModCompanion plugin) {
+    public LevelIdHandler(Logger logger, String channelName, boolean legacyChannel, MapModCompanion plugin) {
         this.logger = logger;
         this.channelName = channelName;
+        this.legacyChannel = legacyChannel;
         this.plugin = plugin;
     }
 
     public void init() throws InitializationException {
-        plugin.registerIncomingChannel(channelName, this);
+        plugin.registerIncomingChannel(channelName, legacyChannel, this);
         plugin.registerOutgoingChannel(channelName);
     }
 
@@ -51,10 +53,12 @@ public class LevelIdHandler implements Handler, PluginMessageListener {
     public static class Factory implements Handler.Factory<MapModCompanion> {
         private final String configPath;
         private final String channelName;
+        private final boolean legacyChannel;
 
-        public Factory(String configPath, String channelName) {
+        public Factory(String configPath, String channelName, boolean legacyChannel) {
             this.configPath = configPath;
             this.channelName = channelName;
+            this.legacyChannel = legacyChannel;
         }
 
         @Override
@@ -67,7 +71,7 @@ public class LevelIdHandler implements Handler, PluginMessageListener {
             plugin.checkEnabled(configPath);
             LevelIdHandler handler = new LevelIdHandler(
                     new PrefixLogger(plugin.getVerboseLogger(), channelName),
-                    channelName, plugin
+                    channelName, legacyChannel, plugin
             );
             handler.init();
             return handler;
