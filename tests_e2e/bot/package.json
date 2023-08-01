@@ -15,7 +15,7 @@
   "dependencies": {
     "args-parser": "^1.3.0",
     "minecraft-data": "^3.38.0",
-    "minecraft-protocol": "^1.43.1"
+    "minecraft-protocol": "^1.43.2"
   },
   "devDependencies": {
     "prettier": "^2.8.8"
