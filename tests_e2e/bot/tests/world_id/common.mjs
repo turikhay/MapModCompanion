@@ -15,7 +15,7 @@ export const expectedResponseBytes = [
 export default function test(
   /** @type Client */ client,
   /** @type string */ channel,
-  /** @type Options */ options
+  /** @type Options */ options,
 ) {
   const request = Buffer.from(options.request);
   const response = Buffer.from(options.response);
@@ -33,7 +33,7 @@ export default function test(
         resolve();
       } else {
         reject(
-          `unexpected response: ${[...buffer]}; expected: ${[...response]}`
+          `unexpected response: ${[...buffer]}; expected: ${[...response]}`,
         );
       }
     });

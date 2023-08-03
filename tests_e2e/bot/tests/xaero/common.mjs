@@ -5,7 +5,7 @@ expectedResponseBuffer.writeInt32BE(1337, 1);
 
 export default function test(
   /** @type Client */ client,
-  /** @type string */ channel
+  /** @type string */ channel,
 ) {
   // register channel
   client.once("login", () => {

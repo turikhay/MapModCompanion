@@ -43,7 +43,7 @@ const clientGroups = [];
 tests.forEach((tf) => {
   for (const testsArray of clientGroups) {
     const hasConflict = testsArray.some((tf1) =>
-      tf1.test.groups.some((group) => tf.test.groups.includes(group))
+      tf1.test.groups.some((group) => tf.test.groups.includes(group)),
     );
     if (hasConflict) {
       continue;
@@ -62,7 +62,7 @@ const results = clientGroups.map((group, index) =>
     name: `Client#${index}`,
     username: `test${index}`,
     tests: group,
-  })
+  }),
 );
 
 let success = true;
