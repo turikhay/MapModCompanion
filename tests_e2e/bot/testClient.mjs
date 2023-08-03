@@ -17,7 +17,7 @@ export default async function startTestClient(clientOptions) {
         //   `😒 ${name} failed to connect to the server. Retrying in ${RETRY_SECONDS} seconds...`
         // );
         await new Promise((resolve) =>
-          setTimeout(resolve, RETRY_SECONDS * 1000)
+          setTimeout(resolve, RETRY_SECONDS * 1000),
         );
         tryAgain = true;
         continue;
@@ -45,9 +45,9 @@ function performTests({
     version,
   });
   client.on("login", () => {
-    client.registerChannel('minecraft:register', ['registerarr', []]);
-    client.registerChannel('minecraft:unregister', ['registerarr', []]);
-  })
+    client.registerChannel("minecraft:register", ["registerarr", []]);
+    client.registerChannel("minecraft:unregister", ["registerarr", []]);
+  });
   const results = tests.map(({ name, test }) => ({
     name,
     result: test.test ? test.test(client, protocolVersion) : undefined,

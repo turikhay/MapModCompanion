@@ -14,6 +14,6 @@ export default {
           {
             request: [0, 0, 0, 42],
             response: [42, ...expectedResponseBytes],
-          }
+          },
         ),
 };

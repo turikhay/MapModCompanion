@@ -16,6 +16,6 @@ export default {
               protocolVersion <= 753
                 ? [0, ...expectedResponseBytes]
                 : [0, 42, ...expectedResponseBytes],
-          }
+          },
         ),
 };
