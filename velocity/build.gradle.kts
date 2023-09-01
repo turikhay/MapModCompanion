@@ -28,7 +28,7 @@ dependencies {
 tasks {
     classes {
         doLast {
-            val pluginFile = file("$buildDir/classes/java/main/velocity-plugin.json")
+            val pluginFile = project.layout.buildDirectory.file("classes/java/main/velocity-plugin.json").get().getAsFile()
             @Suppress("UNCHECKED_CAST")
             val pluginDescriptor = JsonSlurper().parse(pluginFile) as MutableMap<String, Any>
             pluginDescriptor["version"] = version
