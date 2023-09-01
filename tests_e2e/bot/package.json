@@ -18,6 +18,6 @@
     "minecraft-protocol": "^1.43.2"
   },
   "devDependencies": {
-    "prettier": "^3.0.0"
+    "prettier": "^3.0.3"
   }
 }
