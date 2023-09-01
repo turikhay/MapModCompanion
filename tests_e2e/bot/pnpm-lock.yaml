@@ -12,8 +12,8 @@ dependencies:
     specifier: ^3.44.0
     version: 3.44.0
   minecraft-protocol:
-    specifier: ^1.43.2
-    version: 1.43.2
+    specifier: ^1.44.0
+    version: 1.44.0
 
 devDependencies:
   prettier:
@@ -40,8 +40,8 @@ packages:
     resolution: {integrity: sha512-9avDaQJczATcXgfmMAW3MIWArOO7A+m90vuCFLr8AotWf8igO/mRoYukrk2cqZVtv38tHs33retzHEilM7FpeQ==}
     dev: false
 
-  /@types/readable-stream@2.3.15:
-    resolution: {integrity: sha512-oM5JSKQCcICF1wvGgmecmHldZ48OZamtMxcGGVICOJA8o8cahXC1zEVAif8iwoc5j8etxFaRFnf095+CDsuoFQ==}
+  /@types/readable-stream@4.0.2:
+    resolution: {integrity: sha512-hhzOsMEISZ+mX1l+01F0duYt9wHEbCGmjARed0PcQoVS5zAdu7u5YbWYuNGhw09M1MgGr3kfsto+ut/MnAdKqA==}
     dependencies:
       '@types/node': 18.15.10
       safe-buffer: 5.1.2
@@ -244,11 +244,11 @@ packages:
     resolution: {integrity: sha512-qaUSbKWoOsH9brn0JQuBhxNAzTDMwrOXorwuRxdJKKKDYvZhtml+6GVCUrY5HRiEsieBEjCUnhVpDuQiKsiFaw==}
     dev: false
 
-  /minecraft-protocol@1.43.2:
-    resolution: {integrity: sha512-JFpBLksqlXRWJ0AOBOoXhnfZx0wTWo8SNpYP7MPpKev6jBbx1w/SDU+pgshB60ig+Iw7DUVLj3TYs5U5YkTSwg==}
+  /minecraft-protocol@1.44.0:
+    resolution: {integrity: sha512-sYu4fFzUKt3spPG5tAdkaB9sNQPT0sV6fyS0sS7/nxdzFfjmLhF6BLNC+32ieK4/MhgNyHtH6xusD0Bi0Roq9w==}
     engines: {node: '>=14'}
     dependencies:
-      '@types/readable-stream': 2.3.15
+      '@types/readable-stream': 4.0.2
       aes-js: 3.1.2
       buffer-equal: 1.0.1
       debug: 4.3.4
