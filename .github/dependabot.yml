@@ -8,3 +8,7 @@ updates:
     directory: "/tests_e2e/bot"
     schedule:
       interval: monthly
+  - package-ecosystem: github-actions
+    directory: "/"
+    schedule:
+      interval: monthly
