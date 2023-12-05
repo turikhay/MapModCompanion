@@ -3,7 +3,7 @@ name: Update Gradle Wrapper
 on:
   workflow_dispatch:
   schedule:
-    - cron: "41 18 * * *"
+    - cron: "41 18 * * 1"
 
 jobs:
   update-gradle-wrapper:
