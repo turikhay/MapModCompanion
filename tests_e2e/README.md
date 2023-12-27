@@ -12,11 +12,9 @@ I wanted to verify if the plugin actually works on all Minecraft versions we cla
 
 ## How?
 
-Thanks to [@itzg](https://github.com/itzg) who probably spent countless hours on [Docker image for hosting Minecraft server](https://github.com/itzg/docker-minecraft-server) it was easy. We just spin up a test server using Docker Compose and log into the game. The bot (which is built using [node-minecraft-protocol](https://github.com/PrismarineJS/node-minecraft-protocol)) only needs to join the server and listen to specific plugin channels.
+Thanks to [@itzg](https://github.com/itzg), who probably spent countless hours on [Docker image for hosting Minecraft server](https://github.com/itzg/docker-minecraft-server), it was easy. We just spin up a test server using Docker Compose and log into the game. The bot (which is built using [node-minecraft-protocol](https://github.com/PrismarineJS/node-minecraft-protocol)) only needs to join the server and listen to specific plugin channels.
 
-But automatic bot test is not _that_ useful. It doesn't behave like real Minecraft client.
-
-More importantly, now I can easily debug different combinations of Minecraft server versions and proxies.
+Automatic bot test is not _that_ useful because it doesn't behave like real Minecraft client. Now I can easily debug different combinations of Minecraft server versions and proxies.
 
 ## Let me try
 
@@ -35,6 +33,5 @@ Command:
 * `test` – perform automatic (E2E) tests
 * `manual` – spin up specified server and proxy
 * * Use env `JAVA_DEBUG=1` to enable Java debugging. Local port `9010` goes for the proxy, `9011` for the server. Example: `JAVA_DEBUG=1 ./run.sh waterfall 1.16.5 manual`
-* `build` – build Docker images
-* `cleanup` – calls `docker compose down`
-* `convert` – calls `docker compose convert`
+* * Use env `BLUE=1` to enable second server (e.g. to debug map persistence). You'll be able to switch between servers with `/server red/blue`.
+

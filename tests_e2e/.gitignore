@@ -1,3 +1,6 @@
 test_env/
 #jar/
 debug.log
+
+.venv
+venv

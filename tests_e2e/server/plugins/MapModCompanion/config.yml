@@ -1,8 +1,5 @@
 verbose: true
 
-overrides:
-  world: 1984
-
 world_id:
   modern:
     enabled: true
