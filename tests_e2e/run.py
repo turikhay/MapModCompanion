@@ -428,7 +428,7 @@ if __name__ == "__main__":
                 'logs',
                 *([
                     '-f',
-                ] if debug_level else [
+                ] if debug else [
                     '-f',
                     'bot',
                 ])
