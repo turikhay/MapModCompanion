@@ -350,7 +350,7 @@ if __name__ == "__main__":
         bungee_config_path = test_env_dir / "proxy" / "config.yml"
         with open(bungee_config_path, "r") as f:
             bungee_config = yaml_load(f, Loader=YamlLoader)
-        bungee_config["server"] = dict(
+        bungee_config["servers"] = dict(
             (server_name, {
                 'address': f'{server_name}:25565'
             }) for server_name in servers
