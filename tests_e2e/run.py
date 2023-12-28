@@ -164,9 +164,14 @@ def copy_server_files():
 
 def copy_proxy_files():
     logger.debug("Copying proxy files")
+    if proxy_type == "waterfall":
+        _proxy_dir = "bungeecord"    
+    else:
+        _proxy_dir = proxy_type
+    _from = PARENT_DIR / "proxy" / _proxy_dir
     _to = files_dir_of("proxy")
     copy_clean(
-        PARENT_DIR / "proxy" / proxy_type,
+        _from,
         _to,
     )
     if proxy_type == "velocity":
