@@ -229,6 +229,9 @@ if __name__ == "__main__":
     test_env_dir = PARENT_DIR / "test_env" / test_name
     makedirs(test_env_dir, exist_ok=True)
 
+    if debug_level:
+        gradle_build()
+
     copy_server_files()
     copy_proxy_files()
 
@@ -400,7 +403,8 @@ if __name__ == "__main__":
     if action == "build":
         exit_code = docker([
             *compose,
-            'build'
+            'build',
+            '--no-cache',
         ]).wait()
         exit(exit_code)
 
@@ -409,6 +413,7 @@ if __name__ == "__main__":
         'up',
         '--force-recreate',
         '--build',
+        *(['-V'] if debug_level else []),
         *(['--detach'] if auto else []),
     ])
 
