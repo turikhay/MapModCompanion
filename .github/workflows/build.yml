@@ -44,7 +44,7 @@ jobs:
             -PprotocolLib_version=4.2.1
       - name: Force original path preservation (for upload-artifact@v3)
         run: touch .empty
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: gradle-build
           path: |
