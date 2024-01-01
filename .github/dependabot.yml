@@ -8,6 +8,11 @@ updates:
     directory: "/tests_e2e/bot"
     schedule:
       interval: monthly
+    groups:
+      minecraft:
+        patterns:
+          - "minecraft-data"
+          - "minecraft-protocol"
   - package-ecosystem: github-actions
     directory: "/"
     schedule:
