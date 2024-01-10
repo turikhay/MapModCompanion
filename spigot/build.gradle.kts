@@ -25,7 +25,8 @@ tasks {
                 "authors" to listOf("turikhay"),
                 "apiVersion" to "1.13",
                 "softDepends" to listOf("ProtocolLib"),
-                "main" to "com.turikhay.mc.mapmodcompanion.spigot.MapModCompanion"
+                "main" to "com.turikhay.mc.mapmodcompanion.spigot.MapModCompanion",
+                "folia-supported" to true,
         ))
     }
 }
