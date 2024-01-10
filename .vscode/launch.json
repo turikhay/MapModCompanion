@@ -1,19 +1,33 @@
 {
-    "version": "0.2.0",
-    "configurations": [
-        {
-            "type": "java",
-            "name": "debug proxy (in Docker)",
-            "request": "attach",
-            "hostName": "localhost",
-            "port": 9010,
-        },
-        {
-            "type": "java",
-            "name": "debug server (in Docker)",
-            "request": "attach",
-            "hostName": "localhost",
-            "port": 9011,
-        }
-    ]
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "run.py",
+      "type": "python",
+      "request": "launch",
+      "program": "run.py",
+      "args": [
+        "velocity",
+        "1.20.1",
+        "test"
+      ],
+      "cwd": "${workspaceFolder}/tests_e2e/",
+      "console": "integratedTerminal",
+      "justMyCode": true
+    },
+    {
+      "type": "java",
+      "name": "debug proxy (in Docker)",
+      "request": "attach",
+      "hostName": "localhost",
+      "port": 9010
+    },
+    {
+      "type": "java",
+      "name": "debug server (in Docker)",
+      "request": "attach",
+      "hostName": "localhost",
+      "port": 9011
+    }
+  ]
 }

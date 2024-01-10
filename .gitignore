@@ -36,3 +36,7 @@ bin/
 
 ### Mac OS ###
 .DS_Store
+
+### Python ###
+/venv/
+/.venv/

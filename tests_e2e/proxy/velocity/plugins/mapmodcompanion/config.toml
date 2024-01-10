@@ -1,6 +1,3 @@
-[overrides]
-1984 = 1337
-
 [world_id.modern]
 enabled = true
 

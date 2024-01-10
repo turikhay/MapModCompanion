@@ -2,8 +2,5 @@ ip_forward: true
 online_mode: false
 listeners:
 - priorities:
-  - lobby
+  - red
   host: 0.0.0.0:25565
-servers:
-  lobby:
-    address: server:25565

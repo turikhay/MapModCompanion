@@ -2,6 +2,6 @@ FROM itzg/bungeecord
 
 ENV SERVER_PORT=25565
 
-ARG TYPE_DIR
+ENV JVM_OPTS="-Dlog4j2.configurationFile=log4j2.xml"
 
-COPY --chown=bungeecord:bungeecord ${TYPE_DIR}/files/ /server
+COPY --chown=bungeecord:bungeecord . /server

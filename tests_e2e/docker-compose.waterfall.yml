@@ -1,7 +1,0 @@
-services:
-  proxy:
-    build:
-      args:
-        - TYPE_DIR=bungeecord
-    environment:
-      - TYPE=waterfall
