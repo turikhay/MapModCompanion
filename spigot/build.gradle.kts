@@ -1,35 +1,32 @@
-import kr.entree.spigradle.kotlin.spigot
-
 plugins {
     id("java-shadow")
-    alias(libs.plugins.spigradle)
 }
 
 repositories {
     maven {
         url = uri("https://repo.dmulloy2.net/repository/public/")
     }
+    maven {
+        url = uri("https://oss.sonatype.org/content/repositories/snapshots/")
+    }
+    maven {
+        url = uri("https://hub.spigotmc.org/nexus/content/repositories/snapshots/")
+    }
 }
 
 val bStats = with(libs.bstats.bukkit.get()) { "$module:$versionConstraint" }
 
-spigot {
-    name = "MapModCompanion"
-    authors = listOf("turikhay")
-    apiVersion = "1.13"
-    softDepends = listOf("ProtocolLib")
-    debug {
-        jvmArgs = listOf(
-                "-Xmx2048m",
-                "-Dlog4j.configurationFile=${projectDir}${File.separatorChar}log4j2-debug.xml",
-                "-Dcom.turikhay.mc.mapmodcompanion.spigot.debug=true"
-        )
-    }
-    afterEvaluate {
-        excludeLibraries = listOf(
-                rootProject.allprojects.map { "${it.group}:${it.name}:${it.version}" },
-                listOf(bStats)
-        ).flatten()
+tasks {
+    val writePluginYml by creating(PluginDescriptorTask::class) {
+        descriptor = "plugin.yml"
+        content.putAll(mapOf(
+                "name" to "MapModCompanion",
+                "version" to project.version,
+                "authors" to listOf("turikhay"),
+                "apiVersion" to "1.13",
+                "softDepends" to listOf("ProtocolLib"),
+                "main" to "com.turikhay.mc.mapmodcompanion.spigot.MapModCompanion"
+        ))
     }
 }
 
@@ -42,6 +39,6 @@ dependencies {
     implementation(libs.bstats.bukkit)
 
     // These dependencies are intentionally not present in libs.version.toml
-    compileOnly(spigot(spigot_version))
+    compileOnly("org.spigotmc:spigot-api:${spigot_version}-R0.1-SNAPSHOT")
     compileOnly("com.comphenix.protocol:ProtocolLib:${protocolLib_version}")
 }
