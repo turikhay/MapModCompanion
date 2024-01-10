@@ -16,9 +16,16 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import java.util.Arrays;
 import java.util.Locale;
 import java.util.UUID;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
 public class XaeroHandler implements Handler, Listener {
+    private final ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor(
+            runnable -> new Thread(runnable, XaeroHandler.class.getSimpleName())
+    );
+
     private final Logger logger;
     private final String configPath;
     private final String channelName;
@@ -42,6 +49,7 @@ public class XaeroHandler implements Handler, Listener {
         plugin.unregisterOutgoingChannel(channelName);
         HandlerList.unregisterAll(this);
         logger.fine("Event listener has been unregistered");
+        scheduler.shutdown();
     }
 
     @EventHandler(priority = EventPriority.MONITOR)
@@ -65,7 +73,7 @@ public class XaeroHandler implements Handler, Listener {
         );
         if (repeatTimes > 1) {
             for (int i = 0; i < repeatTimes; i++) {
-                plugin.getServer().getScheduler().runTaskLater(plugin, task, 20L * i);
+                scheduler.schedule(task, i, TimeUnit.SECONDS);
             }
         } else {
             task.run();
