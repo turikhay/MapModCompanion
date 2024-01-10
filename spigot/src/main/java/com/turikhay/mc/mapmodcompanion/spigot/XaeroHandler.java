@@ -4,6 +4,7 @@ import com.turikhay.mc.mapmodcompanion.Handler;
 import com.turikhay.mc.mapmodcompanion.InitializationException;
 import com.turikhay.mc.mapmodcompanion.LevelMapProperties;
 import com.turikhay.mc.mapmodcompanion.PrefixLogger;
+import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -16,9 +17,16 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import java.util.Arrays;
 import java.util.Locale;
 import java.util.UUID;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
 public class XaeroHandler implements Handler, Listener {
+    private final ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor(
+            runnable -> new Thread(runnable, XaeroHandler.class.getSimpleName())
+    );
+
     private final Logger logger;
     private final String configPath;
     private final String channelName;
@@ -42,6 +50,7 @@ public class XaeroHandler implements Handler, Listener {
         plugin.unregisterOutgoingChannel(channelName);
         HandlerList.unregisterAll(this);
         logger.fine("Event listener has been unregistered");
+        scheduler.shutdown();
     }
 
     @EventHandler(priority = EventPriority.MONITOR)
@@ -56,16 +65,17 @@ public class XaeroHandler implements Handler, Listener {
 
     private void sendPacket(PlayerEvent event, Type type) {
         Player p = event.getPlayer();
-        int id = plugin.getRegistry().getId(p.getWorld());
+        World world = p.getWorld();
+        int id = plugin.getRegistry().getId(world);
         byte[] payload = LevelMapProperties.Serializer.instance().serialize(id);
-        SendPayloadTask task = new SendPayloadTask(logger, plugin, p.getUniqueId(), channelName, payload);
+        SendPayloadTask task = new SendPayloadTask(logger, plugin, p.getUniqueId(), channelName, payload, world.getUID());
         int repeatTimes = plugin.getConfig().getInt(
                 configPath + ".events." + type.name().toLowerCase(Locale.ROOT) + ".repeat_times",
                 1
         );
         if (repeatTimes > 1) {
             for (int i = 0; i < repeatTimes; i++) {
-                plugin.getServer().getScheduler().runTaskLater(plugin, task, 20L * i);
+                scheduler.schedule(task, i, TimeUnit.SECONDS);
             }
         } else {
             task.run();
@@ -109,19 +119,27 @@ public class XaeroHandler implements Handler, Listener {
         private final UUID playerId;
         private final String channelName;
         private final byte[] payload;
+        private final UUID expectedWorld;
 
-        public SendPayloadTask(Logger logger, MapModCompanion plugin, UUID playerId, String channelName, byte[] payload) {
+        public SendPayloadTask(Logger logger, MapModCompanion plugin, UUID playerId, String channelName, byte[] payload,
+                               UUID expectedWorld) {
             this.logger = logger;
             this.plugin = plugin;
             this.playerId = playerId;
             this.channelName = channelName;
             this.payload = payload;
+            this.expectedWorld = expectedWorld;
         }
 
         @Override
         public void run() {
             Player player = plugin.getServer().getPlayer(playerId);
             if (player == null) {
+                return;
+            }
+            UUID world = player.getWorld().getUID();
+            if (!world.equals(expectedWorld)) {
+                logger.fine("Skipping sending Xaero's LevelMapProperties to " + player.getName() + ": unexpected world");
                 return;
             }
             logger.fine(() -> "Sending Xaero's LevelMapProperties to " + player.getName() + ": " + Arrays.toString(payload));
