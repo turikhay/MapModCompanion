@@ -1,6 +1,3 @@
-import groovy.json.JsonSlurper
-import groovy.json.JsonOutput
-
 plugins {
     id("java-shadow")
 }
@@ -26,14 +23,14 @@ dependencies {
 }
 
 tasks {
-    classes {
-        doLast {
-            val pluginFile = project.layout.buildDirectory.file("classes/java/main/velocity-plugin.json").get().getAsFile()
-            @Suppress("UNCHECKED_CAST")
-            val pluginDescriptor = JsonSlurper().parse(pluginFile) as MutableMap<String, Any>
-            pluginDescriptor["version"] = version
-            pluginFile.writeText(JsonOutput.toJson(pluginDescriptor))
-        }
+    val rewriteVelocityPluginJson by creating(PluginDescriptorTask::class) {
+        dependsOn(compileJava)
+        descriptorFile = project.layout.buildDirectory.file("classes/java/main/velocity-plugin.json")
+        format = PluginDescriptorFormat.JSON
+        append = true
+        content.putAll(mapOf(
+                "version" to project.version
+        ))
     }
 
     shadowJar {
