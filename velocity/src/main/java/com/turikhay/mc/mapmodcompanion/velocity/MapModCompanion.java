@@ -100,7 +100,7 @@ public class MapModCompanion {
 
     @Subscribe
     public void onProxyInitialization(ProxyInitializeEvent event) {
-        fileChangeWatchdogScheduler = FileChangeWatchdog.createScheduler();
+        fileChangeWatchdogScheduler = FileChangeWatchdog.createScheduler(ofSlf4j(logger));
         metricsFactory.make(this, BSTATS_ID);
         load();
     }

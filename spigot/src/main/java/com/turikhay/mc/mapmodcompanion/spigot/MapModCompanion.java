@@ -63,7 +63,7 @@ public class MapModCompanion extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        fileChangeWatchdogScheduler = FileChangeWatchdog.createScheduler();
+        fileChangeWatchdogScheduler = FileChangeWatchdog.createScheduler(ILogger.ofJava(logger));
         new Metrics(this, BSTATS_ID);
         saveDefaultConfig();
         load();
