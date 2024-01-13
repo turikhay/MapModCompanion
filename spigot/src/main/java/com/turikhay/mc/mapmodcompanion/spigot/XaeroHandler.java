@@ -1,9 +1,6 @@
 package com.turikhay.mc.mapmodcompanion.spigot;
 
-import com.turikhay.mc.mapmodcompanion.Handler;
-import com.turikhay.mc.mapmodcompanion.InitializationException;
-import com.turikhay.mc.mapmodcompanion.LevelMapProperties;
-import com.turikhay.mc.mapmodcompanion.PrefixLogger;
+import com.turikhay.mc.mapmodcompanion.*;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -23,20 +20,21 @@ import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
 public class XaeroHandler implements Handler, Listener {
-    private final ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor(
-            runnable -> new Thread(runnable, XaeroHandler.class.getSimpleName())
-    );
-
     private final Logger logger;
     private final String configPath;
     private final String channelName;
     private final MapModCompanion plugin;
+    private final ScheduledExecutorService scheduler;
 
     public XaeroHandler(Logger logger, String configPath, String channelName, MapModCompanion plugin) {
         this.logger = logger;
         this.configPath = configPath;
         this.channelName = channelName;
         this.plugin = plugin;
+
+        this.scheduler = Executors.newSingleThreadScheduledExecutor(
+                new DaemonThreadFactory(ILogger.ofJava(logger), XaeroHandler.class)
+        );
     }
 
     public void init() throws InitializationException {
