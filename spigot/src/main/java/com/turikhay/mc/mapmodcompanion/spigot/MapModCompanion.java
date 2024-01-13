@@ -38,6 +38,7 @@ public class MapModCompanion extends JavaPlugin {
     );
 
     private VerboseLogger logger;
+    private PluginScheduler scheduler;
     private ScheduledExecutorService fileChangeWatchdogScheduler;
     private IdRegistry registry;
     private @Nullable ProtocolLib protocolLib;
@@ -63,16 +64,18 @@ public class MapModCompanion extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        scheduler = initScheduler();
         fileChangeWatchdogScheduler = FileChangeWatchdog.createScheduler(ILogger.ofJava(logger));
         new Metrics(this, BSTATS_ID);
         saveDefaultConfig();
-        load();
+        scheduler.schedule(this::load);
     }
 
     @Override
     public void onDisable() {
-        unload();
+        scheduler.schedule(this::unload);
         fileChangeWatchdogScheduler.shutdown();
+        scheduler.cleanUp();
     }
 
     private void load() {
@@ -90,7 +93,7 @@ public class MapModCompanion extends JavaPlugin {
                 logger,
                 fileChangeWatchdogScheduler,
                 getDataFolder().toPath().resolve("config.yml"),
-                () -> getServer().getScheduler().scheduleSyncDelayedTask(this, this::reload)
+                () -> scheduler.schedule(this::reload)
         );
         fileChangeWatchdog.start();
     }
@@ -106,6 +109,18 @@ public class MapModCompanion extends JavaPlugin {
     private void reload() {
         unload();
         load();
+    }
+
+    private PluginScheduler initScheduler() {
+        PluginScheduler selected;
+        if (FoliaSupport.isFoliaServer()) {
+            logger.info("Folia server support enabled");
+            selected = new SingleThreadScheduler(ILogger.ofJava(logger));
+        } else {
+            selected = new BukkitScheduler(this);
+        }
+        logger.fine("Scheduler: " + selected);
+        return selected;
     }
 
     private IdRegistry initRegistry() {
