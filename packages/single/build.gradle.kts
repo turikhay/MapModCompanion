@@ -79,11 +79,11 @@ hangarPublish {
             paper {
                 jar = singleJar
                 platformVersions = listOf("1.${families.first()}-1.${families.last()}") // 1.8 - latest
-                dependencies {
-                    hangar("dmulloy2/ProtocolLib") {
-                        required = false
-                    }
-                }
+//                dependencies {
+//                    hangar("ProtocolLib") {
+//                        required = false
+//                    }
+//                }
             }
             waterfall {
                 val wfFamilies = families.filter { it >= 11 } // Waterfall is only available >= 1.11
