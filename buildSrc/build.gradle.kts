@@ -17,4 +17,5 @@ dependencies {
     }
     implementation(libs.semver.get().toString())
     implementation("com.modrinth.minotaur:Minotaur:2.+")
+    implementation(with(libs.plugins.hangar.get()) { "io.papermc:hangar-publish-plugin:$version" })
 }
