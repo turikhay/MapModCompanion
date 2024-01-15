@@ -15,4 +15,6 @@ dependencies {
         implementation("com.fasterxml.jackson.module:jackson-module-kotlin:$version")
         implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:$version")
     }
+    implementation(libs.semver.get().toString())
+    implementation("com.modrinth.minotaur:Minotaur:2.+")
 }

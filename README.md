@@ -1,5 +1,6 @@
 # Companion for map mods
 
+<!-- modrinth_exclude.start -->
 <p>
   <a href="https://github.com/turikhay/MapModCompanion/blob/main/LICENSE.txt">
     <img src="https://img.shields.io/github/license/turikhay/MapModCompanion">
@@ -31,6 +32,7 @@
   src="https://raw.githubusercontent.com/turikhay/MapModCompanion-design/main/allaylogo3_1000_10.png"
   alt="Allay from Minecraft holding a compass and waving with their other hand at the viewer"
 />
+<!-- modrinth_exclude.end -->
 
 **With this plugin your minimap will never be confused which world you're in.**
 
@@ -78,7 +80,7 @@ Folia is supported, but isn't tested regularly. Please report if the support is 
 
 ℹ️ You should install this plugin on both sides: on BungeeCord/Velocity and on Spigot/Paper.
 
-1. Download the latest release from [Releases](https://github.com/turikhay/MapModCompanion/releases) page
+1. Download the latest release
 2. Put each file into the corresponding plugins folder
 3. That's it. No configuration is required. You can restart your servers now.
 
@@ -92,6 +94,7 @@ Velocity uses `plugins/mapmodcompanion/config.toml`.
 
 The configuration file reloads automatically if it's modified.
 
+<!-- modrinth_exclude.start -->
 ## Alternatives
 - If you're running Forge or Fabric server, just install the map mod on your server: this will unlock all its
   features.
@@ -99,3 +102,4 @@ The configuration file reloads automatically if it's modified.
 - [journeymap-bukkit](https://github.com/TeamJM/journeymap-bukkit) (Spigot)
 - [JourneyMap Server](https://www.curseforge.com/minecraft/mc-mods/journeymap-server) (Spigot)
 - [Minimap server](https://github.com/Ewpratten/MinimapServer) (Spigot)
+<!-- modrinth_exclude.end -->

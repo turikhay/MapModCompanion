@@ -6,40 +6,12 @@ jobs:
   version:
     name: Detect version
     uses: ./.github/workflows/version.yml
-  build:
-    name: Build
+  upload:
+    name: Build and upload
     needs: version
     uses: ./.github/workflows/build.yml
     with:
       version: ${{ needs.version.outputs.version }}
-  upload:
-    name: Upload
-    needs:
-      - version
-      - build
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Download build artifacts
-        uses: actions/download-artifact@v4
-        with:
-          name: gradle-build
-      - name: Read VERSIONS.txt
-        id: supported_versions
-        uses: juliangruber/read-file-action@v1
-        with:
-          path: ./VERSIONS.txt
-      - uses: Kir-Antipov/mc-publish@v3.3
-        with:
-          name: ${{ needs.version.outputs.version }}
-          version: ${{ needs.version.outputs.version }}
-          files: ${{ needs.build.outputs.artifact }}
-          version-type: ${{ needs.version.outputs.release-type  }}
-          changelog: |
-            Changelog is available on
-            [GitHub](https://github.com/turikhay/MapModCompanion/releases/tag/v${{ needs.version.outputs.version }})
-          game-versions: ${{ steps.supported_versions.outputs.content }}
-          loaders: bukkit spigot paper bungeecord waterfall velocity
-          modrinth-id: UO7aDcrF
-          modrinth-featured: ${{ needs.version.outputs.pre-release != true }}
-          modrinth-token: ${{ secrets.MODRINTH_TOKEN }}
+    env:
+      MODRINTH_UPLOAD: true
+      MODRINTH_TOKEN: ${{ secrets.MODRINTH_TOKEN }}
