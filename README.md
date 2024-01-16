@@ -14,7 +14,7 @@
     <img src="https://img.shields.io/modrinth/dt/UO7aDcrF?label=Modrinth%20%28downloads%29" />
   </a>
   <a href="https://hangar.papermc.io/turikhay/MapModCompanion">
-    <img src="https://pr-9800-badges-shields.fly.dev/hangar/dt/MapModCompanion?label=Hangar%20(downloads)" />
+    <img src="https://img.shields.io/hangar/dt/MapModCompanion?label=Hangar%20(downloads)" />
   </a>
   <a href="https://www.curseforge.com/minecraft/bukkit-plugins/mapmodcompanion">
     <img src="https://cf.way2muchnoise.eu/full_674380_downloads.svg">
