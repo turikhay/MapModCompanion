@@ -14,6 +14,7 @@ bstats-bungeecord = { module = "org.bstats:bstats-bungeecord", version.ref = "bs
 bstats-bukkit = { module = "org.bstats:bstats-bukkit", version.ref = "bstats" }
 bstats-velocity = { module = "org.bstats:bstats-velocity", version.ref = "bstats" }
 velocity-api = { module = "com.velocitypowered:velocity-api", version.ref = "velocity-api" }
+jackson-core = { module = "com.fasterxml.jackson.core:jackson-core", version.ref = "jackson" }
 
 
 [plugins]
