@@ -1,0 +1,17 @@
+name: Hangar release
+
+on: workflow_dispatch
+
+jobs:
+  version:
+    name: Detect version
+    uses: ./.github/workflows/version.yml
+  upload:
+    name: Build and upload
+    needs: version
+    uses: ./.github/workflows/build.yml
+    with:
+      version: ${{ needs.version.outputs.version }}
+    env:
+      HANGAR_UPLOAD: true
+      HANGAR_TOKEN: ${{ secrets.HANGAR_TOKEN }}

@@ -124,5 +124,8 @@ tasks {
         if (System.getenv("MODRINTH_UPLOAD") == "true") {
             dependsOn("modrinth")
         }
+        if (System.getenv("HANGAR_UPLOAD") == "true") {
+            dependsOn("publishPluginPublicationToHangar")
+        }
     }
 }
