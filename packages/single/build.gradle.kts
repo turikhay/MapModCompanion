@@ -20,7 +20,7 @@ val commonChangelog = """
     [GitHub](https://github.com/turikhay/MapModCompanion/releases/tag/v${project.version})
 """.trimIndent()
 val allVersions: List<String> by lazy { rootProject.file("VERSIONS.txt").readLines() }
-val readmeTask by tasks.registering(PlatformReadmeTask::class)
+val platformReadme: String by lazy { generatePlatformReadme(project) }
 
 modrinth {
     token = System.getenv("MODRINTH_TOKEN")
@@ -40,7 +40,7 @@ modrinth {
         }
     }
     if (updatePages) {
-        syncBodyFrom = readmeTask.map { it.outputs.files.singleFile.readText() }
+        syncBodyFrom = platformReadme
     }
     uploadFile = tasks.getByPath("shadowJar")
     gameVersions = allVersions
@@ -102,7 +102,7 @@ hangarPublish {
         }
         pages {
             if (updatePages) {
-                resourcePage(readmeTask.map { it.outputs.files.singleFile.readText() })
+                resourcePage(platformReadme)
             }
         }
     }
