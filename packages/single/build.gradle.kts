@@ -14,12 +14,13 @@ dependencies {
 
 val semVer = SemVer.parse(project.version as String)
 val isRelease = semVer.preRelease == null
+val updatePages = isRelease || System.getenv("UPDATE_PAGES") == "true"
 val commonChangelog = """
     Changelog is available on
     [GitHub](https://github.com/turikhay/MapModCompanion/releases/tag/v${project.version})
 """.trimIndent()
-val readmeText: String by lazy { rootProject.file("README.md").readText() }
 val allVersions: List<String> by lazy { rootProject.file("VERSIONS.txt").readLines() }
+val readmeTask by tasks.registering(PlatformReadmeTask::class)
 
 modrinth {
     token = System.getenv("MODRINTH_TOKEN")
@@ -38,8 +39,8 @@ modrinth {
             "release"
         }
     }
-    if (isRelease) {
-        syncBodyFrom = readmeText
+    if (updatePages) {
+        syncBodyFrom = readmeTask.map { it.outputs.files.singleFile.readText() }
     }
     uploadFile = tasks.getByPath("shadowJar")
     gameVersions = allVersions
@@ -100,8 +101,8 @@ hangarPublish {
             }
         }
         pages {
-            if (isRelease) {
-                resourcePage(readmeText)
+            if (updatePages) {
+                resourcePage(readmeTask.map { it.outputs.files.singleFile.readText() })
             }
         }
     }
@@ -118,7 +119,10 @@ tasks {
         )
     }
     getByName("publishPluginPublicationToHangar") {
-        dependsOn(shadowJar)
+        dependsOn(
+                shadowJar,
+                getByName("syncAllPluginPublicationPagesToHangar")
+        )
     }
     assemble {
         if (System.getenv("MODRINTH_UPLOAD") == "true") {
