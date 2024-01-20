@@ -5,6 +5,8 @@ junit = "5.10.1"
 bstats = "3.0.2"
 velocity-api = "3.1.1"
 jackson = "2.16.1"
+semver = "1.1.2"
+hangar = "0.1.1"
 
 [libraries]
 spotbugs-annotations = { module = "com.github.spotbugs:spotbugs-annotations", version.ref = "spotbugs" }
@@ -15,7 +17,9 @@ bstats-bukkit = { module = "org.bstats:bstats-bukkit", version.ref = "bstats" }
 bstats-velocity = { module = "org.bstats:bstats-velocity", version.ref = "bstats" }
 velocity-api = { module = "com.velocitypowered:velocity-api", version.ref = "velocity-api" }
 jackson-core = { module = "com.fasterxml.jackson.core:jackson-core", version.ref = "jackson" }
+semver = { module = "net.swiftzer.semver:semver", version.ref = "semver" }
 
 
 [plugins]
 shadow = { id = "com.github.johnrengelman.shadow", version.ref = "shadow" }
+hangar = { id = "io.papermc.hangar-publish-plugin", version.ref = "hangar" }

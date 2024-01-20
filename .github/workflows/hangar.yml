@@ -1,4 +1,4 @@
-name: Modrinth release
+name: Hangar release
 
 on: workflow_dispatch
 
@@ -13,5 +13,5 @@ jobs:
     with:
       version: ${{ needs.version.outputs.version }}
     env:
-      MODRINTH_UPLOAD: true
-      MODRINTH_TOKEN: ${{ secrets.MODRINTH_TOKEN }}
+      HANGAR_UPLOAD: true
+      HANGAR_TOKEN: ${{ secrets.HANGAR_TOKEN }}
