@@ -57,7 +57,7 @@ modrinth {
 hangarPublish {
     publications.register("plugin") {
         version = project.version as String
-        id = "MapModCompanion-test"
+        id = "MapModCompanion"
         channel = run {
             val preRelease = semVer.preRelease
             if (preRelease != null) {
