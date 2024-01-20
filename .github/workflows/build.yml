@@ -40,10 +40,10 @@ jobs:
           echo "spigot-version=$TARGET" >> $GITHUB_OUTPUT
       - name: Run the build
         run: |
-          ./gradlew
-          build
-          -Pversion=${{ inputs.version }}
-          -Pspigot_version=${{ steps.target.outputs.spigot-version }}
+          ./gradlew \
+          build \
+          -Pversion=${{ inputs.version }} \
+          -Pspigot_version=${{ steps.target.outputs.spigot-version }} \
           -PprotocolLib_version=4.2.1
       - name: Force original path preservation (for upload-artifact@v3)
         run: touch .empty
