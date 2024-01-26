@@ -78,15 +78,11 @@ Folia is supported, but isn't tested regularly. Please report if the support is 
 
 ## Installation
 
-ℹ️ You should install this plugin on both sides: on BungeeCord/Velocity and on Spigot/Paper.
+ℹ️ You should install this plugin on both sides: BungeeCord/Velocity and Spigot/Paper.
 
 1. Download the latest release
 2. Put each file into the corresponding plugins folder
 3. That's it. No configuration is required. You can restart your servers now.
-
-⚠️ **NOTE** Spigot plugin may not work without BungeeCord/Velocity counterpart. I highly recommend installing
-plugins on both sides. BungeeCord/Velocity plugin is useless if you don't install Spigot plugin on
-downstream servers.
 
 ## Configuration
 The configuration file is stored at `plugins/MapModCompanion/config.yml` for both Spigot and BungeeCord.
