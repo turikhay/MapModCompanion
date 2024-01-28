@@ -1,6 +1,5 @@
 # Companion for map mods
 
-<!-- platform.start -->
 <p>
   <a href="https://github.com/turikhay/MapModCompanion/blob/main/LICENSE.txt">
     <img src="https://img.shields.io/github/license/turikhay/MapModCompanion">
@@ -8,6 +7,7 @@
   <a href="https://github.com/turikhay/MapModCompanion/actions/workflows/e2e_notable.yml">
     <img src="https://github.com/turikhay/MapModCompanion/actions/workflows/e2e_notable.yml/badge.svg" />
   </a>
+<!-- platform.start -->
   <a href="https://www.spigotmc.org/resources/mapmodcompanion.105128/">
     <img src="https://img.shields.io/spiget/downloads/105128?label=Spigot%20%28downloads%29">
   </a>
@@ -20,11 +20,13 @@
   <a href="https://www.curseforge.com/minecraft/bukkit-plugins/mapmodcompanion">
     <img src="https://cf.way2muchnoise.eu/full_674380_downloads.svg">
   </a>
+<!-- platform.end -->
   <a href="https://www.buymeacoffee.com/turikhay">
     <img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" height="20px">
   </a>
 </p>
 
+<!-- platform.start -->
 <img
   align="right"
   width="200"
