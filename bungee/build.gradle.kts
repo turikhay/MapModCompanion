@@ -7,6 +7,13 @@ repositories {
         name = "Sonatype"
         url = uri("https://oss.sonatype.org/content/repositories/snapshots/")
     }
+    maven {
+        name = "Minecraft"
+        url = uri("https://libraries.minecraft.net")
+        content {
+            includeGroup("com.mojang")
+        }
+    }
 }
 
 tasks {
