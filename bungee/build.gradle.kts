@@ -31,5 +31,5 @@ tasks {
 dependencies {
     implementation(project(":common"))
     implementation(libs.bstats.bungeecord)
-    compileOnly("net.md-5:bungeecord-api:1.20-R0.2")
+    compileOnly(libs.bungeecord.api)
 }
