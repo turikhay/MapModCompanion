@@ -1,0 +1,32 @@
+name: Upload pages
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "41 18 * * 1"
+
+jobs:
+  update-versions:
+    name: Update versions
+    env:
+      CURGEFORGE_TOKEN: ${{ secrets.CURGEFORGE_TOKEN }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate Gradle wrapper
+        uses: gradle/wrapper-validation-action@v2
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v3
+      - name: Run tasks
+        run: |
+          ./gradlew \
+          updateVersionsCf
+      - name: Create PR
+        uses: peter-evans/create-pull-request@v6
+        with:
+          title: 'Update CurseForge versions file'
+          commit-message: 'Update CurseForge versions file'
+          branch: 'update/versions_cf'
+          delete-branch: true
+          labels: |
+            dependencies
