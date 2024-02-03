@@ -9,7 +9,7 @@ jobs:
   update-versions:
     name: Update versions
     env:
-      CURGEFORGE_TOKEN: ${{ secrets.CURGEFORGE_TOKEN }}
+      CURSEFORGE_TOKEN: ${{ secrets.CURSEFORGE_TOKEN }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
