@@ -6,7 +6,7 @@ bstats = "3.0.2"
 velocity-api = "3.1.1"
 jackson = "2.16.1"
 semver = "1.3.0"
-hangar = "0.1.1"
+hangar = "0.1.2"
 bungeecord-api = "1.20-R0.2"
 
 [libraries]
