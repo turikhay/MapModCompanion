@@ -1,4 +1,4 @@
-name: Upload pages
+name: Update CurseForge versions
 
 on:
   workflow_dispatch:
