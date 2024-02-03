@@ -11,9 +11,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+
       - name: Update Gradle Wrapper
         uses: gradle-update/update-gradle-wrapper-action@v1
-      - name: Run CI
-        uses: rhosys/github-action-rebuild-pull-requests@c22b8bb907c374e9f8357553eadfda063931acdf
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
