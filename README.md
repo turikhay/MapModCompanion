@@ -36,7 +36,7 @@
 />
 <!-- platform.end -->
 
-**With this plugin your minimap will never be confused which world you're in.**
+**With this plugin your minimap will never be confused which world you're in. [A more in-depth explanation can be found in the wiki](https://github.com/turikhay/MapModCompanion/wiki/How-it-works).**
 
 <details><summary>How it should look like</summary>
 
