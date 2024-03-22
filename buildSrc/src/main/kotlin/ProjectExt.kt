@@ -11,7 +11,6 @@ val Project.libs get() = the<org.gradle.accessors.dm.LibrariesForLibs>()
 
 val Task.singleFile get() = outputs.files.singleFile
 
-val <T : Task?> TaskProvider<T>.singleFile get(): Provider<File> = this.map {
-    @Suppress("UNNECESSARY_NOT_NULL_ASSERTION")
-    it!!.outputs.files.singleFile
+val <T : Task> TaskProvider<T>.singleFile get(): Provider<File> = this.map {
+    it.outputs.files.singleFile
 }
