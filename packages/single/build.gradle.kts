@@ -15,13 +15,12 @@ dependencies {
 val dedupShadowJar = tasks.named("dedupShadowJar")
 val semVer = SemVer.parse(project.version as String)
 val isRelease = semVer.preRelease == null
-val updatePages = isRelease || System.getenv("UPDATE_PAGES") == "true"
 val commonChangelog = """
     Changelog is available on
     [GitHub](https://github.com/turikhay/MapModCompanion/releases/tag/v${project.version})
 """.trimIndent()
-val allVersions: List<String> by lazy { rootProject.file("VERSIONS.txt").readLines() }
-val platformReadme: String by lazy { generatePlatformReadme(project) }
+val allVersions = provider { rootProject.file("VERSIONS.txt").readLines() }
+val platformReadme = provider { generatePlatformReadme(project) }
 
 modrinth {
     token = System.getenv("MODRINTH_TOKEN")
@@ -40,9 +39,7 @@ modrinth {
             "release"
         }
     }
-    if (updatePages) {
-        syncBodyFrom = platformReadme
-    }
+    syncBodyFrom = platformReadme
     file = dedupShadowJar.singleFile
     gameVersions = allVersions
     loaders.addAll(listOf(
@@ -72,15 +69,17 @@ hangarPublish {
         apiKey = System.getenv("HANGAR_TOKEN")
         platforms {
             val singleJar = dedupShadowJar.singleFile
-            val families = allVersions.map {
+            val families = allVersions.map { list -> list.map {
                 val split = it.split(".") // -> 1, 20[, 4]
                 assert(split.size > 1)
                 assert(split.first() == "1") // will Minecraft 2.0 ever come out?
                 Integer.parseInt(split[1]) // "1.20.4" -> 20
-            }.sorted()
+            }.sorted() }
             paper {
                 jar = singleJar
-                platformVersions = listOf("1.${families.first()}-1.${families.last()}") // 1.8 - latest
+                platformVersions = families.map {
+                    listOf("1.${it.first()}-1.${it.last()}") // 1.8 - latest
+                }
                 dependencies {
                     hangar("ProtocolLib") {
                         required = false
@@ -88,23 +87,24 @@ hangarPublish {
                 }
             }
             waterfall {
-                val wfFamilies = families.filter { it >= 11 } // Waterfall is only available >= 1.11
                 jar = singleJar
-                platformVersions = listOf("1.${wfFamilies.first()}-1.${wfFamilies.last()}")
+                platformVersions = families.map {
+                    f -> f.filter { it >= 11 } // Waterfall is only available >= 1.11
+                }.map {
+                    listOf("1.${it.first()}-1.${it.last()}")
+                }
             }
             velocity {
                 val velocityFamily = libs.versions.velocity.api.map {
                     val split = it.split(".")
                     "${split[0]}.${split[1]}"
-                }.get()
+                }
                 jar = singleJar
-                platformVersions = listOf(velocityFamily)
+                platformVersions = velocityFamily.map { listOf(it) }
             }
         }
         pages {
-            if (updatePages) {
-                resourcePage(platformReadme)
-            }
+            resourcePage(platformReadme)
         }
     }
 }
