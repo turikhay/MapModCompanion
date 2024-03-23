@@ -43,7 +43,7 @@ modrinth {
     if (updatePages) {
         syncBodyFrom = platformReadme
     }
-    uploadFile = tasks.getByName("dedupShadowJar")
+    file = dedupShadowJar.singleFile
     gameVersions = allVersions
     loaders.addAll(listOf(
             "bukkit",
