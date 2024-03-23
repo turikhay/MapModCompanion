@@ -12,6 +12,7 @@ dependencies {
     implementation(project(":velocity"))
 }
 
+val dedupShadowJar by tasks.named("dedupShadowJar")
 val semVer = SemVer.parse(project.version as String)
 val isRelease = semVer.preRelease == null
 val updatePages = isRelease || System.getenv("UPDATE_PAGES") == "true"
@@ -109,8 +110,6 @@ hangarPublish {
 }
 
 tasks {
-    val dedupShadowJar by named("dedupShadowJar")
-
     shadowJar {
         archiveFileName = "MapModCompanion-shadow.jar"
     }
