@@ -14,4 +14,4 @@ jobs:
       version: ${{ needs.version.outputs.version }}
       modrinth-upload: true
     secrets:
-      MODRINTH_TOKEN: ${{ secrets.MODRINTH_TOKEN }}
+      modrinth-token: ${{ secrets.MODRINTH_TOKEN }}
