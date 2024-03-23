@@ -20,12 +20,6 @@ on:
 permissions:
   contents: write
 
-env:
-  HANGAR_UPLOAD: ${{ inputs.hangar-upload }}
-  HANGAR_TOKEN: ${{ secrets.HANGAR_TOKEN }}
-  MODRINTH_UPLOAD: ${{ inputs.modrinth-upload }}
-  MODRINTH_TOKEN: ${{ secrets.MODRINTH_TOKEN }}
-
 jobs:
   build:
     name: Gradle build
@@ -55,6 +49,11 @@ jobs:
           -Pversion=${{ inputs.version }} \
           -Pspigot_version=${{ steps.target.outputs.spigot-version }} \
           -PprotocolLib_version=4.2.1
+        env:
+          HANGAR_UPLOAD: ${{ inputs.hangar-upload }}
+          HANGAR_TOKEN: ${{ secrets.HANGAR_TOKEN }}
+          MODRINTH_UPLOAD: ${{ inputs.modrinth-upload }}
+          MODRINTH_TOKEN: ${{ secrets.MODRINTH_TOKEN }}
       - name: Force original path preservation (for upload-artifact@v3)
         run: touch .empty
       - uses: actions/upload-artifact@v4
