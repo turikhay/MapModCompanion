@@ -2,6 +2,10 @@ name: Hangar release
 
 on: workflow_dispatch
 
+env:
+  HANGAR_UPLOAD: true
+  HANGAR_TOKEN: ${{ secrets.HANGAR_TOKEN }}
+
 jobs:
   version:
     name: Detect version
@@ -12,6 +16,3 @@ jobs:
     uses: ./.github/workflows/build.yml
     with:
       version: ${{ needs.version.outputs.version }}
-    env:
-      HANGAR_UPLOAD: true
-      HANGAR_TOKEN: ${{ secrets.HANGAR_TOKEN }}
