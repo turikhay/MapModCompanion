@@ -8,6 +8,10 @@ on:
         type: string
       spigot-target:
         type: string
+      hangar-upload:
+        type: boolean
+      modrinth-upload:
+        type: boolean
     outputs:
       artifact:
         description: Path to the jar artifact
@@ -15,6 +19,12 @@ on:
 
 permissions:
   contents: write
+
+env:
+  HANGAR_UPLOAD: ${{ inputs.hangar-upload }}
+  HANGAR_TOKEN: ${{ secrets.HANGAR_TOKEN }}
+  MODRINTH_UPLOAD: ${{ inputs.modrinth-upload }}
+  MODRINTH_TOKEN: ${{ secrets.MODRINTH_TOKEN }}
 
 jobs:
   build:
