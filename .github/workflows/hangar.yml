@@ -12,6 +12,6 @@ jobs:
     uses: ./.github/workflows/build.yml
     with:
       version: ${{ needs.version.outputs.version }}
-      hangar-upload: true
+      task: publishPluginPublicationToHangar
     secrets:
       hangar-token: ${{ secrets.HANGAR_TOKEN }}

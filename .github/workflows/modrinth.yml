@@ -12,6 +12,6 @@ jobs:
     uses: ./.github/workflows/build.yml
     with:
       version: ${{ needs.version.outputs.version }}
-      modrinth-upload: true
+      task: modrinth
     secrets:
       modrinth-token: ${{ secrets.MODRINTH_TOKEN }}

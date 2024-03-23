@@ -8,10 +8,9 @@ on:
         type: string
       spigot-target:
         type: string
-      hangar-upload:
-        type: boolean
-      modrinth-upload:
-        type: boolean
+      task:
+        type: string
+        default: build
     outputs:
       artifact:
         description: Path to the jar artifact
@@ -51,14 +50,12 @@ jobs:
       - name: Run the build
         run: |
           ./gradlew \
-          build \
+          ${{ inputs.task }} \
           -Pversion=${{ inputs.version }} \
           -Pspigot_version=${{ steps.target.outputs.spigot-version }} \
           -PprotocolLib_version=4.2.1
         env:
-          HANGAR_UPLOAD: ${{ inputs.hangar-upload }}
           HANGAR_TOKEN: ${{ secrets.hangar-token }}
-          MODRINTH_UPLOAD: ${{ inputs.modrinth-upload }}
           MODRINTH_TOKEN: ${{ secrets.modrinth-token }}
       - name: Force original path preservation (for upload-artifact@v3)
         run: touch .empty
