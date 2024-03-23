@@ -16,6 +16,12 @@ on:
       artifact:
         description: Path to the jar artifact
         value: ${{ jobs.build.outputs.artifact }}
+    secrets:
+      hangar-token:
+        required: false
+      modrinth-token:
+        required: false
+
 
 permissions:
   contents: write
@@ -51,9 +57,9 @@ jobs:
           -PprotocolLib_version=4.2.1
         env:
           HANGAR_UPLOAD: ${{ inputs.hangar-upload }}
-          HANGAR_TOKEN: ${{ secrets.HANGAR_TOKEN }}
+          HANGAR_TOKEN: ${{ secrets.hangar-token }}
           MODRINTH_UPLOAD: ${{ inputs.modrinth-upload }}
-          MODRINTH_TOKEN: ${{ secrets.MODRINTH_TOKEN }}
+          MODRINTH_TOKEN: ${{ secrets.modrinth-token }}
       - name: Force original path preservation (for upload-artifact@v3)
         run: touch .empty
       - uses: actions/upload-artifact@v4
