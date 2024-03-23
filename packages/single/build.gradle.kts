@@ -69,16 +69,10 @@ hangarPublish {
         apiKey = System.getenv("HANGAR_TOKEN")
         platforms {
             val singleJar = dedupShadowJar.singleFile
-            val families = allVersions.map { list -> list.map {
-                val split = it.split(".") // -> 1, 20[, 4]
-                assert(split.size > 1)
-                assert(split.first() == "1") // will Minecraft 2.0 ever come out?
-                Integer.parseInt(split[1]) // "1.20.4" -> 20
-            }.sorted() }
             paper {
                 jar = singleJar
-                platformVersions = families.map {
-                    listOf("1.${it.first()}-1.${it.last()}") // 1.8 - latest
+                platformVersions = allVersions.map {
+                    listOf("${it.first()}-${it.last()}") // 1.8 - latest
                 }
                 dependencies {
                     hangar("ProtocolLib") {
@@ -88,7 +82,14 @@ hangarPublish {
             }
             waterfall {
                 jar = singleJar
-                platformVersions = families.map {
+                platformVersions = allVersions.map { list ->
+                    list.map {
+                        val split = it.split(".") // -> 1, 20[, 4]
+                        assert(split.size > 1)
+                        assert(split.first() == "1") // will Minecraft 2.0 ever come out?
+                        Integer.parseInt(split[1]) // "1.20.4" -> 20
+                    }.sorted()
+                }.map {
                     f -> f.filter { it >= 11 } // Waterfall is only available >= 1.11
                 }.map {
                     listOf("1.${it.first()}-1.${it.last()}")
