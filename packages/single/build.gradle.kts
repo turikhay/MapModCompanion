@@ -116,8 +116,10 @@ tasks {
     getByName("modrinth") {
         dependsOn(
                 dedupShadowJar,
-                modrinthSyncBody
         )
+        if (updatePages) {
+            dependsOn(modrinthSyncBody)
+        }
     }
     getByName("publishPluginPublicationToHangar") {
         dependsOn(
