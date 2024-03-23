@@ -71,7 +71,7 @@ hangarPublish {
         changelog = commonChangelog
         apiKey = System.getenv("HANGAR_TOKEN")
         platforms {
-            val singleJar = tasks.getByName("dedupShadowJar").singleFile
+            val singleJar = dedupShadowJar.singleFile
             val families = allVersions.map {
                 val split = it.split(".") // -> 1, 20[, 4]
                 assert(split.size > 1)
