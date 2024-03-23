@@ -12,6 +12,7 @@ dependencies {
     implementation(project(":velocity"))
 }
 
+val dedupShadowJar by tasks.named("dedupShadowJar")
 val semVer = SemVer.parse(project.version as String)
 val isRelease = semVer.preRelease == null
 val updatePages = isRelease || System.getenv("UPDATE_PAGES") == "true"
@@ -42,7 +43,7 @@ modrinth {
     if (updatePages) {
         syncBodyFrom = platformReadme
     }
-    uploadFile = tasks.getByPath("shadowJar")
+    file = dedupShadowJar.singleFile
     gameVersions = allVersions
     loaders.addAll(listOf(
             "bukkit",
@@ -70,7 +71,7 @@ hangarPublish {
         changelog = commonChangelog
         apiKey = System.getenv("HANGAR_TOKEN")
         platforms {
-            val singleJar = tasks.shadowJar.map { it.outputs.files.singleFile }
+            val singleJar = dedupShadowJar.singleFile
             val families = allVersions.map {
                 val split = it.split(".") // -> 1, 20[, 4]
                 assert(split.size > 1)
@@ -110,17 +111,17 @@ hangarPublish {
 
 tasks {
     shadowJar {
-        archiveFileName = "MapModCompanion.jar"
+        archiveFileName = "MapModCompanion-shadow.jar"
     }
     getByName("modrinth") {
         dependsOn(
-                shadowJar,
+                dedupShadowJar,
                 modrinthSyncBody
         )
     }
     getByName("publishPluginPublicationToHangar") {
         dependsOn(
-                shadowJar,
+                dedupShadowJar,
                 getByName("syncAllPluginPublicationPagesToHangar")
         )
     }
