@@ -1,9 +1,19 @@
 plugins {
     `kotlin-dsl`
+    `java-gradle-plugin`
 }
 
 repositories {
     gradlePluginPortal()
+}
+
+gradlePlugin {
+    plugins {
+        create("platformReadme") {
+            id = "platform-readme"
+            implementationClass = "PlatformReadmePlugin"
+        }
+    }
 }
 
 dependencies {
