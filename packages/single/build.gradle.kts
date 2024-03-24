@@ -115,15 +115,9 @@ tasks {
         archiveFileName = "MapModCompanion-shadow.jar"
     }
     getByName("modrinth") {
-        dependsOn(
-                dedupShadowJar,
-                modrinthSyncBody
-        )
+        dependsOn(dedupShadowJar)
     }
     getByName("publishPluginPublicationToHangar") {
-        dependsOn(
-                dedupShadowJar,
-                getByName("syncAllPluginPublicationPagesToHangar")
-        )
+        dependsOn(dedupShadowJar)
     }
 }
