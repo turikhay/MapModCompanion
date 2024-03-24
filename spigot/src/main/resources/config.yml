@@ -28,6 +28,8 @@ xaero:
   world_map:
     enabled: true
     events:
+      register:
+        enabled: true
       join:
         enabled: true
         # Sometimes the mod doesn't pick up the initial packet
@@ -38,6 +40,8 @@ xaero:
   mini_map:
     enabled: true
     events:
+      register:
+        enabled: true
       join:
         enabled: true
         # Sometimes the mod doesn't pick up the initial packet

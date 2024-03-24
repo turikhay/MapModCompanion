@@ -10,6 +10,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerChangedWorldEvent;
 import org.bukkit.event.player.PlayerEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerRegisterChannelEvent;
 
 import java.util.Arrays;
 import java.util.Locale;
@@ -61,6 +62,13 @@ public class XaeroHandler implements Handler, Listener {
         sendPacket(event, Type.WORLD_CHANGE);
     }
 
+    @EventHandler(priority = EventPriority.MONITOR)
+    public void onPacketRegistered(PlayerRegisterChannelEvent event) {
+        if (event.getChannel().equals(channelName)) {
+            sendPacket(event, Type.REGISTER);
+        }
+    }
+
     private void sendPacket(PlayerEvent event, Type type) {
         Player p = event.getPlayer();
         World world = p.getWorld();
@@ -81,6 +89,7 @@ public class XaeroHandler implements Handler, Listener {
     }
 
     private enum Type {
+        REGISTER,
         JOIN,
         WORLD_CHANGE,
     }
