@@ -76,7 +76,7 @@ If you have any questions, please [join my Discord][Discord].
 | [JourneyMap]              | v5.7.1 / Minecraft 1.16.5  | v5.9.9 / Minecraft 1.20.1                               | ✅ Supported |
 | VoxelMap                                                                           | [v1.7.10][VoxelMap (old)] / Minecraft 1.8    | [v1.12.x][VoxelMap] / Minecraft 1.20.1 | ✅ Supported<sup class="reference">[[2]](https://github.com/turikhay/MapModCompanion/issues/8)</sup> |
 
-Folia is supported, but isn't tested regularly. Please report if the support is broken.
+[Folia](https://papermc.io/software/folia) is supported, but isn't tested regularly. Please report if the support is broken.
 
 ## Installation
 
