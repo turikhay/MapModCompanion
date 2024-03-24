@@ -4,6 +4,7 @@ plugins {
     id("java-shadow")
     id("com.modrinth.minotaur")
     id("io.papermc.hangar-publish-plugin")
+    id("platform-readme")
 }
 
 dependencies {
@@ -20,7 +21,6 @@ val commonChangelog = """
     [GitHub](https://github.com/turikhay/MapModCompanion/releases/tag/v${project.version})
 """.trimIndent()
 val allVersions = provider { rootProject.file("VERSIONS.txt").readLines() }
-val platformReadme = provider { generatePlatformReadme(project) }
 
 modrinth {
     token = System.getenv("MODRINTH_TOKEN")
@@ -39,7 +39,7 @@ modrinth {
             "release"
         }
     }
-    syncBodyFrom = platformReadme
+    syncBodyFrom = platformReadme.contents
     file = dedupShadowJar.singleFile
     gameVersions = allVersions
     loaders.addAll(listOf(
@@ -105,7 +105,7 @@ hangarPublish {
             }
         }
         pages {
-            resourcePage(platformReadme)
+            resourcePage(platformReadme.contents)
         }
     }
 }
