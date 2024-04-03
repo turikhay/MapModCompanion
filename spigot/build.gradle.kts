@@ -23,7 +23,7 @@ tasks {
                 "name" to "MapModCompanion",
                 "version" to project.version,
                 "authors" to listOf("turikhay"),
-                "apiVersion" to "1.13",
+                "api-version" to "1.13",
                 "softDepends" to listOf("ProtocolLib"),
                 "main" to "com.turikhay.mc.mapmodcompanion.spigot.MapModCompanion",
                 "folia-supported" to true,
