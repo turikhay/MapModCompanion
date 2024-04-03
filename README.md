@@ -99,7 +99,6 @@ The configuration file reloads automatically if it's modified.
 - [worldnamepacket] (Velocity, Fabric, Spigot)
 - [journeymap-bukkit](https://github.com/TeamJM/journeymap-bukkit) (Spigot)
 - [JourneyMap Server](https://www.curseforge.com/minecraft/mc-mods/journeymap-server) (Spigot)
-- [Minimap server](https://github.com/Ewpratten/MinimapServer) (Spigot)
 <!-- platform.end -->
 
 [Discord]: https://discord.gg/H9ACHEqBrg
