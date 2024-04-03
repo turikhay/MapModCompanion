@@ -72,7 +72,8 @@ hangarPublish {
             paper {
                 jar = singleJar
                 platformVersions = allVersions.map {
-                    listOf("${it.first()}-${it.last()}") // 1.8 - latest
+                    // (VERSIONS.txt uses reverse order)
+                    listOf("${it.last()}-${it.first()}") // 1.8 - latest
                 }
                 dependencies {
                     hangar("ProtocolLib") {
