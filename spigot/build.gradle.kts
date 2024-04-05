@@ -24,7 +24,7 @@ tasks {
                 "version" to project.version,
                 "authors" to listOf("turikhay"),
                 "api-version" to "1.13",
-                "softDepends" to listOf("ProtocolLib"),
+                "softdepend" to listOf("ProtocolLib"),
                 "main" to "com.turikhay.mc.mapmodcompanion.spigot.MapModCompanion",
                 "folia-supported" to true,
         ))
