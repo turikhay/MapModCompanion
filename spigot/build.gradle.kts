@@ -22,11 +22,11 @@ tasks {
         content.putAll(mapOf(
                 "name" to "MapModCompanion",
                 "version" to project.version,
+                "main" to "com.turikhay.mc.mapmodcompanion.spigot.MapModCompanion",
                 "authors" to listOf("turikhay"),
                 "website" to "https://github.com/turikhay/MapModCompanion",
                 "api-version" to "1.13",
                 "softdepend" to listOf("ProtocolLib"),
-                "main" to "com.turikhay.mc.mapmodcompanion.spigot.MapModCompanion",
                 "folia-supported" to true,
         ))
     }
