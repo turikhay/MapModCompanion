@@ -28,7 +28,7 @@ jobs:
         id: supported_versions
         run: |
           echo "list=$(cat VERSIONS_CF.txt | paste -s -d"," -)" >> $GITHUB_OUTPUT
-      - uses: itsmeow/curseforge-upload@3.1.1
+      - uses: itsmeow/curseforge-upload@v3.1.2
         with:
           token: ${{ secrets.CURSEFORGE_TOKEN }}
           game_endpoint: "bukkit"
