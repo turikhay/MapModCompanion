@@ -9,7 +9,7 @@ java {
 
 repositories {
     maven {
-        name = "papermc"
+        name = "Paper"
         url = uri("https://repo.papermc.io/repository/maven-public/")
     }
 }
