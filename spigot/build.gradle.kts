@@ -14,8 +14,6 @@ repositories {
     }
 }
 
-val bStats = with(libs.bstats.bukkit.get()) { "$module:$versionConstraint" }
-
 tasks {
     val writePluginYml by creating(PluginDescriptorTask::class) {
         descriptor = "plugin.yml"
