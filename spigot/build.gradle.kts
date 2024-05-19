@@ -4,12 +4,15 @@ plugins {
 
 repositories {
     maven {
+        name = "ProtocolLib"
         url = uri("https://repo.dmulloy2.net/repository/public/")
     }
     maven {
+        name = "Sonatype"
         url = uri("https://oss.sonatype.org/content/repositories/snapshots/")
     }
     maven {
+        name = "Spigot"
         url = uri("https://hub.spigotmc.org/nexus/content/repositories/snapshots/")
     }
 }
