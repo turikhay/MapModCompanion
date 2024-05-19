@@ -32,8 +32,4 @@ tasks {
                 "version" to project.version
         ))
     }
-
-    shadowJar {
-        archiveFileName = "mapmodcompanion-shadow.jar"
-    }
 }
