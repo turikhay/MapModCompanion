@@ -9,7 +9,7 @@ java {
 
 repositories {
     maven {
-        name = "papermc"
+        name = "Paper"
         url = uri("https://repo.papermc.io/repository/maven-public/")
     }
 }
@@ -31,9 +31,5 @@ tasks {
         content.putAll(mapOf(
                 "version" to project.version
         ))
-    }
-
-    shadowJar {
-        archiveFileName = "mapmodcompanion-shadow.jar"
     }
 }
