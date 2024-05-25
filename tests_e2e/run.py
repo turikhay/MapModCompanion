@@ -89,6 +89,15 @@ VERSIONS = {
             '1.20.1',
             '1.20.2',
             '1.20.3',
+        ))
+    ),
+    **(
+        dict((
+            version,
+            {
+                'folia': True,
+            },
+        ) for version in (
             '1.20.4',
         ))
     ),
@@ -222,11 +231,22 @@ if __name__ == "__main__":
         if enable_blue:
             logger.info("Use 127.0.0.1:9011 for blue server")
 
+    enable_folia = environ.get("FOLIA") == "1"
+
     proxy_type, client_version, action = argv[1:]
 
     version_info = VERSIONS[client_version]
 
-    test_name = f"mmc_test_{proxy_type}_{client_version}"
+    if enable_folia and ("folia" not in version_info or not version_info["folia"]):
+        logger.info(f"Skipping: Folia is not supported on this version ({client_version})")
+        exit(0)
+
+    test_name_suffix = ""
+    if enable_folia:
+        test_name_suffix += "folia_"
+    test_name_suffix += f"{proxy_type}_{client_version}"
+
+    test_name = f"mmc_test_{test_name_suffix}"
     test_env_dir = PARENT_DIR / "test_env" / test_name
     makedirs(test_env_dir, exist_ok=True)
 
@@ -281,6 +301,13 @@ if __name__ == "__main__":
     else:
         world_version = "1.17.1"
 
+    if enable_folia:
+        server_type = "FOLIA"
+    else:
+        server_type = "PAPER"
+
+    logger.info(f"Selected server type: {server_type}")
+
     for server_name in servers:
         server_desc = {
             'build': {
@@ -293,7 +320,8 @@ if __name__ == "__main__":
                 ],
             },
             'environment': [
-                f'VERSION={server_version}'
+                f'VERSION={server_version}',
+                f'TYPE={server_type}',
             ],
             'ports': [
             ]

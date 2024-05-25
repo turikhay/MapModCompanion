@@ -13,14 +13,13 @@ jobs:
   build:
     name: Build
     uses: ./.github/workflows/nightly.yml
-  test:
+  paper:
     name: E2E test
     needs: build
     strategy:
       fail-fast: false
       matrix:
         version:
-          - 1.20.4
           - 1.16.5
           - 1.16.3
           - 1.13.2
@@ -33,3 +32,22 @@ jobs:
     with:
       proxy: ${{ matrix.proxy }}
       version: ${{ matrix.version }}
+  paper-folia:
+    name: E2E test (with Folia)
+    needs: build
+    strategy:
+      fail-fast: false
+      matrix:
+        version:
+          - 1.20.4
+        proxy:
+          - velocity
+          - bungeecord
+        folia:
+          - false
+          - true
+    uses: ./.github/workflows/e2e_test.yml
+    with:
+      proxy: ${{ matrix.proxy }}
+      version: ${{ matrix.version }}
+      folia: ${{ matrix.folia }}
