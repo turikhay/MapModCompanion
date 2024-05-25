@@ -35,6 +35,9 @@ jobs:
           - velocity
           - bungeecord
           - waterfall
+        folia:
+          - false
+          - true
     uses: ./.github/workflows/e2e_test.yml
     with:
       proxy: ${{ matrix.proxy }}
