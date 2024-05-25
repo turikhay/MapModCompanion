@@ -320,7 +320,7 @@ if __name__ == "__main__":
                 ],
             },
             'environment': [
-                f'VERSION={server_version}'
+                f'VERSION={server_version}',
                 f'TYPE={server_type}',
             ],
             'ports': [
