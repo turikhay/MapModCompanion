@@ -22,7 +22,7 @@ jobs:
     env:
      # Legacy builder doesn't seem to properly mount /data folder inside server container for some reason
      DOCKER_BUILDKIT: 1
-     FOLIA: "${{ inputs.folia }}"
+     FOLIA: "${{ inputs.folia && '1' || '0'  }}"
     steps:
       - uses: actions/checkout@v4
       - uses: actions/download-artifact@v4
