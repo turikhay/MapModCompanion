@@ -306,6 +306,8 @@ if __name__ == "__main__":
     else:
         server_type = "PAPER"
 
+    logger.info(f"Selected server type: {server_type}")
+
     for server_name in servers:
         server_desc = {
             'build': {
