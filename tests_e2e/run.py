@@ -214,7 +214,7 @@ if __name__ == "__main__":
     ]
 
     debug_level = int(environ.get("DEBUG")) if environ.get("DEBUG") else 0
-    debug = debug_level or environ.get("ACTIONS_STEP_DEBUG") == "true"
+    debug = True # debug_level or environ.get("ACTIONS_STEP_DEBUG") == "true"
     basicConfig(
         level=DEBUG if debug else INFO
     )
