@@ -22,16 +22,16 @@ devDependencies:
 
 packages:
 
-  /@azure/msal-common@14.7.1:
-    resolution: {integrity: sha512-v96btzjM7KrAu4NSEdOkhQSTGOuNUIIsUdB8wlyB9cdgl5KqEKnTonHUZ8+khvZ6Ap542FCErbnTyDWl8lZ2rA==}
+  /@azure/msal-common@14.12.0:
+    resolution: {integrity: sha512-IDDXmzfdwmDkv4SSmMEyAniJf6fDu3FJ7ncOjlxkDuT85uSnLEhZi3fGZpoR7T4XZpOMx9teM9GXBgrfJgyeBw==}
     engines: {node: '>=0.8.0'}
     dev: false
 
-  /@azure/msal-node@2.6.4:
-    resolution: {integrity: sha512-nNvEPx009/80UATCToF+29NZYocn01uKrB91xtFr7bSqkqO1PuQGXRyYwryWRztUrYZ1YsSbw9A+LmwOhpVvcg==}
+  /@azure/msal-node@2.9.2:
+    resolution: {integrity: sha512-8tvi6Cos3m+0KmRbPjgkySXi+UQU/QiuVRFnrxIwt5xZlEEFa69O04RTaNESGgImyBBlYbo2mfE8/U8Bbdk1WQ==}
     engines: {node: '>=16'}
     dependencies:
-      '@azure/msal-common': 14.7.1
+      '@azure/msal-common': 14.12.0
       jsonwebtoken: 9.0.2
       uuid: 8.3.2
     dev: false
@@ -367,7 +367,7 @@ packages:
   /prismarine-auth@2.4.1:
     resolution: {integrity: sha512-DwDI3Ucxf/eThJJo5QVzlywFrJulL1fK1z6F8bybvddim8YgudRksQc3w4cE2m0hPPHfE1BRd5lh1NpedrixMQ==}
     dependencies:
-      '@azure/msal-node': 2.6.4
+      '@azure/msal-node': 2.9.2
       '@xboxreplay/xboxlive-auth': 3.3.3(debug@4.3.4)
       debug: 4.3.4
       jose: 4.15.5
