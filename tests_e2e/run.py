@@ -303,8 +303,10 @@ if __name__ == "__main__":
 
     if enable_folia:
         server_type = "FOLIA"
+        paper_channel = "experimental"
     else:
         server_type = "PAPER"
+        paper_channel = None
 
     logger.info(f"Selected server type: {server_type}")
 
@@ -322,6 +324,9 @@ if __name__ == "__main__":
             'environment': [
                 f'VERSION={server_version}',
                 f'TYPE={server_type}',
+                *([
+                    f'PAPER_CHANNEL={paper_channel}',
+                ] if paper_channel else []),
             ],
             'ports': [
             ]
