@@ -80,7 +80,7 @@ If you have any questions, please [join my Discord][Discord].
 
 ## Installation
 
-ℹ️ You should install this plugin on both sides: BungeeCord/Velocity and Spigot/Paper.
+ℹ️ Plugin must be installed on every downstream (backend) server in your network. Simply installing it on the proxy side (BungeeCord/Velocity) isn't enough. To ensure compatibility, you need to install the plugin on both the proxy server (BungeeCord/Velocity) and each of the backend servers (Spigot/Paper).
 
 1. Download the latest release
 2. Put each file into the corresponding plugins folder
