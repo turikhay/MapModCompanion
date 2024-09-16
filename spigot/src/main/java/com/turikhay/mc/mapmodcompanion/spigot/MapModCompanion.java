@@ -130,7 +130,7 @@ public class MapModCompanion extends JavaPlugin {
         }
         IdRegistry registry;
         if (world == null) {
-            logger.severe("For every world plugin will now send their unique IDs");
+            logger.info("For every world plugin will now send their unique IDs");
             registry = new IdRegistry.DynamicUUIDRegistry();
         } else {
             int id = world.getUID().hashCode();
@@ -155,14 +155,14 @@ public class MapModCompanion extends JavaPlugin {
             if (env == World.Environment.NORMAL) {
                 if (defaultWorld != null) {
                     // Non-default server configuration
-                    logger.severe("Unexpected world: " + world);
+                    logger.info("Unexpected world: " + world);
                     return null;
                 }
                 defaultWorld = world;
             }
         }
         if (defaultWorld == null) {
-            logger.severe("Default world not detected");
+            logger.info("Default world not detected");
             return null;
         }
         logger.fine("Selected default world: " + defaultWorld + " (" + defaultWorld.getUID() + ")");
