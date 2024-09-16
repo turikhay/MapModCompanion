@@ -162,7 +162,7 @@ public class MapModCompanion extends JavaPlugin {
             }
         }
         if (defaultWorld == null) {
-            logger.severe("Default world not detected");
+            logger.info("Default world not detected");
             return null;
         }
         logger.fine("Selected default world: " + defaultWorld + " (" + defaultWorld.getUID() + ")");
