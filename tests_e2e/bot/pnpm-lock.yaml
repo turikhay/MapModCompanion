@@ -12,8 +12,8 @@ importers:
         specifier: ^1.3.0
         version: 1.3.0
       minecraft-data:
-        specifier: ^3.68.0
-        version: 3.68.0
+        specifier: ^3.69.0
+        version: 3.69.0
       minecraft-protocol:
         specifier: ^1.47.0
         version: 1.47.0
@@ -179,8 +179,8 @@ packages:
   macaddress@0.5.3:
     resolution: {integrity: sha512-vGBKTA+jwM4KgjGZ+S/8/Mkj9rWzePyGY6jManXPGhiWu63RYwW8dKPyk5koP+8qNVhPhHgFa1y/MJ4wrjsNrg==}
 
-  minecraft-data@3.68.0:
-    resolution: {integrity: sha512-pNBTi39a1zbFpN9itwi0YSL3hqAsSw38D7pE9C6m+aURmXljpBlNTO+TkpZxxDv4KqqtNBOhmkj4x46IDW6R+Q==}
+  minecraft-data@3.69.0:
+    resolution: {integrity: sha512-FGpjH/8ABfIuHm53253MZZVLwfVgLuRl4wrYz91TNoT14a+pMPH7igNxdpBmKayhiO7VO0ox/ZISkCOj6S/isA==}
 
   minecraft-folder-path@1.2.0:
     resolution: {integrity: sha512-qaUSbKWoOsH9brn0JQuBhxNAzTDMwrOXorwuRxdJKKKDYvZhtml+6GVCUrY5HRiEsieBEjCUnhVpDuQiKsiFaw==}
@@ -467,7 +467,7 @@ snapshots:
 
   macaddress@0.5.3: {}
 
-  minecraft-data@3.68.0: {}
+  minecraft-data@3.69.0: {}
 
   minecraft-folder-path@1.2.0: {}
 
@@ -480,7 +480,7 @@ snapshots:
       endian-toggle: 0.0.0
       lodash.get: 4.4.2
       lodash.merge: 4.6.2
-      minecraft-data: 3.68.0
+      minecraft-data: 3.69.0
       minecraft-folder-path: 1.2.0
       node-fetch: 2.7.0
       node-rsa: 0.4.2
@@ -556,7 +556,7 @@ snapshots:
 
   prismarine-registry@1.7.0:
     dependencies:
-      minecraft-data: 3.68.0
+      minecraft-data: 3.69.0
       prismarine-nbt: 2.5.0
 
   process@0.11.10: {}
