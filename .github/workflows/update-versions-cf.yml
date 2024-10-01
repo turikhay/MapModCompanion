@@ -22,7 +22,7 @@ jobs:
           ./gradlew \
           updateVersionsCf
       - name: Create PR
-        uses: peter-evans/create-pull-request@v6
+        uses: peter-evans/create-pull-request@v7
         with:
           title: 'Update CurseForge versions file'
           commit-message: 'Update CurseForge versions file'
