@@ -6,15 +6,16 @@ on:
       proxy:
         required: true
         type: string
-      folia:
-          type: boolean
+      server:
+        default: paper
+        type: string
       version:
         required: true
         type: string
 
 jobs:
   test:
-    name: E2E test (${{ inputs.version }}, proxy=${{ inputs.proxy }}, folia=${{ inputs.folia }})
+    name: E2E (${{ inputs.version }}, ${{ inputs.proxy }}, ${{ inputs.server }})
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -22,7 +23,7 @@ jobs:
     env:
      # Legacy builder doesn't seem to properly mount /data folder inside server container for some reason
      DOCKER_BUILDKIT: 1
-     FOLIA: "${{ inputs.folia && '1' || '0'  }}"
+     SERVER_TYPE: "${{ inputs.server }}"
     steps:
       - uses: actions/checkout@v4
       - uses: actions/download-artifact@v4
