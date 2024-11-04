@@ -37,10 +37,11 @@ jobs:
           - velocity
           - bungeecord
           - waterfall
-        folia:
-          - false
-          - true
+        server:
+          - paper
+          - folia
     uses: ./.github/workflows/e2e_test.yml
     with:
       proxy: ${{ matrix.proxy }}
       version: ${{ matrix.version }}
+      server: ${{ matrix.server }}

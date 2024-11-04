@@ -257,18 +257,20 @@ if __name__ == "__main__":
         if enable_blue:
             logger.info("Use 127.0.0.1:9011 for blue server")
 
-    enable_folia = environ.get("FOLIA") == "1"
+    server_type = environ.get("SERVER_TYPE")
+    if not server_type:
+        server_type = "paper"
 
     proxy_type, client_version, action = argv[1:]
 
     version_info = VERSIONS[client_version]
 
-    if enable_folia and ("folia" not in version_info or not version_info["folia"]):
+    if server_type == 'folia' and ("folia" not in version_info or not version_info["folia"]):
         logger.info(f"Skipping: Folia is not supported on this version ({client_version})")
         exit(0)
 
     test_name_suffix = ""
-    if enable_folia:
+    if server_type == 'folia':
         test_name_suffix += "folia_"
     test_name_suffix += f"{proxy_type}_{client_version}"
 
@@ -325,14 +327,12 @@ if __name__ == "__main__":
     else:
         world_version = "1.17.1"
 
-    if enable_folia:
-        server_type = "FOLIA"
+    if server_type in ("folia"):
         paper_channel = "experimental"
     else:
-        server_type = "PAPER"
         paper_channel = None
 
-    logger.info(f"Selected server type: {server_type}")
+    logger.info(f"Server type: {server_type}")
 
     for server_name in servers:
         server_desc = {
@@ -347,7 +347,7 @@ if __name__ == "__main__":
             },
             'environment': [
                 f'VERSION={server_version}',
-                f'TYPE={server_type}',
+                f'TYPE={server_type.upper()}',
                 *([
                     f'PAPER_CHANNEL={paper_channel}',
                 ] if paper_channel else []),

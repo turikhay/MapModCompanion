@@ -34,4 +34,4 @@ Command:
 * `manual` – spin up specified server and proxy
 * * Use env `JAVA_DEBUG=1` to enable Java debugging. Local port `9010` goes for the proxy, `9011` for the server. Example: `JAVA_DEBUG=1 ./run.sh waterfall 1.16.5 manual`
 * * Use env `BLUE=1` to enable second server (e.g. to debug map persistence). You'll be able to switch between servers with `/server red/blue`.
-
+* * Use Env `SERVER_TYPE=folia` if you want to use Folia as a backend Minecraft server. Note that the script will just exit if there is no Folia support for the selected version.
