@@ -81,7 +81,9 @@ VERSIONS = {
         ))
     ),
     **(
-        dict((version, {}) for version in (
+        dict((version, {
+            'java': 17,
+        }) for version in (
             '1.17.1',
             '1.18.2',
             '1.19.3',
@@ -95,6 +97,7 @@ VERSIONS = {
         dict((
             version,
             {
+                'java': 17,
                 'folia': True,
             },
         ) for version in (
@@ -105,9 +108,22 @@ VERSIONS = {
         dict((
             version,
             {
+                'java': 21,
+            },
+        ) for version in (
+            '1.20.6',
+            '1.21.1',
+        ))
+    ),
+    **(
+        dict((
+            version,
+            {
+                'java': 21,
                 'bot': False,
             },
         ) for version in (
+            '1.21.3',
         ))
     ),
 }
@@ -214,7 +230,7 @@ if __name__ == "__main__":
     ]
 
     debug_level = int(environ.get("DEBUG")) if environ.get("DEBUG") else 0
-    debug = debug_level or environ.get("ACTIONS_STEP_DEBUG") == "true"
+    debug = debug_level > 0
     basicConfig(
         level=DEBUG if debug else INFO
     )
@@ -286,15 +302,13 @@ if __name__ == "__main__":
         bot_container = None
         assert action not in ("test",)
 
-    if "java" in version_info:
-        server_java_version = version_info["java"]
-    else:
-        server_java_version = 17
-
     if "server" in version_info:
         server_version = version_info["server"]
     else:
         server_version = client_version
+
+    assert "java" in version_info, f"java version for {server_version} is not defined"
+    server_java_version = version_info["java"]
 
     if "world" in version_info:
         world_version = version_info["world"]
@@ -470,6 +484,7 @@ if __name__ == "__main__":
                 ] if debug else [
                     '-f',
                     'bot',
+                    *servers,
                 ])
             ],
             stdout=PIPE,
