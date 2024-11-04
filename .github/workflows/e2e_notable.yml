@@ -34,7 +34,7 @@ jobs:
       proxy: ${{ matrix.proxy }}
       version: ${{ matrix.version }}
   paper-folia:
-    name: E2E test (w/Folia)
+    name: E2E w/Folia
     needs: build
     strategy:
       fail-fast: false
