@@ -109,9 +109,19 @@ VERSIONS = {
             version,
             {
                 'java': 21,
+                'folia': True,
             },
         ) for version in (
             '1.20.6',
+        ))
+    ),
+    **(
+        dict((
+            version,
+            {
+                'java': 21,
+            },
+        ) for version in (
             '1.21.1',
         ))
     ),
