@@ -11,6 +11,9 @@ on:
       task:
         type: string
         default: build
+      dependency-graph:
+        type: string
+        default: generate-and-upload
     outputs:
       artifact:
         description: Path to the jar artifact
@@ -34,11 +37,9 @@ jobs:
       artifact: ${{ env.ARTIFACT }}
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@v4
+      - uses: ./.github/actions/setup_gradle.yml
         with:
-          dependency-graph: generate-and-submit
+          dependency-graph: ${{ inputs.dependency-graph }}
       - name: Determine target Spigot version
         id: target
         run: |

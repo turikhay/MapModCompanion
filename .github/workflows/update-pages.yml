@@ -15,11 +15,7 @@ jobs:
       UPDATE_PAGES: true
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - name: Validate Gradle wrapper
-        uses: gradle/actions/wrapper-validation@v4
-      - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@v4
+      - uses: ./.github/actions/setup_gradle.yml
       - name: Run tasks
         run: |
           ./gradlew \
