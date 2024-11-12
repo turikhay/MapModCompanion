@@ -1,4 +1,4 @@
-name: Run Gradle
+name: Build
 
 on:
   workflow_call:
@@ -30,7 +30,7 @@ permissions:
 
 jobs:
   build:
-    name: Gradle task
+    name: Gradle build
     env:
       ARTIFACT: packages/single/build/libs/MapModCompanion.jar
     outputs:

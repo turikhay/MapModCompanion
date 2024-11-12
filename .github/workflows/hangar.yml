@@ -9,7 +9,7 @@ jobs:
   upload:
     name: Build and upload
     needs: version
-    uses: ./.github/workflows/gradle.yml
+    uses: ./.github/workflows/build.yml
     with:
       version: ${{ needs.version.outputs.version }}
       task: publishPluginPublicationToHangar
