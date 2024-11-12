@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: ./.github/actions/setup_gradle.yml
+      - uses: ./.github/actions/setup_gradle
       - name: Run tasks
         run: |
           ./gradlew \
