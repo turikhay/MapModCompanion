@@ -25,7 +25,7 @@ jobs:
   build:
     name: Build
     needs: prepare
-    uses: ./.github/workflows/build.yml
+    uses: ./.github/workflows/gradle.yml
     with:
       version: ${{ needs.prepare.outputs.version }}
       dependency-graph: generate-and-submit

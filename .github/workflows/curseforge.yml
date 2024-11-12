@@ -9,7 +9,7 @@ jobs:
   build:
     name: Build
     needs: version
-    uses: ./.github/workflows/build.yml
+    uses: ./.github/workflows/gradle.yml
     with:
       version: ${{ needs.version.outputs.version }}
   upload:
