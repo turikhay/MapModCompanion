@@ -38,7 +38,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: ./.github/actions/setup_gradle
+      - name: Setup Gradle
+        uses: ./.github/actions/setup_gradle
         with:
           dependency-graph: ${{ inputs.dependency-graph }}
       - name: Determine target Spigot version
