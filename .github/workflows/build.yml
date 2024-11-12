@@ -1,4 +1,4 @@
-name: Build
+name: Gradle build
 
 on:
   workflow_call:
@@ -11,6 +11,9 @@ on:
       task:
         type: string
         default: build
+      dependency-graph:
+        type: string
+        default: generate-and-upload
     outputs:
       artifact:
         description: Path to the jar artifact
@@ -27,7 +30,7 @@ permissions:
 
 jobs:
   build:
-    name: Gradle build
+    name: Run Gradle
     env:
       ARTIFACT: packages/single/build/libs/MapModCompanion.jar
     outputs:
@@ -36,16 +39,16 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@v4
+        uses: ./.github/actions/setup_gradle
         with:
-          dependency-graph: generate-and-submit
+          dependency-graph: ${{ inputs.dependency-graph }}
       - name: Determine target Spigot version
         id: target
         run: |
           TARGET=${{ inputs.spigot-target }}
           [[ -z "$TARGET" ]] && TARGET=$(tail -n1 VERSIONS.txt)
           echo "spigot-version=$TARGET" >> $GITHUB_OUTPUT
-      - name: Run the build
+      - name: Run the task
         run: |
           ./gradlew \
           ${{ inputs.task }} \
@@ -55,7 +58,7 @@ jobs:
         env:
           HANGAR_TOKEN: ${{ secrets.hangar-token }}
           MODRINTH_TOKEN: ${{ secrets.modrinth-token }}
-      - name: Force original path preservation (for upload-artifact@v3)
+      - name: Force original path preservation
         run: touch .empty
       - uses: actions/upload-artifact@v4
         with:
