@@ -1,4 +1,4 @@
-name: Build
+name: Gradle build
 
 on:
   workflow_call:
@@ -30,7 +30,7 @@ permissions:
 
 jobs:
   build:
-    name: Gradle build
+    name: Run Gradle
     env:
       ARTIFACT: packages/single/build/libs/MapModCompanion.jar
     outputs:
@@ -48,7 +48,7 @@ jobs:
           TARGET=${{ inputs.spigot-target }}
           [[ -z "$TARGET" ]] && TARGET=$(tail -n1 VERSIONS.txt)
           echo "spigot-version=$TARGET" >> $GITHUB_OUTPUT
-      - name: Run the build
+      - name: Run the task
         run: |
           ./gradlew \
           ${{ inputs.task }} \
@@ -58,7 +58,7 @@ jobs:
         env:
           HANGAR_TOKEN: ${{ secrets.hangar-token }}
           MODRINTH_TOKEN: ${{ secrets.modrinth-token }}
-      - name: Force original path preservation (for upload-artifact@v3)
+      - name: Force original path preservation
         run: touch .empty
       - uses: actions/upload-artifact@v4
         with:
