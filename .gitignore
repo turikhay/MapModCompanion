@@ -40,3 +40,6 @@ bin/
 ### Python ###
 /venv/
 /.venv/
+
+### GitHub Gradle Actions ###
+dependency-graph-reports/
