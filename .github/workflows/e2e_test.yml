@@ -17,6 +17,7 @@ jobs:
   test:
     name: E2E (${{ inputs.version }}, ${{ inputs.proxy }}, ${{ inputs.server }})
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     defaults:
       run:
         working-directory: ./tests_e2e
