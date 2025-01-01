@@ -19,7 +19,7 @@ Automatic bot test is not _that_ useful because it doesn't behave like real Mine
 ## Let me try
 
 ```shell
-$ ./run.sh <proxy> <version> <command>
+$ DEBUG=1 ./run.sh <proxy> <version> <command>
 ```
 
 Proxy can be one of the following:
