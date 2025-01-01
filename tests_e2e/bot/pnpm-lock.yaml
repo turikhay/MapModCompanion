@@ -19,8 +19,8 @@ importers:
         version: 1.51.0
     devDependencies:
       prettier:
-        specifier: ^3.4.1
-        version: 3.4.1
+        specifier: ^3.4.2
+        version: 3.4.2
 
 packages:
 
@@ -207,8 +207,8 @@ packages:
   node-rsa@0.4.2:
     resolution: {integrity: sha512-Bvso6Zi9LY4otIZefYrscsUpo2mUpiAVIEmSZV2q41sP8tHZoert3Yu6zv4f/RXJqMNZQKCtnhDugIuCma23YA==}
 
-  prettier@3.4.1:
-    resolution: {integrity: sha512-G+YdqtITVZmOJje6QkXQWzl3fSfMxFwm1tjTyo9exhkmWSqC4Yhd1+lug++IlR2mvRVAxEDDWYkQdeSztajqgg==}
+  prettier@3.4.2:
+    resolution: {integrity: sha512-e9MewbtFo+Fevyuxn/4rrcDAaq0IYxPGLvObpQjiZBMAzB9IGmzlnG9RZy3FFas+eBMu2vA0CszMeduow5dIuQ==}
     engines: {node: '>=14'}
     hasBin: true
 
@@ -496,7 +496,7 @@ snapshots:
     dependencies:
       asn1: 0.2.3
 
-  prettier@3.4.1: {}
+  prettier@3.4.2: {}
 
   prismarine-auth@2.5.1:
     dependencies:
