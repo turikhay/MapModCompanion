@@ -53,7 +53,7 @@ Companion plugin for
 [Xaero's Minimap]
 (and their [World Map][Xaero's World Map]),
 [JourneyMap] and
-VoxelMap (both [old][VoxelMap (old)] and [updated][VoxelMap]).
+VoxelMap (both [old][VoxelMap (old)] and [updated][VoxelMap-Updated]).
 Provides a way for these mods to identify worlds on BungeeCord/Velocity servers.
 
 It's recommended to install this plugin on a fresh server, otherwise **existing map data**
@@ -71,10 +71,10 @@ If you have any questions, please [join my Discord][Discord].
 ## Support table
 | Mod                                                                                | Oldest version             | Latest version                                               | Status      |
 |------------------------------------------------------------------------------------|----------------------------|--------------------------------------------------------------|-------------|
-| [Xaero's Minimap]     | v20.20.0 / Minecraft 1.8.9 | v23.9.x / Minecraft 1.20.x                                   | ✅ Supported |
-| [Xaero's World Map] | v1.10.0 / Minecraft 1.8.9  | v1.37.8 / Minecraft 1.20.x                                   | ✅ Supported<sup class="reference">[[1]](https://github.com/turikhay/MapModCompanion/issues/62)</sup> |
-| [JourneyMap]              | v5.7.1 / Minecraft 1.16.5  | v5.9.9 / Minecraft 1.20.1                               | ✅ Supported |
-| VoxelMap                                                                           | [v1.7.10][VoxelMap (old)] / Minecraft 1.8    | [v1.12.x][VoxelMap] / Minecraft 1.20.1 | ✅ Supported<sup class="reference">[[2]](https://github.com/turikhay/MapModCompanion/issues/8)</sup> |
+| [Xaero's Minimap]     | v20.20.0 / Minecraft 1.8.9 | v24.7.1 / Minecraft 1.21.4                                   | ✅ Supported |
+| [Xaero's World Map] | v1.10.0 / Minecraft 1.8.9  | v1.39.2 / Minecraft 1.21.4                                   | ✅ Supported<sup class="reference">[[1]](https://github.com/turikhay/MapModCompanion/issues/62)</sup> |
+| [JourneyMap]              | v5.7.1 / Minecraft 1.16.5  | v6.0.0 / Minecraft 1.21.4                               | ✅ Supported |
+| VoxelMap                                                                           | [v1.7.10][VoxelMap (old)] / Minecraft 1.8    | [v1.14.7][VoxelMap-Updated] / Minecraft 1.21.4 | ✅ Supported<sup class="reference">[[2]](https://github.com/turikhay/MapModCompanion/issues/8)</sup> |
 
 [Folia](https://papermc.io/software/folia) is supported, but isn't tested thoroughly. Please report if the support is broken.
 
@@ -106,5 +106,5 @@ The configuration file reloads automatically if it's modified.
 [Xaero's World Map]: https://modrinth.com/mod/xaeros-world-map
 [JourneyMap]: https://modrinth.com/mod/journeymap
 [VoxelMap (old)]: https://www.curseforge.com/minecraft/mc-mods/voxelmap
-[VoxelMap]: https://modrinth.com/mod/voxelmap-updated
+[VoxelMap-Updated]: https://modrinth.com/mod/voxelmap-updated
 [worldnamepacket]: https://github.com/kosma/worldnamepacket
