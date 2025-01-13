@@ -113,6 +113,7 @@ VERSIONS = {
             },
         ) for version in (
             '1.20.6',
+            '1.21.4',
         ))
     ),
     **(
@@ -123,16 +124,6 @@ VERSIONS = {
             },
         ) for version in (
             '1.21.1',
-        ))
-    ),
-    **(
-        dict((
-            version,
-            {
-                'java': 21,
-                'bot': False,
-            },
-        ) for version in (
             '1.21.3',
         ))
     ),
