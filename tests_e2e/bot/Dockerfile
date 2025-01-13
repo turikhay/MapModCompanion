@@ -1,12 +1,12 @@
 FROM node:18
 
+ENV NODE_ENV=production
+
 WORKDIR /usr/src/app
 
-RUN npm i -g pnpm
+COPY package.json package-lock.json ./
 
-COPY package.json pnpm-lock.yaml ./
-
-RUN pnpm install --prod --frozen-lockfile
+RUN npm ci
 
 COPY . .
 
