@@ -1,5 +1,5 @@
 import java.net.URI
-import java.net.http.HttpRequest
+import java.net.http.HttpRequest.newBuilder
 
 plugins {
     base
@@ -10,11 +10,9 @@ plugins {
 tasks {
     register("updateVersionsCf") {
         doLast {
-            val token = System.getenv("CURSEFORGE_TOKEN") ?: throw RuntimeException("missing CurseForge token")
             val response = jsonRequest(
-                    HttpRequest.newBuilder()
+                    newBuilder()
                             .uri(URI("https://api.curseforge.com/v1/minecraft/version"))
-                            .header("X-Api-Token", token)
                             .build()
             )
             assert(response.statusCode() == 200) { "Invalid status code (${response.statusCode()})" }
