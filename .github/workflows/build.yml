@@ -53,8 +53,7 @@ jobs:
           ./gradlew \
           ${{ inputs.task }} \
           -Pversion=${{ inputs.version }} \
-          -Pspigot_version=${{ steps.target.outputs.spigot-version }} \
-          -PprotocolLib_version=4.2.1
+          -Pspigot_version=${{ steps.target.outputs.spigot-version }}
         env:
           HANGAR_TOKEN: ${{ secrets.hangar-token }}
           MODRINTH_TOKEN: ${{ secrets.modrinth-token }}
