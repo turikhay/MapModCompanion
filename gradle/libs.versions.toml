@@ -23,5 +23,5 @@ bungeecord-api = { module = "net.md-5:bungeecord-api", version.ref = "bungeecord
 
 
 [plugins]
-shadow = { id = "com.github.johnrengelman.shadow", version.ref = "shadow" }
+shadow = { id = "com.gradleup.shadow", version.ref = "shadow" }
 hangar = { id = "io.papermc.hangar-publish-plugin", version.ref = "hangar" }
