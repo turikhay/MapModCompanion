@@ -1,7 +1,8 @@
 [versions]
 spotbugs = "4.8.3"
 shadow = "9.0.0"
-junit = "5.10.2"
+junit = "5.13.4"
+junit-platform-launcher = "1.13.4"
 bstats = "3.1.0"
 velocity-api = "3.1.1"
 jackson = "2.16.1"
@@ -13,6 +14,7 @@ bungeecord-api = "1.20-R0.2"
 spotbugs-annotations = { module = "com.github.spotbugs:spotbugs-annotations", version.ref = "spotbugs" }
 junit-api = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "junit" }
 junit-engine = { module = "org.junit.jupiter:junit-jupiter-engine", version.ref = "junit" }
+junit-platform-launcher = { module = "org.junit.platform:junit-platform-launcher", version.ref = "junit-platform-launcher" }
 bstats-bungeecord = { module = "org.bstats:bstats-bungeecord", version.ref = "bstats" }
 bstats-bukkit = { module = "org.bstats:bstats-bukkit", version.ref = "bstats" }
 bstats-velocity = { module = "org.bstats:bstats-velocity", version.ref = "bstats" }
