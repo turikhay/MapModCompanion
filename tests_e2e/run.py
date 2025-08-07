@@ -10,6 +10,8 @@ from shutil import copytree, rmtree, copyfile
 import requests
 from yaml import load as yaml_load, dump as yaml_dump, Loader as YamlLoader, Dumper as YamlDumper
 from toml import load as toml_load, dump as toml_dump
+from json import load as json_load
+from datetime import datetime, timedelta
 
 logger = getLogger("tests_e2e")
 
@@ -281,6 +283,8 @@ if __name__ == "__main__":
     }
 
     if "bot" not in version_info or version_info["bot"] == True:
+        with open(test_env_dir / "result.json", "w") as f:
+            f.write("{}")
         bot_container = test_name
         bot_desc = {
             'container_name': test_name,
@@ -298,6 +302,9 @@ if __name__ == "__main__":
             'depends_on': [
                 'proxy'
             ],
+            'volumes': [
+                './result.json:/usr/src/app/result.json',
+            ]
         }
         docker_compose_file_contents["services"]["bot"] = bot_desc
     else:
@@ -498,6 +505,8 @@ if __name__ == "__main__":
             stderr=STDOUT,
             text=True
         )
+        waiting_since = datetime.now()
+        success_status = None
 
         try:
             while docker_wait.poll() is None:
@@ -505,6 +514,17 @@ if __name__ == "__main__":
                 if ch:
                     stdout.buffer.write(ch)
                     stdout.flush()
+                now = datetime.now()
+                if (now - waiting_since) > timedelta(seconds=1):
+                    logger.debug(f"Reading bot status from file")
+                    waiting_since = now
+                    with open(test_env_dir / "result.json", "r") as f:
+                        j = json_load(f)
+                        if "success" in j:
+                            success_status = j["success"]
+                            logger.warning(f"Bot has completed with status: {success_status}")
+                            docker_wait.kill()
+                            break
         except KeyboardInterrupt:
             docker_logs.kill()
 
@@ -513,7 +533,7 @@ if __name__ == "__main__":
             'down',
         ]).wait()
 
-        if docker_wait.returncode != 0 or int(docker_wait.stdout.read()) != 0:
+        if success_status == False or docker_wait.returncode != 0 or int(docker_wait.stdout.read()) != 0:
             logger.error("Failed")
             exit(1)
 

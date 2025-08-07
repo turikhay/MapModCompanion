@@ -1,3 +1,5 @@
+import { writeFile } from "fs/promises";
+
 import argsParser from "args-parser";
 import dataProvider from "minecraft-data";
 
@@ -71,6 +73,8 @@ try {
 } catch (e) {
   success = false;
 }
+
+await writeFile("result.json", JSON.stringify({success}));
 
 if (!success) {
   console.warn(`😢  There were failing tests`);
