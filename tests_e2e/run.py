@@ -230,7 +230,7 @@ if __name__ == "__main__":
         'blue',
     ]
 
-    debug_level = int(environ.get("DEBUG")) if environ.get("DEBUG") else 0
+    debug_level = 1 # int(environ.get("DEBUG")) if environ.get("DEBUG") else 0
     debug = debug_level > 0
     basicConfig(
         level=DEBUG if debug else INFO
