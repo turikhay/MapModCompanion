@@ -466,13 +466,11 @@ if __name__ == "__main__":
         *(['--detach'] if auto else []),
     ])
 
-    while True:
-        try:
-            exit_code = docker_proc.wait()
-            break
-        except KeyboardInterrupt:
-            docker_proc.send_signal(SIGINT)
-            exit(1)
+    try:
+        exit_code = docker_proc.wait()
+    except KeyboardInterrupt:
+        docker_proc.send_signal(SIGINT)
+        exit(1)
 
     if auto:
         logger.info(f"Waiting for {bot_container}")
