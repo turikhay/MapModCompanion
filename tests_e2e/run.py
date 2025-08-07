@@ -466,13 +466,11 @@ if __name__ == "__main__":
         *(['--detach'] if auto else []),
     ])
 
-    while True:
-        try:
-            exit_code = docker_proc.wait()
-            break
-        except KeyboardInterrupt:
-            docker_proc.send_signal(SIGINT)
-            exit(1)
+    try:
+        exit_code = docker_proc.wait()
+    except KeyboardInterrupt:
+        docker_proc.send_signal(SIGINT)
+        exit(1)
 
     if auto:
         logger.info(f"Waiting for {bot_container}")
@@ -488,8 +486,6 @@ if __name__ == "__main__":
                     *servers,
                 ])
             ],
-            stdout=PIPE,
-            stderr=STDOUT,
         )
         docker_wait = docker(
             [
@@ -502,11 +498,7 @@ if __name__ == "__main__":
         )
 
         try:
-            while docker_wait.poll() is None:
-                ch = docker_logs.stdout.read(1)
-                if ch:
-                    stdout.buffer.write(ch)
-                    stdout.flush()
+            docker_wait.wait()
         except KeyboardInterrupt:
             docker_logs.kill()
 
