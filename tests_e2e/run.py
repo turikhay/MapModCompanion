@@ -10,7 +10,6 @@ from shutil import copytree, rmtree, copyfile
 import requests
 from yaml import load as yaml_load, dump as yaml_dump, Loader as YamlLoader, Dumper as YamlDumper
 from toml import load as toml_load, dump as toml_dump
-from datetime import datetime
 
 logger = getLogger("tests_e2e")
 
@@ -503,7 +502,6 @@ if __name__ == "__main__":
         try:
             while docker_wait.poll() is None:
                 ch = docker_logs.stdout.read(1)
-                print(datetime.now())
                 if ch:
                     stdout.buffer.write(ch)
                     stdout.flush()
