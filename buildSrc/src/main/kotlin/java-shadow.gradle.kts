@@ -1,6 +1,6 @@
 plugins {
     id("java-convention")
-    id("com.github.johnrengelman.shadow")
+    id("com.gradleup.shadow")
 }
 
 tasks {

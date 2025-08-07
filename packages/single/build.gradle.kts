@@ -7,6 +7,13 @@ plugins {
     id("platform-readme")
 }
 
+// There is no source code in this project, but Gradle 9.0+ will
+// still complain about compatibility with ':velocity' project
+java {
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+}
+
 dependencies {
     implementation(project(":bungee"))
     implementation(project(":spigot"))
