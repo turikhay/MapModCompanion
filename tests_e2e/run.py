@@ -486,8 +486,6 @@ if __name__ == "__main__":
                     *servers,
                 ])
             ],
-            stdout=PIPE,
-            stderr=STDOUT,
         )
         docker_wait = docker(
             [
@@ -500,11 +498,7 @@ if __name__ == "__main__":
         )
 
         try:
-            while docker_wait.poll() is None:
-                ch = docker_logs.stdout.read(1)
-                if ch:
-                    stdout.buffer.write(ch)
-                    stdout.flush()
+            docker_wait.wait()
         except KeyboardInterrupt:
             docker_logs.kill()
 
