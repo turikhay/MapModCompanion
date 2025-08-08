@@ -14,9 +14,9 @@ public interface LevelMapProperties {
                 if (marker == 0) {
                     return new StandardId(in.readInt());
                 }
-                throw new MalformedPacketException("invalid marker byte (0x" + Integer.toHexString(marker) + ") in the standard id packet");
+                throw new MalformedPacketException("invalid marker byte (0x" + Integer.toHexString(marker) + ") in the level map properties packet");
             } catch (IOException e) {
-                throw new MalformedPacketException("unexpected error reading standard id packet", e);
+                throw new MalformedPacketException("unexpected error reading level map properties packet", e);
             }
         }
 
