@@ -8,7 +8,12 @@ package com.turikhay.mc.mapmodcompanion;
  */
 public interface Id {
 
-    /** Magic value used in some packet formats. */
+    /**
+     * Flag value used by VoxelMap-style packets.
+     * <p>
+     * When present at the start of a packet, the value {@code 42} signals that
+     * the payload follows the VoxelMap format.
+     */
     int MAGIC_MARKER = 42;
 
     /**
@@ -42,6 +47,13 @@ public interface Id {
 
     /**
      * Converts raw packet bytes into an {@link Id} instance.
+     * <p>
+     * Implementations are typically stateless and expose a shared
+     * {@code instance()} method so they can be reused:
+     *
+     * <pre>{@code
+     * PrefixedId id = PrefixedId.Deserializer.instance().deserialize(data);
+     * }</pre>
      *
      * @param <IdType> type of id produced
      */
@@ -58,6 +70,13 @@ public interface Id {
 
     /**
      * Produces raw packet bytes from an {@link Id} instance.
+     * <p>
+     * Like deserializers, serializers commonly provide a shared
+     * {@code instance()} for reuse:
+     *
+     * <pre>{@code
+     * byte[] data = PrefixedId.Serializer.instance().serialize(id);
+     * }</pre>
      *
      * @param <IdType> type of id to serialize
      */

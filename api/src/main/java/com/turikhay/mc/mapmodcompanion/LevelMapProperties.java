@@ -9,6 +9,10 @@ public interface LevelMapProperties {
 
     /**
      * Deserializes standard id packets.
+     *
+     * <pre>{@code
+     * StandardId id = LevelMapProperties.Deserializer.instance().deserialize(data);
+     * }</pre>
      */
     class Deserializer implements Id.Deserializer<StandardId> {
         private static Deserializer INSTANCE;
@@ -38,6 +42,10 @@ public interface LevelMapProperties {
 
     /**
      * Serializes standard ids into packet byte arrays.
+     *
+     * <pre>{@code
+     * byte[] data = LevelMapProperties.Serializer.instance().serialize(id);
+     * }</pre>
      */
     class Serializer implements Id.Serializer<StandardId> {
         private static Serializer INSTANCE;

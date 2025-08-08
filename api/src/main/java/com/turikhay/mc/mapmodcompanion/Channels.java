@@ -5,14 +5,12 @@ package com.turikhay.mc.mapmodcompanion;
  * modifications.
  * <p>
  * These constants can be used with the platform specific networking API to
- * register listeners or send packets. For example, registering the world id
- * channel on Fabric would look like:
+ * register listeners or send packets. For example:
  *
  * <pre>{@code
- * ClientPlayNetworking.registerGlobalReceiver(
- *         Channels.WORLDID_CHANNEL,
- *         (client, handler, buf, responseSender) -> { /* ... *\/ }
- * );
+ * registerChannel(Channels.WORLDID_CHANNEL, data -> {
+ *     // ...
+ * });
  * }</pre>
  */
 public interface Channels {

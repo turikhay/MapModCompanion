@@ -6,6 +6,8 @@ import java.util.Objects;
 
 /**
  * Identifier encoded with a zero-prefixed length and optional magic marker.
+ * When present, the marker has the value {@link Id#MAGIC_MARKER} (42) which
+ * flags a VoxelMap-style packet.
  * <p>
  * The format matches the one used by Xaero's minimap when responding to world
  * id requests. The {@link Deserializer} and {@link Serializer} nested classes
@@ -144,6 +146,10 @@ public class PrefixedId implements Id {
 
     /**
      * Serializes {@link PrefixedId} instances into packet byte arrays.
+     *
+     * <pre>{@code
+     * byte[] data = PrefixedId.Serializer.instance().serialize(id);
+     * }</pre>
      */
     public static class Serializer implements Id.Serializer<PrefixedId> {
         private static Serializer INSTANCE;
@@ -157,7 +163,7 @@ public class PrefixedId implements Id {
                     out.writeByte(0);      // packetId, or prefix
                 }
                 if (id.usesMagicByte) {
-                    out.writeByte(MAGIC_MARKER); // 42 (literally)
+                    out.writeByte(MAGIC_MARKER); // VoxelMap-style flag (42)
                 }
                 byte[] data = String.valueOf(id.getId()).getBytes(StandardCharsets.UTF_8);
                 out.write(data.length);      // length
