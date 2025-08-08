@@ -24,6 +24,12 @@ class PrefixedIdPacketDeserializerTest {
         test(new PrefixedId(0, true, 1), new byte[] { 42, 1, 49 });
     }
 
+    @Test
+    void zeroFilledArrayTest() {
+        assertThrows(MalformedPacketException.class,
+                () -> deserializer.deserialize(new byte[] { 0, 0, 0 }));
+    }
+
     private void test(PrefixedId expected, byte[] data) throws MalformedPacketException {
         assertEquals(expected, deserializer.deserialize(data));
     }
