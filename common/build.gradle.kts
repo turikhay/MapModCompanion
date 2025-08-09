@@ -4,4 +4,5 @@ plugins {
 
 dependencies {
     implementation(project(":api"))
+    compileOnly(libs.slf4j)
 }
