@@ -18,10 +18,10 @@ class PrefixedIdRequestParserTest {
     void voxelMapForge1_13_2UpTo1_16_3() throws MalformedPacketException {
         test(
                 Arrays.asList(
-                        404,
-                        498,
-                        578,
-                        753
+                        ProtocolVersion.MINECRAFT_1_13_2,
+                        ProtocolVersion.MINECRAFT_1_14_4,
+                        ProtocolVersion.MINECRAFT_1_15_2,
+                        ProtocolVersion.MINECRAFT_1_16_3
                 ),
                 new PrefixedIdRequest(1, false),
                 new byte[] { 0, 42, 0 }

@@ -13,9 +13,12 @@ import static com.turikhay.mc.mapmodcompanion.Id.MAGIC_MARKER;
  * Description of a packet sent by VoxelMap-style clients to request the
  * server's {@code world_id}.
  *
- * <p>Clients send this packet to learn how the server expects the id to be
- * encoded. Use {@link #parse(byte[], Integer)} to interpret the request and
- * {@link #constructId(int)} to produce a {@link PrefixedId} for the response.</p>
+ * <p>The packet itself has no internal structure that influences how the
+ * server responds. The {@link #parse(byte[], Integer)} method examines the raw
+ * bytes and sets markers such as zero-padding length and the presence of the
+ * magic marker {@link Id#MAGIC_MARKER}. These markers indicate which client
+ * family and version range issued the request, allowing the server to craft a
+ * matching {@link PrefixedId} via {@link #constructId(int)}.</p>
  *
  * <pre>{@code
  * PrefixedIdRequest request = PrefixedIdRequest.parse(data, protocolVersion);
@@ -72,7 +75,8 @@ public class PrefixedIdRequest {
     }
 
     /**
-     * Parses a VoxelMap-style request packet.
+     * Parses a VoxelMap-style request packet and sets markers describing the
+     * client family and version range.
      *
      * @param payload         raw packet bytes
      * @param protocolVersion client's protocol version or {@code null} if unknown;
@@ -105,7 +109,7 @@ public class PrefixedIdRequest {
         }
         switch (padding) {
             case 1:
-                if (protocolVersion != null && protocolVersion <= 753) { // 1.16.3 and below
+                if (protocolVersion != null && protocolVersion <= ProtocolVersion.MINECRAFT_1_16_3) { // 1.16.3 and below
                     // VoxelMap Forge 1.13.2 - 1.16.3
                     return new PrefixedIdRequest(1, false);
                 }
