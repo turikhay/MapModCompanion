@@ -11,7 +11,8 @@ import java.util.Optional;
 public interface IdLookup {
 
     /**
-     * Attempts to find a numeric world identifier for the supplied string id.
+     * Attempts to find a numeric world identifier for the supplied string id
+     * (typically, world UUID or its name).
      *
      * @param id textual representation of the world id
      * @return a numeric identifier if a mapping exists
