@@ -10,9 +10,10 @@ import java.util.Objects;
 import static com.turikhay.mc.mapmodcompanion.Id.MAGIC_MARKER;
 
 /**
- * Parsed description of a VoxelMap-style world id request packet.
+ * Description of a packet sent by VoxelMap-style clients to request the
+ * server's {@code world_id}.
  *
- * <p>Clients send such a packet to learn how the server expects the id to be
+ * <p>Clients send this packet to learn how the server expects the id to be
  * encoded. Use {@link #parse(byte[], Integer)} to interpret the request and
  * {@link #constructId(int)} to produce a {@link PrefixedId} for the response.</p>
  *
@@ -74,7 +75,8 @@ public class PrefixedIdRequest {
      * Parses a VoxelMap-style request packet.
      *
      * @param payload         raw packet bytes
-     * @param protocolVersion client's protocol version or {@code null} if unknown
+     * @param protocolVersion client's protocol version or {@code null} if unknown;
+     *                        see {@link ProtocolVersion} for common constants
      * @return parsed request descriptor
      * @throws MalformedPacketException if the payload cannot be parsed
      */
