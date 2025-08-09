@@ -8,7 +8,7 @@ $ free -h
 
 ## Why?
 
-I wanted to verify if the plugin actually works on all Minecraft versions we claim it supports. Setting up 30+ Paper, Bungeecord and Velocity instances manually was just too much work for me.
+I wanted to verify if the plugin actually works on all Minecraft versions we claim it supports. Setting up 30+ Paper, BungeeCord and Velocity instances manually was just too much work for me.
 
 ## How?
 
