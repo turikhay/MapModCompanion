@@ -50,6 +50,7 @@ public class FileChangeWatchdog implements Disposable {
             return;
         }
         if (!time.equals(lastTime)) {
+            lastTime = time;
             logger.info("File has been changed: " + path);
             try {
                 callback.run();
