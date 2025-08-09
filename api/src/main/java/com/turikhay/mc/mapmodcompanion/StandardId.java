@@ -3,7 +3,7 @@ package com.turikhay.mc.mapmodcompanion;
 import java.util.Objects;
 
 /**
- * Plain numeric {@link Id} implementation.
+ * Plain numeric {@link Id} implementation used by Xaero's mods.
  */
 public class StandardId implements Id {
     private final int id;

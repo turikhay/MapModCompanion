@@ -1,12 +1,10 @@
-package com.turikhay.mc.mapmodcompanion.spigot;
-
 import com.turikhay.mc.mapmodcompanion.*;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.List;
 
-import static com.turikhay.mc.mapmodcompanion.spigot.PrefixedIdRequest.parse;
+import static com.turikhay.mc.mapmodcompanion.PrefixedIdRequest.parse;
 import static org.junit.jupiter.api.Assertions.*;
 
 class PrefixedIdRequestParserTest {
@@ -20,10 +18,10 @@ class PrefixedIdRequestParserTest {
     void voxelMapForge1_13_2UpTo1_16_3() throws MalformedPacketException {
         test(
                 Arrays.asList(
-                        ProtocolVersion.MINECRAFT_1_13_2,
-                        ProtocolVersion.MINECRAFT_1_14_4,
-                        ProtocolVersion.MINECRAFT_1_15_2,
-                        ProtocolVersion.MINECRAFT_1_16_3
+                        404,
+                        498,
+                        578,
+                        753
                 ),
                 new PrefixedIdRequest(1, false),
                 new byte[] { 0, 42, 0 }

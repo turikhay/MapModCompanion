@@ -3,7 +3,8 @@ package com.turikhay.mc.mapmodcompanion;
 import java.io.*;
 
 /**
- * Binary format used by VoxelMap to communicate the world id.
+ * Binary format used by Xaero's Minimap and World Map to communicate the
+ * world id.
  */
 public interface LevelMapProperties {
 

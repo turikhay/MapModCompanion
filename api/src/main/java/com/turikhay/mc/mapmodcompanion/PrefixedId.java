@@ -9,10 +9,11 @@ import java.util.Objects;
  * When present, the marker has the value {@link Id#MAGIC_MARKER} (42) which
  * flags a VoxelMap-style packet.
  * <p>
- * The format matches the one used by Xaero's minimap when responding to world
- * id requests. The {@link Deserializer} and {@link Serializer} nested classes
- * can be used to convert between the packet representation and this class.
- */
+ * This format is used by VoxelMap and other mods that implement the same
+ * packet structure. The {@link Deserializer} and {@link Serializer} nested
+ * classes can be used to convert between the packet representation and this
+ * class.
+*/
 public class PrefixedId implements Id {
     private final int padding;
     private final boolean usesMagicByte;
