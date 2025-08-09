@@ -3,15 +3,6 @@ package com.turikhay.mc.mapmodcompanion;
 /**
  * Utility holder for network channel identifiers used by various map
  * modifications.
- * <p>
- * These constants can be used with the platform specific networking API to
- * register listeners or send packets. For example:
- *
- * <pre>{@code
- * registerChannel(Channels.WORLDID_CHANNEL, data -> {
- *     // ...
- * });
- * }</pre>
  */
 public interface Channels {
     /** Plugin channel used by Xaero's Minimap. */
