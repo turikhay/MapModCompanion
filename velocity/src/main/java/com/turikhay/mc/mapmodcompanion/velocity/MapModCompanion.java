@@ -171,27 +171,7 @@ public class MapModCompanion {
 
     private static final String CONFIG_PATH = "/config_velocity.toml";
 
-    private static ILogger ofSlf4j(Logger logger) {
-        return new ILogger() {
-            @Override
-            public void fine(String message) {
-                logger.debug("{}", message);
-            }
-
-            @Override
-            public void info(String message) {
-                logger.info("{}", message);
-            }
-
-            @Override
-            public void warn(String message, Throwable t) {
-                logger.warn("{}", message, t);
-            }
-
-            @Override
-            public void error(String message, Throwable t) {
-                logger.error("{}", message, t);
-            }
-        };
+    private static Slf4jLogger ofSlf4j(Logger logger) {
+        return new Slf4jLogger(logger);
     }
 }

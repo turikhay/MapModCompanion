@@ -1,6 +1,4 @@
-package com.turikhay.mc.mapmodcompanion.spigot;
-
-import com.turikhay.mc.mapmodcompanion.*;
+package com.turikhay.mc.mapmodcompanion;
 
 import javax.annotation.Nullable;
 import java.io.ByteArrayInputStream;
@@ -11,19 +9,48 @@ import java.util.Objects;
 
 import static com.turikhay.mc.mapmodcompanion.Id.MAGIC_MARKER;
 
+/**
+ * Description of a packet sent by VoxelMap-style clients to request the
+ * server's {@code world_id}.
+ *
+ * <p>The packet itself has no internal structure that influences how the
+ * server responds. The {@link #parse(byte[], Integer)} method examines the raw
+ * bytes and sets markers such as zero-padding length and the presence of the
+ * magic marker {@link Id#MAGIC_MARKER}. These markers indicate which client
+ * family and version range issued the request, allowing the server to craft a
+ * matching {@link PrefixedId} via {@link #constructId(int)}.</p>
+ *
+ * <pre>{@code
+ * PrefixedIdRequest request = PrefixedIdRequest.parse(data, protocolVersion);
+ * PrefixedId id = request.constructId(1337);
+ * }</pre>
+ */
 public class PrefixedIdRequest {
     private final int padding;
     private final boolean usesMagicByte;
 
+    /**
+     * Creates a new request descriptor.
+     *
+     * @param padding       number of leading zero bytes
+     * @param usesMagicByte whether the {@link Id#MAGIC_MARKER} is present
+     */
     public PrefixedIdRequest(int padding, boolean usesMagicByte) {
         this.padding = padding;
         this.usesMagicByte = usesMagicByte;
     }
 
+    /**
+     * Constructs a {@link PrefixedId} using this request's parameters.
+     *
+     * @param id numeric world id
+     * @return {@link PrefixedId} matching the request
+     */
     public PrefixedId constructId(int id) {
         return new PrefixedId(padding, usesMagicByte, id);
     }
 
+    /** {@inheritDoc} */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -32,11 +59,13 @@ public class PrefixedIdRequest {
         return padding == that.padding && usesMagicByte == that.usesMagicByte;
     }
 
+    /** {@inheritDoc} */
     @Override
     public int hashCode() {
         return Objects.hash(padding, usesMagicByte);
     }
 
+    /** {@inheritDoc} */
     @Override
     public String toString() {
         return "PrefixedIdRequest{" +
@@ -45,6 +74,16 @@ public class PrefixedIdRequest {
                 '}';
     }
 
+    /**
+     * Parses a VoxelMap-style request packet and sets markers describing the
+     * client family and version range.
+     *
+     * @param payload         raw packet bytes
+     * @param protocolVersion client's protocol version or {@code null} if unknown;
+     *                        see {@link ProtocolVersion} for common constants
+     * @return parsed request descriptor
+     * @throws MalformedPacketException if the payload cannot be parsed
+     */
     public static PrefixedIdRequest parse(byte[] payload, @Nullable Integer protocolVersion) throws MalformedPacketException {
         int padding = -1;
         try (DataInputStream in = new DataInputStream(new ByteArrayInputStream(payload))) {
@@ -70,7 +109,7 @@ public class PrefixedIdRequest {
         }
         switch (padding) {
             case 1:
-                if (protocolVersion != null && protocolVersion <= ProtocolVersion.MINECRAFT_1_16_3) {
+                if (protocolVersion != null && protocolVersion <= ProtocolVersion.MINECRAFT_1_16_3) { // 1.16.3 and below
                     // VoxelMap Forge 1.13.2 - 1.16.3
                     return new PrefixedIdRequest(1, false);
                 }
@@ -79,7 +118,7 @@ public class PrefixedIdRequest {
                 // JourneyMap 1.16.5+
                 return new PrefixedIdRequest(padding, true);
             case 3:
-                // VoxelMap LiteLoader 1.18.9 - 1.12.2
+                // VoxelMap LiteLoader 1.8.9 - 1.12.2
                 // VoxelMap Fabric 1.14.4 - 1.19.x
                 return new PrefixedIdRequest(0, true);
             default:

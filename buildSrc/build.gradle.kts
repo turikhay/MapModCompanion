@@ -5,6 +5,10 @@ plugins {
 
 repositories {
     gradlePluginPortal()
+    maven {
+        name = "Fabric"
+        url = uri("https://maven.fabricmc.net/")
+    }
 }
 
 gradlePlugin {
@@ -28,4 +32,5 @@ dependencies {
     implementation(libs.semver.get().toString())
     implementation("com.modrinth.minotaur:Minotaur:2.+")
     implementation(with(libs.plugins.hangar.get()) { "io.papermc:hangar-publish-plugin:$version" })
+    implementation(with(libs.plugins.fabric.loom.get()) { "net.fabricmc:fabric-loom:$version" })
 }

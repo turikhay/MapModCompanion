@@ -9,6 +9,8 @@ jackson = "2.16.1"
 semver = "1.3.0"
 hangar = "0.1.3"
 bungeecord-api = "1.20-R0.2"
+fabric-loom = "1.11-SNAPSHOT"
+slf4j = "2.0.17"
 
 [libraries]
 spotbugs-annotations = { module = "com.github.spotbugs:spotbugs-annotations", version.ref = "spotbugs" }
@@ -22,8 +24,10 @@ velocity-api = { module = "com.velocitypowered:velocity-api", version.ref = "vel
 jackson-core = { module = "com.fasterxml.jackson.core:jackson-core", version.ref = "jackson" }
 semver = { module = "net.swiftzer.semver:semver", version.ref = "semver" }
 bungeecord-api = { module = "net.md-5:bungeecord-api", version.ref = "bungeecord-api" }
+slf4j = { module = "org.slf4j:slf4j-api", version.ref = "slf4j" }
 
 
 [plugins]
 shadow = { id = "com.gradleup.shadow", version.ref = "shadow" }
 hangar = { id = "io.papermc.hangar-publish-plugin", version.ref = "hangar" }
+fabric-loom = { id = "fabric-loom", version.ref = "fabric-loom" }

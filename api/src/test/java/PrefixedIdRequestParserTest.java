@@ -1,12 +1,10 @@
-package com.turikhay.mc.mapmodcompanion.spigot;
-
 import com.turikhay.mc.mapmodcompanion.*;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.List;
 
-import static com.turikhay.mc.mapmodcompanion.spigot.PrefixedIdRequest.parse;
+import static com.turikhay.mc.mapmodcompanion.PrefixedIdRequest.parse;
 import static org.junit.jupiter.api.Assertions.*;
 
 class PrefixedIdRequestParserTest {

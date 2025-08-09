@@ -1,6 +1,5 @@
-package com.turikhay.mc.mapmodcompanion.spigot;
-
 import com.turikhay.mc.mapmodcompanion.PrefixedId;
+import com.turikhay.mc.mapmodcompanion.PrefixedIdRequest;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
