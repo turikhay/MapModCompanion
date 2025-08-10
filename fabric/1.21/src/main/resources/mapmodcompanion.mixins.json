@@ -1,0 +1,8 @@
+{
+  "required": true,
+  "package": "com.turikhay.mc.mapmodcompanion.fabric.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "server": [
+    "PlayerManagerMixin"
+  ]
+}

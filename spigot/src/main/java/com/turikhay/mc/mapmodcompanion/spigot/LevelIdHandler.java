@@ -8,6 +8,8 @@ import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import static com.turikhay.mc.mapmodcompanion.spigot.MapModCompanion.toWorldInfo;
+
 public class LevelIdHandler implements Handler, PluginMessageListener {
     private final Logger logger;
     private final String channelName;
@@ -35,7 +37,7 @@ public class LevelIdHandler implements Handler, PluginMessageListener {
     @Override
     public void onPluginMessageReceived(String channel, Player player, byte[] requestBytes) {
         Integer protocolVersion = plugin.getProtocolLib().map(lib -> lib.getProtocolVersion(player)).orElse(null);
-        int id = plugin.getRegistry().getId(player.getWorld());
+        int id = plugin.getRegistry().getId(toWorldInfo(player.getWorld()));
         PrefixedIdRequest request;
         try {
             request = PrefixedIdRequest.parse(requestBytes, protocolVersion);
