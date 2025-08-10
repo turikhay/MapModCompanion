@@ -1,9 +1,4 @@
-package com.turikhay.mc.mapmodcompanion.spigot;
-
-import com.turikhay.mc.mapmodcompanion.IdLookup;
-import com.turikhay.mc.mapmodcompanion.PrefixLogger;
-import com.turikhay.mc.mapmodcompanion.VerboseLogger;
-import org.bukkit.World;
+package com.turikhay.mc.mapmodcompanion;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -11,7 +6,7 @@ import java.util.Optional;
 import java.util.logging.Logger;
 
 public interface IdRegistry {
-    int getId(World world);
+    int getId(WorldInfo world);
 
     class CacheableRegistry implements IdRegistry {
         private final Map<String, Integer> cache = new HashMap<>();
@@ -22,7 +17,7 @@ public interface IdRegistry {
         }
 
         @Override
-        public int getId(World world) {
+        public int getId(WorldInfo world) {
             return cache.computeIfAbsent(world.getName(), s -> delegate.getId(world));
         }
 
@@ -46,7 +41,7 @@ public interface IdRegistry {
         }
 
         @Override
-        public int getId(World world) {
+        public int getId(WorldInfo world) {
             Optional<Integer> byName = lookup.findMatch(world.getName());
             if (byName.isPresent()) {
                 logger.fine("Found override: " + world.getName() + " -> " + byName.get());
@@ -77,7 +72,7 @@ public interface IdRegistry {
         }
 
         @Override
-        public int getId(World world) {
+        public int getId(WorldInfo world) {
             return id;
         }
 
@@ -91,7 +86,7 @@ public interface IdRegistry {
 
     class DynamicUUIDRegistry implements IdRegistry {
         @Override
-        public int getId(World world) {
+        public int getId(WorldInfo world) {
             return world.getUID().hashCode();
         }
     }
