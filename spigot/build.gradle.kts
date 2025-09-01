@@ -4,10 +4,6 @@ plugins {
 
 repositories {
     maven {
-        name = "ProtocolLib"
-        url = uri("https://repo.dmulloy2.net/repository/public/")
-    }
-    maven {
         name = "Sonatype"
         url = uri("https://oss.sonatype.org/content/repositories/snapshots/")
     }
@@ -44,5 +40,5 @@ dependencies {
 
     // These dependencies are intentionally not present in libs.version.toml
     compileOnly("org.spigotmc:spigot-api:${spigot_version}-R0.1-SNAPSHOT")
-    compileOnly("com.comphenix.protocol:ProtocolLib:${protocolLib_version}")
+    compileOnly("net.dmulloy2:ProtocolLib:${protocolLib_version}")
 }
