@@ -19,6 +19,8 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
+import static com.turikhay.mc.mapmodcompanion.spigot.MapModCompanion.toWorldInfo;
+
 public class XaeroHandler implements Handler, Listener {
     private final Logger logger;
     private final String configPath;
@@ -64,7 +66,7 @@ public class XaeroHandler implements Handler, Listener {
     private void sendPacket(PlayerEvent event, Type type) {
         Player p = event.getPlayer();
         World world = p.getWorld();
-        int id = plugin.getRegistry().getId(world);
+        int id = plugin.getRegistry().getId(toWorldInfo(world));
         byte[] payload = LevelMapProperties.Serializer.instance().serialize(id);
         SendPayloadTask task = new SendPayloadTask(logger, plugin, p.getUniqueId(), channelName, payload, world.getUID());
         int repeatTimes = plugin.getConfig().getInt(
