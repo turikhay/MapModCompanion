@@ -26,8 +26,8 @@ jobs:
      DOCKER_BUILDKIT: 1
      SERVER_TYPE: "${{ inputs.server }}"
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/download-artifact@v4
+      - uses: actions/checkout@v5
+      - uses: actions/download-artifact@v5
         with:
           name: gradle-build
       - name: Build
