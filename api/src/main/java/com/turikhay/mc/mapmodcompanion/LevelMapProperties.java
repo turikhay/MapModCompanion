@@ -2,10 +2,23 @@ package com.turikhay.mc.mapmodcompanion;
 
 import java.io.*;
 
+/**
+ * Binary format used by Xaero's Minimap and World Map to communicate the
+ * world id.
+ */
 public interface LevelMapProperties {
+
+    /**
+     * Deserializes standard id packets.
+     *
+     * <pre>{@code
+     * StandardId id = LevelMapProperties.Deserializer.instance().deserialize(data);
+     * }</pre>
+     */
     class Deserializer implements Id.Deserializer<StandardId> {
         private static Deserializer INSTANCE;
 
+        /** {@inheritDoc} */
         @Override
         public StandardId deserialize(byte[] data) throws MalformedPacketException {
             DataInputStream in = new DataInputStream(new ByteArrayInputStream(data));
@@ -20,19 +33,36 @@ public interface LevelMapProperties {
             }
         }
 
+        /**
+         * Returns a shared instance of the deserializer.
+         */
         public static Deserializer instance() {
             return INSTANCE == null ? INSTANCE = new Deserializer() : INSTANCE;
         }
     }
 
+    /**
+     * Serializes standard ids into packet byte arrays.
+     *
+     * <pre>{@code
+     * byte[] data = LevelMapProperties.Serializer.instance().serialize(id);
+     * }</pre>
+     */
     class Serializer implements Id.Serializer<StandardId> {
         private static Serializer INSTANCE;
 
+        /** {@inheritDoc} */
         @Override
         public byte[] serialize(StandardId id) {
             return serialize(id.getId());
         }
 
+        /**
+         * Encodes the supplied id into the binary representation.
+         *
+         * @param id numeric world id
+         * @return encoded packet bytes
+         */
         public byte[] serialize(int id) {
             ByteArrayOutputStream array = new ByteArrayOutputStream();
             try(DataOutputStream out = new DataOutputStream(array)) {
@@ -44,6 +74,9 @@ public interface LevelMapProperties {
             return array.toByteArray();
         }
 
+        /**
+         * Returns a shared instance of the serializer.
+         */
         public static Serializer instance() {
             return INSTANCE == null ? INSTANCE = new Serializer() : INSTANCE;
         }

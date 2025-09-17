@@ -1,3 +1,6 @@
+/**
+ * Public API exposing helper classes for querying world identifiers.
+ */
 @ParametersAreNonnullByDefault
 @ReturnValuesAreNonnullByDefault
 package com.turikhay.mc.mapmodcompanion;

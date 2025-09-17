@@ -4,36 +4,62 @@ import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 
+/**
+ * Identifier encoded with a zero-prefixed length and optional magic marker.
+ * When present, the marker has the value {@link Id#MAGIC_MARKER} (42) which
+ * flags a VoxelMap-style packet.
+ * <p>
+ * This format is used by VoxelMap and other mods that implement the same
+ * packet structure. The {@link Deserializer} and {@link Serializer} nested
+ * classes can be used to convert between the packet representation and this
+ * class.
+*/
 public class PrefixedId implements Id {
     private final int padding;
     private final boolean usesMagicByte;
     private final int id;
 
+    /**
+     * Creates a new prefixed id.
+     *
+     * @param padding       number of leading zero bytes before the marker
+     * @param usesMagicByte whether the {@link #MAGIC_MARKER} is present
+     * @param id            numeric world id
+     */
     public PrefixedId(int padding, boolean usesMagicByte, int id) {
         this.padding = padding;
         this.usesMagicByte = usesMagicByte;
         this.id = id;
     }
 
+    /**
+     * Deprecated constructor that assumes the packet uses the magic marker.
+     */
     @Deprecated
     public PrefixedId(int padding, int id) {
         this(padding, true, id);
     }
 
+    /** {@inheritDoc} */
     @Override
     public int getId() {
         return id;
     }
 
+    /**
+     * Number of zero bytes prepended to the packet.
+     */
     public int getPadding() {
         return padding;
     }
 
+    /** {@inheritDoc} */
     @Override
     public PrefixedId withIdUnchecked(int id) {
         return new PrefixedId(this.padding, this.usesMagicByte, id);
     }
 
+    /** {@inheritDoc} */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -42,11 +68,13 @@ public class PrefixedId implements Id {
         return padding == that.padding && usesMagicByte == that.usesMagicByte && id == that.id;
     }
 
+    /** {@inheritDoc} */
     @Override
     public int hashCode() {
         return Objects.hash(padding, usesMagicByte, id);
     }
 
+    /** {@inheritDoc} */
     @Override
     public String toString() {
         return "PrefixedId{" +
@@ -56,9 +84,17 @@ public class PrefixedId implements Id {
                 '}';
     }
 
+    /**
+     * Deserializes prefixed id packets.
+     *
+     * <pre>{@code
+     * PrefixedId id = PrefixedId.Deserializer.instance().deserialize(data);
+     * }</pre>
+     */
     public static class Deserializer implements Id.Deserializer<PrefixedId> {
         private static Deserializer INSTANCE;
 
+        /** {@inheritDoc} */
         @Override
         public PrefixedId deserialize(byte[] data) throws MalformedPacketException {
             DataInputStream in = new DataInputStream(new ByteArrayInputStream(data));
@@ -101,14 +137,25 @@ public class PrefixedId implements Id {
             }
         }
 
+        /**
+         * Returns a shared instance of the deserializer.
+         */
         public static Deserializer instance() {
             return INSTANCE == null ? INSTANCE = new Deserializer() : INSTANCE;
         }
     }
 
+    /**
+     * Serializes {@link PrefixedId} instances into packet byte arrays.
+     *
+     * <pre>{@code
+     * byte[] data = PrefixedId.Serializer.instance().serialize(id);
+     * }</pre>
+     */
     public static class Serializer implements Id.Serializer<PrefixedId> {
         private static Serializer INSTANCE;
 
+        /** {@inheritDoc} */
         @Override
         public byte[] serialize(PrefixedId id) {
             ByteArrayOutputStream array = new ByteArrayOutputStream();
@@ -117,7 +164,7 @@ public class PrefixedId implements Id {
                     out.writeByte(0);      // packetId, or prefix
                 }
                 if (id.usesMagicByte) {
-                    out.writeByte(MAGIC_MARKER); // 42 (literally)
+                    out.writeByte(MAGIC_MARKER); // VoxelMap-style flag (42)
                 }
                 byte[] data = String.valueOf(id.getId()).getBytes(StandardCharsets.UTF_8);
                 out.write(data.length);      // length
@@ -128,6 +175,9 @@ public class PrefixedId implements Id {
             return array.toByteArray();
         }
 
+        /**
+         * Returns a shared instance of the serializer.
+         */
         public static Serializer instance() {
             return INSTANCE == null ? INSTANCE = new Serializer() : INSTANCE;
         }
