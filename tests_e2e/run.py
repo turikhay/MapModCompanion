@@ -321,6 +321,8 @@ if __name__ == "__main__":
 
     if server_type in ("folia"):
         paper_channel = "experimental"
+    elif "paper_channel" in version_info:
+        paper_channel = version_info["paper_channel"]
     else:
         paper_channel = None
 
