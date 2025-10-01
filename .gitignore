@@ -5,6 +5,7 @@ build/
 !**/src/test/**/build/
 debug*/
 htmlReport/
+.kotlin/
 
 ### IntelliJ IDEA ###
 .idea/
