@@ -128,6 +128,18 @@ VERSIONS = {
             '1.21.6',
         ))
     ),
+    **(
+        dict((
+            version,
+            {
+                'java': 21,
+                'bot': False,
+                'paper_channel': 'experimental',
+            },
+        ) for version in (
+            '1.21.9',
+        ))
+    ),
 }
 
 
