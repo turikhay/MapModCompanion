@@ -128,6 +128,18 @@ VERSIONS = {
             '1.21.6',
         ))
     ),
+    **(
+        dict((
+            version,
+            {
+                'java': 21,
+                'bot': False,
+                'paper_channel': 'experimental',
+            },
+        ) for version in (
+            '1.21.9',
+        ))
+    ),
 }
 
 
@@ -321,6 +333,8 @@ if __name__ == "__main__":
 
     if server_type in ("folia"):
         paper_channel = "experimental"
+    elif "paper_channel" in version_info:
+        paper_channel = version_info["paper_channel"]
     else:
         paper_channel = None
 

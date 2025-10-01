@@ -71,10 +71,10 @@ If you have any questions, please [join my Discord][Discord].
 ## Support table
 | Mod                                                                                | Oldest version             | Latest version                                               | Status      |
 |------------------------------------------------------------------------------------|----------------------------|--------------------------------------------------------------|-------------|
-| [Xaero's Minimap]     | v20.20.0 / Minecraft 1.8.9 | v24.7.1 / Minecraft 1.21.4                                   | ✅ Supported |
-| [Xaero's World Map] | v1.10.0 / Minecraft 1.8.9  | v1.39.2 / Minecraft 1.21.4                                   | ✅ Supported<sup class="reference">[[1]](https://github.com/turikhay/MapModCompanion/issues/62)</sup> |
-| [JourneyMap]              | v5.7.1 / Minecraft 1.16.5  | v6.0.0 / Minecraft 1.21.4                               | ✅ Supported |
-| VoxelMap                                                                           | [v1.7.10][VoxelMap (old)] / Minecraft 1.8    | [v1.14.7][VoxelMap-Updated] / Minecraft 1.21.4 | ✅ Supported<sup class="reference">[[2]](https://github.com/turikhay/MapModCompanion/issues/8)</sup> |
+| [Xaero's Minimap]     | v20.20.0 / Minecraft 1.8.9 | v25.2.14 / Minecraft 1.21.9                                   | ✅ Supported |
+| [Xaero's World Map] | v1.10.0 / Minecraft 1.8.9  | v1.39.16 / Minecraft 1.21.9                                   | ✅ Supported<sup class="reference">[[1]](https://github.com/turikhay/MapModCompanion/issues/62)</sup> |
+| [JourneyMap]              | v5.7.1 / Minecraft 1.16.5  | v6.0.0-beta.52 / Minecraft 1.21.9                               | ✅ Supported |
+| VoxelMap                                                                           | [v1.7.10][VoxelMap (old)] / Minecraft 1.8    | [v1.15.7][VoxelMap-Updated] / Minecraft 1.21.8 | ✅ Supported<sup class="reference">[[2]](https://github.com/turikhay/MapModCompanion/issues/8)</sup> |
 
 [Folia](https://papermc.io/software/folia) is supported, but isn't tested thoroughly. Please report if the support is broken.
 
