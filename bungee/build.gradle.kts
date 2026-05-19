@@ -17,7 +17,7 @@ repositories {
 }
 
 tasks {
-    val writeBungeeYml by creating(PluginDescriptorTask::class) {
+    val writeBungeeYml by registering(PluginDescriptorTask::class) {
         descriptor = "bungee.yml"
         content.putAll(mapOf(
                 "name" to "MapModCompanion",

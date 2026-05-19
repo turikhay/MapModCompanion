@@ -23,7 +23,7 @@ dependencies {
 }
 
 tasks {
-    val rewriteVelocityPluginJson by creating(PluginDescriptorTask::class) {
+    val rewriteVelocityPluginJson by registering(PluginDescriptorTask::class) {
         dependsOn(compileJava)
         descriptorFile = project.layout.buildDirectory.file("classes/java/main/velocity-plugin.json")
         format = PluginDescriptorFormat.JSON

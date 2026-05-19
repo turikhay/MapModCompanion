@@ -14,7 +14,7 @@ repositories {
 }
 
 tasks {
-    val writePluginYml by creating(PluginDescriptorTask::class) {
+    val writePluginYml by registering(PluginDescriptorTask::class) {
         descriptor = "plugin.yml"
         content.putAll(mapOf(
                 "name" to "MapModCompanion",
