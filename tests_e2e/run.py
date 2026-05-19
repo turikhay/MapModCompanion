@@ -132,6 +132,17 @@ VERSIONS = {
             '1.21.9',
         ))
     ),
+    **(
+        dict((
+            version,
+            {
+                'java': 25,
+                'bot': False,
+            },
+        ) for version in (
+            '26.1.2',
+        ))
+    ),
 }
 
 
