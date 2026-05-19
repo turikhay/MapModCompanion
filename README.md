@@ -74,8 +74,8 @@ If you have any questions, please [join my Discord][Discord].
 
 | Mod                 | Oldest version                            | Latest version                                 | Status                                                                                                                                  |
 | ------------------- | ----------------------------------------- | ---------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
-| [Xaero's Minimap]   | v20.20.0 / Minecraft 1.8.9                | v25.3.14 / Minecraft 21.6.2                    | ✅ Supported                                                                                                                            |
-| [Xaero's World Map] | v1.10.0 / Minecraft 1.8.9                 | v1.40.17 / Minecraft 21.6.2                    | ✅ Supported                                                                                                                            |
+| [Xaero's Minimap]   | v20.20.0 / Minecraft 1.8.9                | v25.3.14 / Minecraft 26.1.2                    | ✅ Supported                                                                                                                            |
+| [Xaero's World Map] | v1.10.0 / Minecraft 1.8.9                 | v1.40.17 / Minecraft 26.1.2                    | ✅ Supported                                                                                                                            |
 | [JourneyMap]        | v5.7.1 / Minecraft 1.16.5                 | v6.0.0-beta.78 / Minecraft 26.1.2              | ✅ Supported, may require Multi World Support<sup class="reference">[[1]](https://github.com/turikhay/MapModCompanion/issues/249)</sup> |
 | VoxelMap            | [v1.7.10][VoxelMap (old)] / Minecraft 1.8 | [v1.16.6][VoxelMap-Updated] / Minecraft 26.1.2 | ✅ Supported<sup class="reference">[[2]](https://github.com/turikhay/MapModCompanion/issues/8)</sup>                                    |
 
