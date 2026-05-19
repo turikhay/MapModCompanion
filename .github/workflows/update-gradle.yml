@@ -11,6 +11,9 @@ jobs:
 
     steps:
       - uses: actions/checkout@v6
+        # See https://github.com/gradle-update/update-gradle-wrapper-action/issues/988
+        with:
+          persist-credentials: false
 
       - name: Update Gradle Wrapper
         uses: gradle-update/update-gradle-wrapper-action@v2
