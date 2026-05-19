@@ -5,16 +5,16 @@ import com.turikhay.mc.mapmodcompanion.PrefixLogger;
 import com.turikhay.mc.mapmodcompanion.VerboseLogger;
 import org.bukkit.World;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Logger;
 
 public interface IdRegistry {
     int getId(World world);
 
     class CacheableRegistry implements IdRegistry {
-        private final Map<String, Integer> cache = new HashMap<>();
+        private final Map<String, Integer> cache = new ConcurrentHashMap<>();
         private final IdRegistry delegate;
 
         public CacheableRegistry(IdRegistry delegate) {
