@@ -210,4 +210,8 @@ public class MapModCompanion extends JavaPlugin {
             throw new InitializationException("disabled in the config");
         }
     }
+
+    public static WorldInfo toWorldInfo(World world) {
+        return new WorldInfo(world.getUID(), world.getName());
+    }
 }

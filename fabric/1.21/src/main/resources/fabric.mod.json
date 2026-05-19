@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "id": "mapmodcompanion",
+  "version": "${version}",
+  "name": "MapModCompanion",
+  "license": "MIT",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.turikhay.mc.mapmodcompanion.fabric.MapModCompanion"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.16.14",
+    "minecraft": "~1.21.8",
+    "java": ">=21",
+    "fabric-api": "*"
+  },
+  "mixins": [
+    "mapmodcompanion.mixins.json"
+  ]
+}

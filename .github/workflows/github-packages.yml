@@ -1,0 +1,21 @@
+name: GitHub release
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+permissions:
+  contents: write
+
+jobs:
+  version:
+    name: Detect version
+    uses: ./.github/workflows/version.yml
+  publish:
+    name: Publish
+    needs: version
+    uses: ./.github/workflows/build.yml
+    with:
+      version: ${{ needs.version.outputs.version }}
+      task: publish

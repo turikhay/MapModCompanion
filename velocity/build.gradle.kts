@@ -15,6 +15,7 @@ repositories {
 }
 
 dependencies {
+    implementation(project(":api"))
     implementation(project(":common"))
     implementation(libs.bstats.velocity)
 

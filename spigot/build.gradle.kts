@@ -35,6 +35,7 @@ val spigot_version: String by project
 val protocolLib_version: String by project
 
 dependencies {
+    implementation(project(":api"))
     implementation(project(":common"))
     implementation(libs.bstats.bukkit)
 
