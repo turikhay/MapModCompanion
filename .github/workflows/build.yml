@@ -59,7 +59,7 @@ jobs:
           MODRINTH_TOKEN: ${{ secrets.modrinth-token }}
       - name: Force original path preservation
         run: touch .empty
-      - uses: actions/upload-artifact@v5
+      - uses: actions/upload-artifact@v7
         with:
           name: gradle-build
           path: |
