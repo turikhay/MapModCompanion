@@ -14,7 +14,7 @@ repositories {
 }
 
 tasks {
-    val writePluginYml by creating(PluginDescriptorTask::class) {
+    val writePluginYml by registering(PluginDescriptorTask::class) {
         descriptor = "plugin.yml"
         content.putAll(mapOf(
                 "name" to "MapModCompanion",
@@ -27,6 +27,9 @@ tasks {
                 "softdepend" to listOf("ProtocolLib"),
                 "folia-supported" to true,
         ))
+    }
+    processResources {
+        finalizedBy(writePluginYml)
     }
 }
 
