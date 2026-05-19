@@ -35,12 +35,6 @@ abstract class PluginDescriptorTask : DefaultTask() {
     @get:Optional
     abstract val append: Property<Boolean>
 
-    init {
-        project.tasks.getByName("processResources") {
-            finalizedBy(this@PluginDescriptorTask)
-        }
-    }
-
     @TaskAction
     fun writeFile() {
         val mapper = constructMapper()

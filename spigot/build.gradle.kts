@@ -28,6 +28,9 @@ tasks {
                 "folia-supported" to true,
         ))
     }
+    processResources {
+        finalizedBy(writePluginYml)
+    }
 }
 
 // From gradle.properties

@@ -32,4 +32,7 @@ tasks {
                 "version" to project.version
         ))
     }
+    processResources {
+        finalizedBy(rewriteVelocityPluginJson)
+    }
 }

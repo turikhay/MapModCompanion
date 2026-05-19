@@ -26,6 +26,9 @@ tasks {
                 "main" to "com.turikhay.mc.mapmodcompanion.bungee.MapModCompanion"
         ))
     }
+    processResources {
+        finalizedBy(writeBungeeYml)
+    }
 }
 
 dependencies {
