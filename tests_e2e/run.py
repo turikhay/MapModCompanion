@@ -114,6 +114,10 @@ VERSIONS = {
         ) for version in (
             '1.20.6',
             '1.21.4',
+            '1.21.5',
+            '1.21.6',
+            '1.21.8',
+            '1.21.11',
         ))
     ),
     **(
@@ -125,18 +129,6 @@ VERSIONS = {
         ) for version in (
             '1.21.1',
             '1.21.3',
-            '1.21.6',
-        ))
-    ),
-    **(
-        dict((
-            version,
-            {
-                'java': 21,
-                'bot': False,
-                'paper_channel': 'experimental',
-            },
-        ) for version in (
             '1.21.9',
         ))
     ),
