@@ -371,6 +371,10 @@ if __name__ == "__main__":
             ]
         }
         jvm_opts = []
+        if world_version in ("26.1",):
+            jvm_opts = [
+                "-Dpaper.disableMigrationDelay=true",
+            ]
         if java_debug:
             server_desc["ports"] += [
                 f'{JAVA_DEBUG[server_name]}:9001'
