@@ -364,13 +364,18 @@ if __name__ == "__main__":
             'ports': [
             ]
         }
+        jvm_opts = []
         if java_debug:
             server_desc["ports"] += [
                 f'{JAVA_DEBUG[server_name]}:9001'
             ]
-            server_desc["environment"] += [
-                'JVM_XX_OPTS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=' +
+            jvm_opts += [
+                '-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=' +
                 '*:9001' if server_java_version > 8 else '9001'
+            ]
+        if jvm_opts:
+            server_desc["environment"] += [
+                'JVM_XX_OPTS=' + " ".join(jvm_opts)
             ]
         docker_compose_file_contents["services"][server_name] = server_desc
         if "protocollib" in version_info and version_info["protocollib"] == True:
