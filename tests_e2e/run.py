@@ -31,6 +31,8 @@ JAVA_DEBUG = {
     'blue': 9012,
 }
 
+DEFAULT_WORLD_VERSION = "26.1"
+
 VERSIONS = {
     '1.8.9': {
         'server': '1.8.8',
@@ -83,6 +85,7 @@ VERSIONS = {
     **(
         dict((version, {
             'java': 17,
+            'world': '1.17.1',
         }) for version in (
             '1.17.1',
             '1.18.2',
@@ -99,6 +102,7 @@ VERSIONS = {
             {
                 'java': 17,
                 'folia': True,
+                'world': '1.17.1',
             },
         ) for version in (
             '1.20.4',
@@ -110,6 +114,7 @@ VERSIONS = {
             {
                 'java': 21,
                 'folia': True,
+                'world': '1.17.1',
             },
         ) for version in (
             '1.20.6',
@@ -125,6 +130,7 @@ VERSIONS = {
             version,
             {
                 'java': 21,
+                'world': '1.17.1',
             },
         ) for version in (
             '1.21.1',
@@ -332,7 +338,7 @@ if __name__ == "__main__":
     if "world" in version_info:
         world_version = version_info["world"]
     else:
-        world_version = "1.17.1"
+        world_version = DEFAULT_WORLD_VERSION
 
     if server_type in ("folia"):
         paper_channel = "experimental"
