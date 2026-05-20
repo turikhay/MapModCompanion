@@ -390,10 +390,9 @@ if __name__ == "__main__":
                 files_dir_of(server_name) / "plugins" / "ProtocolLib.jar",
             )
         world_dir = files_dir_of(server_name) / "world"
-        makedirs(world_dir, exist_ok=True)
-        copyfile(
-            PARENT_DIR / "saves" / world_version / f"{server_name}.dat",
-            world_dir / "level.dat"
+        copy_clean(
+            PARENT_DIR / "saves" / world_version / server_name,
+            world_dir
         )
 
     proxy_desc = {
