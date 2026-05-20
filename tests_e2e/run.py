@@ -144,6 +144,7 @@ VERSIONS = {
             {
                 'java': 25,
                 'bot': False,
+                'folia': True,
             },
         ) for version in (
             '26.1.2',
