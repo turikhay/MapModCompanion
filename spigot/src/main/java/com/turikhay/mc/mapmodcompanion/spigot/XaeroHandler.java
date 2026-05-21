@@ -111,7 +111,7 @@ public class XaeroHandler implements Handler {
                     if (FoliaSupport.isFoliaServer()) {
                         logger.log(Level.WARNING, "PacketEvents is not found. Please install it, if it's available for your Folia version.");
                         logger.log(Level.WARNING, "While it is not required, it is strongly advised to have it in your plugins folder.");
-                        logger.log(Level.WARNING, "For more info, see: https://github.com/turikhay/MapModCompanion/issues/224");
+                        logger.log(Level.WARNING, "For more info, see: https://github.com/turikhay/MapModCompanion/pull/251");
                         logger.log(Level.WARNING, "We'll print the stack trace for your attention :)", e);
                     }
                     throw new InitializationException("PacketEvents is not found", e);
