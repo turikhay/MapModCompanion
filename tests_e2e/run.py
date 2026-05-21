@@ -31,6 +31,8 @@ JAVA_DEBUG = {
     'blue': 9012,
 }
 
+DEFAULT_WORLD_VERSION = "26.1"
+
 VERSIONS = {
     '1.8.9': {
         'server': '1.8.8',
@@ -83,6 +85,7 @@ VERSIONS = {
     **(
         dict((version, {
             'java': 17,
+            'world': '1.17.1',
         }) for version in (
             '1.17.1',
             '1.18.2',
@@ -99,6 +102,7 @@ VERSIONS = {
             {
                 'java': 17,
                 'folia': True,
+                'world': '1.17.1',
             },
         ) for version in (
             '1.20.4',
@@ -110,6 +114,7 @@ VERSIONS = {
             {
                 'java': 21,
                 'folia': True,
+                'world': '1.17.1',
             },
         ) for version in (
             '1.20.6',
@@ -125,11 +130,24 @@ VERSIONS = {
             version,
             {
                 'java': 21,
+                'world': '1.17.1',
             },
         ) for version in (
             '1.21.1',
             '1.21.3',
             '1.21.9',
+        ))
+    ),
+    **(
+        dict((
+            version,
+            {
+                'java': 25,
+                'bot': False,
+                'folia': True,
+            },
+        ) for version in (
+            '26.1.2',
         ))
     ),
 }
@@ -321,7 +339,7 @@ if __name__ == "__main__":
     if "world" in version_info:
         world_version = version_info["world"]
     else:
-        world_version = "1.17.1"
+        world_version = DEFAULT_WORLD_VERSION
 
     if server_type in ("folia"):
         paper_channel = "experimental"
@@ -353,13 +371,22 @@ if __name__ == "__main__":
             'ports': [
             ]
         }
+        jvm_opts = []
+        if world_version in ("26.1",):
+            jvm_opts = [
+                "-Dpaper.disableMigrationDelay=true",
+            ]
         if java_debug:
             server_desc["ports"] += [
                 f'{JAVA_DEBUG[server_name]}:9001'
             ]
-            server_desc["environment"] += [
-                'JVM_XX_OPTS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=' +
+            jvm_opts += [
+                '-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=' +
                 '*:9001' if server_java_version > 8 else '9001'
+            ]
+        if jvm_opts:
+            server_desc["environment"] += [
+                'JVM_XX_OPTS=' + " ".join(jvm_opts)
             ]
         docker_compose_file_contents["services"][server_name] = server_desc
         if "protocollib" in version_info and version_info["protocollib"] == True:
@@ -379,10 +406,9 @@ if __name__ == "__main__":
                 files_dir_of(server_name) / "plugins" / "ProtocolLib.jar",
             )
         world_dir = files_dir_of(server_name) / "world"
-        makedirs(world_dir, exist_ok=True)
-        copyfile(
-            PARENT_DIR / "saves" / world_version / f"{server_name}.dat",
-            world_dir / "level.dat"
+        copy_clean(
+            PARENT_DIR / "saves" / world_version / server_name,
+            world_dir
         )
 
     proxy_desc = {

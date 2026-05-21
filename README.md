@@ -27,6 +27,7 @@
 </p>
 
 <!-- platform.start -->
+
 <img
   align="right"
   width="200"
@@ -34,20 +35,21 @@
   src="https://raw.githubusercontent.com/turikhay/MapModCompanion-design/main/allaylogo3_1000_10.png"
   alt="Allay from Minecraft holding a compass and waving with their other hand at the viewer"
 />
+
 <!-- platform.end -->
 
 **With this plugin your minimap will never be confused which world you're in. [A more in-depth explanation can be found in the wiki](https://github.com/turikhay/MapModCompanion/wiki/How-it-works).**
 
 <details><summary>How it should look like</summary>
 
-| Mod | Screenshot |
-| ----|------------|
-| Xaero's World Map | <img src="https://raw.githubusercontent.com/turikhay/MapModCompanion-design/main/2023-03-28_00.32.04_1.png" width="200" alt="Screenshot of Xaero's WorldMap menu" /> |
-| VoxelMap | <img src="https://raw.githubusercontent.com/turikhay/MapModCompanion-design/main/2023-03-28_00.34.50_1.png" width="200" alt="Screenshot of the game with a minimap on the top-right corner" /> <img src="https://raw.githubusercontent.com/turikhay/MapModCompanion-design/main/2023-03-28_00.35.04_1.png" width="200" alt="Screenshot of a map" /> |
-| Xaero's Minimap | See Xaero's WorldMap |
-| JourneyMap | It just works 😄 |
+| Mod               | Screenshot                                                                                                                                                                                                                                                                                                                                          |
+| ----------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Xaero's World Map | <img src="https://raw.githubusercontent.com/turikhay/MapModCompanion-design/main/2023-03-28_00.32.04_1.png" width="200" alt="Screenshot of Xaero's WorldMap menu" />                                                                                                                                                                                |
+| VoxelMap          | <img src="https://raw.githubusercontent.com/turikhay/MapModCompanion-design/main/2023-03-28_00.34.50_1.png" width="200" alt="Screenshot of the game with a minimap on the top-right corner" /> <img src="https://raw.githubusercontent.com/turikhay/MapModCompanion-design/main/2023-03-28_00.35.04_1.png" width="200" alt="Screenshot of a map" /> |
+| Xaero's Minimap   | See Xaero's WorldMap                                                                                                                                                                                                                                                                                                                                |
+| JourneyMap        | It just works 😄                                                                                                                                                                                                                                                                                                                                    |
 
-</details> 
+</details>
 
 Companion plugin for
 [Xaero's Minimap]
@@ -69,12 +71,13 @@ If you have any questions, please [join my Discord][Discord].
 [![](https://bstats.org/signatures/bukkit/MapModCompanion.svg)](https://bstats.org/plugin/bukkit/MapModCompanion/16539 "MapModCompanion on bStats")
 
 ## Support table
-| Mod                                                                                | Oldest version             | Latest version                                               | Status      |
-|------------------------------------------------------------------------------------|----------------------------|--------------------------------------------------------------|-------------|
-| [Xaero's Minimap]     | v20.20.0 / Minecraft 1.8.9 | v25.2.14 / Minecraft 1.21.9                                   | ✅ Supported |
-| [Xaero's World Map] | v1.10.0 / Minecraft 1.8.9  | v1.39.16 / Minecraft 1.21.9                                   | ✅ Supported<sup class="reference">[[1]](https://github.com/turikhay/MapModCompanion/issues/62)</sup> |
-| [JourneyMap]              | v5.7.1 / Minecraft 1.16.5  | v6.0.0-beta.52 / Minecraft 1.21.9                               | ✅ Supported |
-| VoxelMap                                                                           | [v1.7.10][VoxelMap (old)] / Minecraft 1.8    | [v1.15.7][VoxelMap-Updated] / Minecraft 1.21.8 | ✅ Supported<sup class="reference">[[2]](https://github.com/turikhay/MapModCompanion/issues/8)</sup> |
+
+| Mod                 | Oldest version                            | Latest version                                 | Status                                                                                               |
+| ------------------- | ----------------------------------------- | ---------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
+| [Xaero's Minimap]   | v20.20.0 / Minecraft 1.8.9                | v25.3.14 / Minecraft 26.1.2                    | ✅ Supported                                                                                         |
+| [Xaero's World Map] | v1.10.0 / Minecraft 1.8.9                 | v1.40.17 / Minecraft 26.1.2                    | ✅ Supported                                                                                         |
+| [JourneyMap]        | v5.7.1 / Minecraft 1.16.5                 | v6.0.0-beta.78 / Minecraft 26.1.2              | ✅ Supported                                                                                         |
+| VoxelMap            | [v1.7.10][VoxelMap (old)] / Minecraft 1.8 | [v1.16.6][VoxelMap-Updated] / Minecraft 26.1.2 | ✅ Supported<sup class="reference">[[2]](https://github.com/turikhay/MapModCompanion/issues/8)</sup> |
 
 [Folia](https://papermc.io/software/folia) is supported, but isn't tested thoroughly. Please report if the support is broken.
 
@@ -87,13 +90,16 @@ If you have any questions, please [join my Discord][Discord].
 3. That's it. No configuration is required. You can restart your servers now.
 
 ## Configuration
+
 The configuration file is stored at `plugins/MapModCompanion/config.yml` for both Spigot and BungeeCord.
 Velocity uses `plugins/mapmodcompanion/config.toml`.
 
 The configuration file reloads automatically if it's modified.
 
 <!-- platform.start -->
+
 ## Alternatives
+
 - If you're running Forge or Fabric server, just install the map mod on your server: this will unlock all its
   features.
 - [worldnamepacket] (Velocity, Fabric, Spigot)
