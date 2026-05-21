@@ -26,6 +26,12 @@ class XaeroSpigotListener implements Disposable, Listener {
         this.sender = sender;
     }
 
+    @Override
+    public String name() {
+        return "Spigot";
+    }
+
+    @Override
     public void init() throws InitializationException {
         plugin.registerOutgoingChannel(channelName);
         plugin.getServer().getPluginManager().registerEvents(this, plugin);
