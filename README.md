@@ -72,12 +72,12 @@ If you have any questions, please [join my Discord][Discord].
 
 ## Support table
 
-| Mod                 | Oldest version                            | Latest version                                 | Status                                                                                               |
-| ------------------- | ----------------------------------------- | ---------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
-| [Xaero's Minimap]   | v20.20.0 / Minecraft 1.8.9                | v25.3.14 / Minecraft 26.1.2                    | ✅ Supported                                                                                         |
-| [Xaero's World Map] | v1.10.0 / Minecraft 1.8.9                 | v1.40.17 / Minecraft 26.1.2                    | ✅ Supported                                                                                         |
-| [JourneyMap]        | v5.7.1 / Minecraft 1.16.5                 | v6.0.0-beta.78 / Minecraft 26.1.2              | ✅ Supported                                                                                         |
-| VoxelMap            | [v1.7.10][VoxelMap (old)] / Minecraft 1.8 | [v1.16.6][VoxelMap-Updated] / Minecraft 26.1.2 | ✅ Supported<sup class="reference">[[2]](https://github.com/turikhay/MapModCompanion/issues/8)</sup> |
+| Mod                 | Oldest version                            | Latest version                                 | Status                                                                                                                                                |
+| ------------------- | ----------------------------------------- | ---------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [Xaero's Minimap]   | v20.20.0 / Minecraft 1.8.9                | v25.3.14 / Minecraft 26.1.2                    | ✅ Supported                                                                                                                                          |
+| [Xaero's World Map] | v1.10.0 / Minecraft 1.8.9                 | v1.40.17 / Minecraft 26.1.2                    | ✅ Supported                                                                                                                                          |
+| [JourneyMap]        | v5.7.1 / Minecraft 1.16.5                 | v6.0.0-beta.76 / Minecraft 26.1.2              | ☑️ Supported<br/>[JourneyMap-Paper] is available since 26.1<sup class="reference">[[1]](https://github.com/turikhay/MapModCompanion/issues/252)</sup> |
+| VoxelMap            | [v1.7.10][VoxelMap (old)] / Minecraft 1.8 | [v1.16.6][VoxelMap-Updated] / Minecraft 26.1.2 | ✅ Supported<sup class="reference">[[2]](https://github.com/turikhay/MapModCompanion/issues/8)</sup>                                                  |
 
 [Folia](https://papermc.io/software/folia) is supported and needs [PacketEvents](https://modrinth.com/plugin/packetevents/versions?l=folia) to work properly<sup class="reference">[[3]](https://github.com/turikhay/MapModCompanion/pull/251)</sup>. Please report if support is broken.
 
@@ -102,6 +102,7 @@ The configuration file reloads automatically if it's modified.
 
 - If you're running Forge or Fabric server, just install the map mod on your server: this will unlock all its
   features.
+- [JourneyMap-Paper] (Paper)
 - [worldnamepacket] (Velocity, Fabric, Spigot)
 - [journeymap-bukkit](https://github.com/TeamJM/journeymap-bukkit) (Spigot)
 - [JourneyMap Server](https://www.curseforge.com/minecraft/mc-mods/journeymap-server) (Spigot)
@@ -111,6 +112,7 @@ The configuration file reloads automatically if it's modified.
 [Xaero's Minimap]: https://modrinth.com/mod/xaeros-minimap
 [Xaero's World Map]: https://modrinth.com/mod/xaeros-world-map
 [JourneyMap]: https://modrinth.com/mod/journeymap
+[JourneyMap-Paper]: https://teamjm.github.io/journeymap-docs/latest/server/installing/
 [VoxelMap (old)]: https://www.curseforge.com/minecraft/mc-mods/voxelmap
 [VoxelMap-Updated]: https://modrinth.com/mod/voxelmap-updated
 [worldnamepacket]: https://github.com/kosma/worldnamepacket
