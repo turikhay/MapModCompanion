@@ -11,6 +11,10 @@ repositories {
         name = "Spigot"
         url = uri("https://hub.spigotmc.org/nexus/content/repositories/public/")
     }
+    maven {
+        name = "CodeMC"
+        url = uri("https://repo.codemc.io/repository/maven-releases/")
+    }
 }
 
 tasks {
@@ -24,7 +28,7 @@ tasks {
                 "authors" to listOf("turikhay"),
                 "website" to "https://github.com/turikhay/MapModCompanion",
                 "api-version" to "1.13",
-                "softdepend" to listOf("ProtocolLib"),
+                "softdepend" to listOf("ProtocolLib", "packetevents"),
                 "folia-supported" to true,
         ))
     }
@@ -36,6 +40,7 @@ tasks {
 // From gradle.properties
 val spigot_version: String by project
 val protocolLib_version: String by project
+val packetEvents_version: String by project
 
 dependencies {
     implementation(project(":common"))
@@ -44,4 +49,5 @@ dependencies {
     // These dependencies are intentionally not present in libs.version.toml
     compileOnly("org.spigotmc:spigot-api:${spigot_version}-R0.1-SNAPSHOT")
     compileOnly("net.dmulloy2:ProtocolLib:${protocolLib_version}")
+    compileOnly("com.github.retrooper:packetevents-spigot:${packetEvents_version}")
 }
