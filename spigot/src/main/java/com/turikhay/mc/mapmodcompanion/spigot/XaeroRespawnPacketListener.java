@@ -17,11 +17,6 @@ class XaeroRespawnPacketListener implements XaeroListener, PacketListener {
     }
 
     @Override
-    public String name() {
-        return NAME;
-    }
-
-    @Override
     public void init(Set<String> neighbors) {
         this.listenerRef = events().registerListener(this, PacketListenerPriority.MONITOR);
     }

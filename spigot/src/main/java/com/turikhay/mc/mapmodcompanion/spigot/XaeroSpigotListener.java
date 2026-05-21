@@ -13,6 +13,7 @@ import java.util.Set;
 import java.util.logging.Logger;
 
 class XaeroSpigotListener implements XaeroListener, Listener {
+    public static final String NAME = "Spigot";
 
     private final Logger logger;
     private final MapModCompanion plugin;
@@ -24,11 +25,6 @@ class XaeroSpigotListener implements XaeroListener, Listener {
         this.plugin = plugin;
         this.channelName = channelName;
         this.sender = sender;
-    }
-
-    @Override
-    public String name() {
-        return "Spigot";
     }
 
     private boolean ignoreWorldChange;

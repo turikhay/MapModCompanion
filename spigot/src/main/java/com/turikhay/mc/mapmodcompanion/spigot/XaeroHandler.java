@@ -66,16 +66,16 @@ public class XaeroHandler implements Handler {
                     listener.init(neighbors);
                 } catch (Throwable t) {
                     if (t instanceof InitializationException) {
-                        logger.log(Level.INFO, "One of the listeners will not be available: " + t.getMessage());
+                        logger.log(Level.INFO, candidate.getName() + " listener will not be available: " + t.getMessage());
                     } else {
-                        logger.log(Level.WARNING, "Failed to create or initialize a listener", t);
+                        logger.log(Level.WARNING, "Failed to create or initialize " + candidate.getName() + " listener", t);
                     }
                     suppressed.add(t);
                     continue;
                 }
-                neighbors.add(listener.name());
+                neighbors.add(candidate.getName());
                 listeners.add(listener);
-                logger.fine("Listener created: " + listener.name());
+                logger.fine(candidate.getName() + " listener created (" + listener + ")");
             }
             if (listeners.isEmpty()) {
                 InitializationException e = new InitializationException("Failed to create at least one of listeners; check suppressed exceptions");
@@ -99,8 +99,8 @@ public class XaeroHandler implements Handler {
 
             public List<Candidate> getCandidateFactories() {
                 List<Candidate> listeners = new ArrayList<>();
-                listeners.add(this::createPacketEventsListener);
-                listeners.add(this::createSpigotListener);
+                listeners.add(new Candidate(XaeroRespawnPacketListener.NAME, this::createPacketEventsListener));
+                listeners.add(new Candidate(XaeroSpigotListener.NAME, this::createSpigotListener));
                 return listeners;
             }
 
@@ -123,8 +123,27 @@ public class XaeroHandler implements Handler {
             }
         }
 
-        private interface Candidate {
+        private interface CandidateFn {
             XaeroListener create() throws InitializationException;
+        }
+
+        private static class Candidate implements CandidateFn {
+            private final String name;
+            private final CandidateFn fn;
+
+            private Candidate(String name, CandidateFn fn) {
+                this.name = name;
+                this.fn = fn;
+            }
+
+            public String getName() {
+                return name;
+            }
+
+            @Override
+            public XaeroListener create() throws InitializationException {
+                return fn.create();
+            }
         }
     }
 }
