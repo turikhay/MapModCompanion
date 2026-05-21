@@ -1,6 +1,5 @@
 package com.turikhay.mc.mapmodcompanion.spigot;
 
-import com.turikhay.mc.mapmodcompanion.Disposable;
 import com.turikhay.mc.mapmodcompanion.InitializationException;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -10,9 +9,10 @@ import org.bukkit.event.player.PlayerChangedWorldEvent;
 import org.bukkit.event.player.PlayerEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 
+import java.util.Set;
 import java.util.logging.Logger;
 
-class XaeroSpigotListener implements Disposable, Listener {
+class XaeroSpigotListener implements XaeroListener, Listener {
 
     private final Logger logger;
     private final MapModCompanion plugin;
@@ -31,11 +31,18 @@ class XaeroSpigotListener implements Disposable, Listener {
         return "Spigot";
     }
 
+    private boolean ignoreWorldChange;
+
     @Override
     public void init(Set<String> neighbors) throws InitializationException {
         plugin.registerOutgoingChannel(channelName);
         plugin.getServer().getPluginManager().registerEvents(this, plugin);
         logger.fine("Event listener has been registered");
+
+        if (neighbors.contains(XaeroRespawnPacketListener.NAME)) {
+            logger.info("Spigot listener will ignore world change events because respawn packets are already being listened");
+            ignoreWorldChange = true;
+        }
     }
 
     @Override
@@ -53,6 +60,9 @@ class XaeroSpigotListener implements Disposable, Listener {
 
     @EventHandler(priority = EventPriority.MONITOR)
     public void onWorldChanged(PlayerChangedWorldEvent event) {
+        if (ignoreWorldChange) {
+            return;
+        }
         sendPacket(event, XaeroLevelMapSender.EventSource.WORLD_CHANGE);
     }
 
