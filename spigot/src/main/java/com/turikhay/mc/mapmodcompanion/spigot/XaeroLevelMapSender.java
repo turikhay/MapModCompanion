@@ -30,7 +30,10 @@ class XaeroLevelMapSender {
         World world = p.getWorld();
         int id = plugin.getRegistry().getId(world);
         byte[] payload = LevelMapProperties.Serializer.instance().serialize(id);
-        SendPayloadTask task = new SendPayloadTask(logger, plugin, p.getUniqueId(), channelName, payload, world.getUID());
+        SendPayloadTask task = new SendPayloadTask(
+                logger, plugin, p.getUniqueId(), channelName,
+                payload, world.getUID(), source
+        );
         int repeatTimes = plugin.getConfig().getInt(
                 configPath + ".events." + source.name().toLowerCase(Locale.ROOT) + ".repeat_times",
                 1
@@ -47,6 +50,7 @@ class XaeroLevelMapSender {
     enum EventSource {
         JOIN,
         WORLD_CHANGE,
+        RESPAWN_PACKET,
     }
 
     private static class SendPayloadTask implements Runnable {
@@ -56,15 +60,17 @@ class XaeroLevelMapSender {
         private final String channelName;
         private final byte[] payload;
         private final UUID expectedWorld;
+        private final EventSource source;
 
         public SendPayloadTask(Logger logger, MapModCompanion plugin, UUID playerId, String channelName, byte[] payload,
-                               UUID expectedWorld) {
+                               UUID expectedWorld, EventSource source) {
             this.logger = logger;
             this.plugin = plugin;
             this.playerId = playerId;
             this.channelName = channelName;
             this.payload = payload;
             this.expectedWorld = expectedWorld;
+            this.source = source;
         }
 
         @Override
@@ -75,10 +81,10 @@ class XaeroLevelMapSender {
             }
             UUID world = player.getWorld().getUID();
             if (!world.equals(expectedWorld)) {
-                logger.fine("Skipping sending Xaero's LevelMapProperties to " + player.getName() + ": unexpected world");
+                logger.fine("Skipping sending Xaero's LevelMapProperties (from " + source + ") to " + player.getName() + ": unexpected world");
                 return;
             }
-            logger.fine(() -> "Sending Xaero's LevelMapProperties to " + player.getName() + ": " + Arrays.toString(payload));
+            logger.fine(() -> "Sending Xaero's LevelMapProperties (from " + source + ") to " + player.getName() + ": " + Arrays.toString(payload));
             player.sendPluginMessage(plugin, channelName, payload);
         }
     }
