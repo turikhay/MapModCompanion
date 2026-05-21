@@ -69,6 +69,9 @@ public class LevelIdHandler implements Handler, PluginMessageListener {
         @Override
         public LevelIdHandler create(MapModCompanion plugin) throws InitializationException {
             plugin.checkEnabled(configPath);
+            if (JourneyMapCompat.isInstalled(plugin.getServer())) {
+                throw new InitializationException("JourneyMap is installed");
+            }
             LevelIdHandler handler = new LevelIdHandler(
                     new PrefixLogger(plugin.getVerboseLogger(), channelName),
                     channelName, legacyChannel, plugin
