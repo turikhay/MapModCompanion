@@ -56,22 +56,27 @@ public class XaeroHandler implements Handler {
                     logger,
                     new XaeroLevelMapSender(logger, plugin, channelName, configPath, scheduler)
             );
-            List<Supplier<XaeroListener>> candidates = factory.getCandidateFactories();
+            List<Candidate> candidates = factory.getCandidateFactories();
             List<XaeroListener> listeners = new ArrayList<>(candidates.size());
             Set<String> neighbors = new HashSet<>(candidates.size());
             List<Throwable> suppressed = new ArrayList<>(candidates.size());
-            for (Supplier<XaeroListener> cf : candidates) {
+            for (Candidate candidate : candidates) {
                 XaeroListener listener;
                 try {
-                    listener = cf.get();
+                    listener = candidate.create();
                     listener.init(neighbors);
                 } catch (Throwable t) {
-                    logger.log(Level.WARNING, "Failed to create or initialize a listener", t);
+                    if (t instanceof InitializationException) {
+                        logger.log(Level.INFO, "Listener is not available: " + t);
+                    } else {
+                        logger.log(Level.WARNING, "Failed to create or initialize a listener", t);
+                    }
                     suppressed.add(t);
                     continue;
                 }
                 neighbors.add(listener.name());
                 listeners.add(listener);
+                logger.fine("Listener created: " + listener.name());
             }
             if (listeners.isEmpty()) {
                 InitializationException e = new InitializationException("Failed to create at least one of listeners; check suppressed exceptions");
@@ -93,20 +98,34 @@ public class XaeroHandler implements Handler {
                 this.sender = sender;
             }
 
-            public List<Supplier<XaeroListener>> getCandidateFactories() {
-                List<Supplier<XaeroListener>> listeners = new ArrayList<>();
+            public List<Candidate> getCandidateFactories() {
+                List<Candidate> listeners = new ArrayList<>();
                 listeners.add(this::createPacketEventsListener);
                 listeners.add(this::createSpigotListener);
                 return listeners;
             }
 
-            XaeroListener createPacketEventsListener() throws NoClassDefFoundError {
-                return new XaeroRespawnPacketListener(sender);
+            XaeroListener createPacketEventsListener() throws InitializationException {
+                try {
+                    return new XaeroRespawnPacketListener(sender);
+                } catch (NoClassDefFoundError e) {
+                    if (FoliaSupport.isFoliaServer()) {
+                        logger.log(Level.WARNING, "PacketEvents is not found. Please install it, if it's available for your Folia version.");
+                        logger.log(Level.WARNING, "While it is not required, it is strongly advised to have it in your plugins folder.");
+                        logger.log(Level.WARNING, "For more info, see: https://github.com/turikhay/MapModCompanion/issues/224");
+                        logger.log(Level.WARNING, "We'll print the stack trace for your attention :)", e);
+                    }
+                    throw new InitializationException("PacketEvents is not found", e);
+                }
             }
 
             XaeroListener createSpigotListener() {
                 return new XaeroSpigotListener(logger, plugin, channelName, sender);
             }
+        }
+
+        private interface Candidate {
+            XaeroListener create() throws InitializationException;
         }
     }
 }
