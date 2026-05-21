@@ -16,6 +16,7 @@ logger = getLogger("tests_e2e")
 PARENT_DIR = Path(path.realpath(__file__)).parent
 
 PROTOCOLLIB_VERSION = "4.8.0"
+PACKETEVENTS_VERSION = "2.12.1"
 
 SERVER_OVERRIDES = {
     'red': 42,
@@ -412,6 +413,15 @@ if __name__ == "__main__":
 
         if "protocollib" in version_info and version_info["protocollib"] == True:
             download_plugin("ProtocolLib.jar", f"https://github.com/dmulloy2/ProtocolLib/releases/download/{PROTOCOLLIB_VERSION}/ProtocolLib.jar")
+
+        dl_packetevents = False
+        if "packetevents" in version_info and version_info["packetevents"] == True:
+            dl_packetevents = True
+        elif server_type in ("folia",):
+            logger.info("Selected server type is Folia: downloading PacketEvents automatically")
+            dl_packetevents = True
+        if dl_packetevents:
+            download_plugin("PacketEvents.jar", f"https://github.com/retrooper/packetevents/releases/download/v{PACKETEVENTS_VERSION}/packetevents-spigot-{PACKETEVENTS_VERSION}.jar")
 
         world_dir = files_dir_of(server_name) / "world"
         copy_clean(
