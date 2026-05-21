@@ -95,8 +95,13 @@ public class XaeroHandler implements Handler {
 
             public List<Supplier<XaeroListener>> getCandidateFactories() {
                 List<Supplier<XaeroListener>> listeners = new ArrayList<>();
+                listeners.add(this::createPacketEventsListener);
                 listeners.add(this::createSpigotListener);
                 return listeners;
+            }
+
+            XaeroListener createPacketEventsListener() throws NoClassDefFoundError {
+                return new XaeroRespawnPacketListener(sender);
             }
 
             XaeroListener createSpigotListener() {
