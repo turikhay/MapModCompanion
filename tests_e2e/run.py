@@ -15,6 +15,8 @@ logger = getLogger("tests_e2e")
 
 PARENT_DIR = Path(path.realpath(__file__)).parent
 
+PROTOCOLLIB_VERSION = "4.8.0"
+
 SERVER_OVERRIDES = {
     'red': 42,
     'blue': 2000,
@@ -393,7 +395,7 @@ if __name__ == "__main__":
             protocollib_source_file = test_env_dir / "ProtocolLib.jar"
             if not protocollib_source_file.is_file():
                 logger.info("Downloading ProtocolLib")
-                data = requests.get("https://github.com/dmulloy2/ProtocolLib/releases/download/4.8.0/ProtocolLib.jar").content
+                data = requests.get(f"https://github.com/dmulloy2/ProtocolLib/releases/download/{PROTOCOLLIB_VERSION}/ProtocolLib.jar").content
                 try:
                     with open(protocollib_source_file, "wb") as f:
                         f.write(data)
