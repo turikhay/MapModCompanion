@@ -1,88 +1,32 @@
 package com.turikhay.mc.mapmodcompanion.spigot;
 
 import com.turikhay.mc.mapmodcompanion.*;
-import org.bukkit.World;
-import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.EventPriority;
-import org.bukkit.event.HandlerList;
-import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerChangedWorldEvent;
-import org.bukkit.event.player.PlayerEvent;
-import org.bukkit.event.player.PlayerJoinEvent;
 
-import java.util.Arrays;
-import java.util.Locale;
-import java.util.UUID;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class XaeroHandler implements Handler, Listener {
-    private final Logger logger;
-    private final String configPath;
-    private final String channelName;
-    private final MapModCompanion plugin;
+public class XaeroHandler implements Handler {
     private final ScheduledExecutorService scheduler;
+    private final List<XaeroListener> listeners;
 
-    public XaeroHandler(Logger logger, String configPath, String channelName, MapModCompanion plugin) {
-        this.logger = logger;
-        this.configPath = configPath;
-        this.channelName = channelName;
-        this.plugin = plugin;
-
-        this.scheduler = Executors.newSingleThreadScheduledExecutor(
-                new DaemonThreadFactory(ILogger.ofJava(logger), XaeroHandler.class)
-        );
-    }
-
-    public void init() throws InitializationException {
-        plugin.registerOutgoingChannel(channelName);
-        plugin.getServer().getPluginManager().registerEvents(this, plugin);
-        logger.fine("Event listener has been registered");
+    public XaeroHandler(ScheduledExecutorService scheduler, List<XaeroListener> listeners) {
+        this.scheduler = scheduler;
+        this.listeners = listeners;
     }
 
     @Override
     public void cleanUp() {
-        plugin.unregisterOutgoingChannel(channelName);
-        HandlerList.unregisterAll(this);
-        logger.fine("Event listener has been unregistered");
-        scheduler.shutdown();
-    }
-
-    @EventHandler(priority = EventPriority.MONITOR)
-    public void onPlayerJoined(PlayerJoinEvent event) {
-        sendPacket(event, Type.JOIN);
-    }
-
-    @EventHandler(priority = EventPriority.MONITOR)
-    public void onWorldChanged(PlayerChangedWorldEvent event) {
-        sendPacket(event, Type.WORLD_CHANGE);
-    }
-
-    private void sendPacket(PlayerEvent event, Type type) {
-        Player p = event.getPlayer();
-        World world = p.getWorld();
-        int id = plugin.getRegistry().getId(world);
-        byte[] payload = LevelMapProperties.Serializer.instance().serialize(id);
-        SendPayloadTask task = new SendPayloadTask(logger, plugin, p.getUniqueId(), channelName, payload, world.getUID());
-        int repeatTimes = plugin.getConfig().getInt(
-                configPath + ".events." + type.name().toLowerCase(Locale.ROOT) + ".repeat_times",
-                1
-        );
-        if (repeatTimes > 1) {
-            for (int i = 0; i < repeatTimes; i++) {
-                scheduler.schedule(task, i, TimeUnit.SECONDS);
-            }
-        } else {
-            task.run();
+        try {
+            listeners.forEach(Disposable::cleanUp);
+        } finally {
+            scheduler.shutdown();
         }
-    }
-
-    private enum Type {
-        JOIN,
-        WORLD_CHANGE,
     }
 
     public static class Factory implements Handler.Factory<MapModCompanion> {
@@ -102,46 +46,104 @@ public class XaeroHandler implements Handler, Listener {
         @Override
         public XaeroHandler create(MapModCompanion plugin) throws InitializationException {
             plugin.checkEnabled(configPath);
-            XaeroHandler handler = new XaeroHandler(
-                    new PrefixLogger(plugin.getVerboseLogger(), channelName),
-                    configPath, channelName, plugin
+            PrefixLogger logger = new PrefixLogger(plugin.getVerboseLogger(), channelName);
+            ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor(
+                    new DaemonThreadFactory(ILogger.ofJava(logger), XaeroHandler.class)
             );
-            handler.init();
-            return handler;
-        }
-    }
-
-    private static class SendPayloadTask implements Runnable {
-        private final Logger logger;
-        private final MapModCompanion plugin;
-        private final UUID playerId;
-        private final String channelName;
-        private final byte[] payload;
-        private final UUID expectedWorld;
-
-        public SendPayloadTask(Logger logger, MapModCompanion plugin, UUID playerId, String channelName, byte[] payload,
-                               UUID expectedWorld) {
-            this.logger = logger;
-            this.plugin = plugin;
-            this.playerId = playerId;
-            this.channelName = channelName;
-            this.payload = payload;
-            this.expectedWorld = expectedWorld;
-        }
-
-        @Override
-        public void run() {
-            Player player = plugin.getServer().getPlayer(playerId);
-            if (player == null) {
-                return;
+            ListenerFactory factory = new ListenerFactory(
+                    plugin,
+                    logger,
+                    new XaeroLevelMapSender(logger, plugin, channelName, configPath, scheduler)
+            );
+            List<Candidate> candidates = factory.getCandidateFactories();
+            List<XaeroListener> listeners = new ArrayList<>(candidates.size());
+            Set<String> neighbors = new HashSet<>(candidates.size());
+            List<Throwable> suppressed = new ArrayList<>(candidates.size());
+            for (Candidate candidate : candidates) {
+                XaeroListener listener;
+                try {
+                    listener = candidate.create();
+                    listener.init(neighbors);
+                } catch (Throwable t) {
+                    if (t instanceof InitializationException) {
+                        logger.log(Level.INFO, candidate.getName() + " listener will not be available: " + t.getMessage());
+                    } else {
+                        logger.log(Level.WARNING, "Failed to create or initialize " + candidate.getName() + " listener", t);
+                    }
+                    suppressed.add(t);
+                    continue;
+                }
+                neighbors.add(candidate.getName());
+                listeners.add(listener);
+                logger.fine(candidate.getName() + " listener created (" + listener + ")");
             }
-            UUID world = player.getWorld().getUID();
-            if (!world.equals(expectedWorld)) {
-                logger.fine("Skipping sending Xaero's LevelMapProperties to " + player.getName() + ": unexpected world");
-                return;
+            if (listeners.isEmpty()) {
+                InitializationException e = new InitializationException("Failed to create at least one of listeners; check suppressed exceptions");
+                suppressed.forEach(e::addSuppressed);
+                throw e;
             }
-            logger.fine(() -> "Sending Xaero's LevelMapProperties to " + player.getName() + ": " + Arrays.toString(payload));
-            player.sendPluginMessage(plugin, channelName, payload);
+            logger.info("Created listeners: " + listeners);
+            return new XaeroHandler(scheduler, listeners);
+        }
+
+        private class ListenerFactory {
+            final MapModCompanion plugin;
+            final Logger logger;
+            final XaeroLevelMapSender sender;
+
+            private ListenerFactory(MapModCompanion plugin, Logger logger, XaeroLevelMapSender sender) {
+                this.plugin = plugin;
+                this.logger = logger;
+                this.sender = sender;
+            }
+
+            public List<Candidate> getCandidateFactories() {
+                List<Candidate> listeners = new ArrayList<>();
+                listeners.add(new Candidate(XaeroRespawnPacketListener.NAME, this::createPacketEventsListener));
+                listeners.add(new Candidate(XaeroSpigotListener.NAME, this::createSpigotListener));
+                return listeners;
+            }
+
+            XaeroListener createPacketEventsListener() throws InitializationException {
+                try {
+                    return new XaeroRespawnPacketListener(sender);
+                } catch (NoClassDefFoundError e) {
+                    if (FoliaSupport.isFoliaServer()) {
+                        logger.log(Level.WARNING, "PacketEvents is not found. Please install it, if it's available for your Folia version.");
+                        logger.log(Level.WARNING, "While it is not required, it is strongly advised to have it in your plugins folder.");
+                        logger.log(Level.WARNING, "For more info, see: https://github.com/turikhay/MapModCompanion/pull/251");
+                        logger.log(Level.WARNING, "We'll print the stack trace for your attention :)", e);
+                    }
+                    throw new InitializationException("PacketEvents is not found", e);
+                }
+            }
+
+            XaeroListener createSpigotListener() {
+                return new XaeroSpigotListener(logger, plugin, channelName, sender);
+            }
+        }
+
+        private interface CandidateFn {
+            XaeroListener create() throws InitializationException;
+        }
+
+        private static class Candidate implements CandidateFn {
+            private final String name;
+            private final CandidateFn fn;
+
+            private Candidate(String name, CandidateFn fn) {
+                this.name = name;
+                this.fn = fn;
+            }
+
+            public String getName() {
+                return name;
+            }
+
+            @Override
+            public XaeroListener create() throws InitializationException {
+                return fn.create();
+            }
         }
     }
 }

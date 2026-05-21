@@ -79,11 +79,11 @@ If you have any questions, please [join my Discord][Discord].
 | [JourneyMap]        | v5.7.1 / Minecraft 1.16.5                 | v6.0.0-beta.78 / Minecraft 26.1.2              | ✅ Supported                                                                                         |
 | VoxelMap            | [v1.7.10][VoxelMap (old)] / Minecraft 1.8 | [v1.16.6][VoxelMap-Updated] / Minecraft 26.1.2 | ✅ Supported<sup class="reference">[[2]](https://github.com/turikhay/MapModCompanion/issues/8)</sup> |
 
-[Folia](https://papermc.io/software/folia) is supported, but isn't tested thoroughly. Please report if the support is broken.
+[Folia](https://papermc.io/software/folia) is supported and needs [PacketEvents](https://modrinth.com/plugin/packetevents/versions?l=folia) to work properly<sup class="reference">[[3]](https://github.com/turikhay/MapModCompanion/pull/251)</sup>. Please report if support is broken.
 
 ## Installation
 
-ℹ️ Plugin must be installed on every downstream (backend) server in your network. Simply installing it on the proxy side (BungeeCord/Velocity) isn't enough. To ensure compatibility, you need to install the plugin on both the proxy server (BungeeCord/Velocity) and each of the backend servers (Spigot/Paper).
+ℹ️ Plugin must be installed on every downstream (backend) server in your network. Simply installing it on the proxy side (BungeeCord/Velocity) isn't enough. To ensure compatibility, you need to install the plugin on both the proxy server (BungeeCord/Velocity) and each of the backend servers (Spigot/Paper/Folia).
 
 1. Download the latest release
 2. Put each file into the corresponding plugins folder
