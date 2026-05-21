@@ -248,6 +248,24 @@ def copy_proxy_files():
         _to / "Dockerfile",
     )
 
+def download_plugin(plugin_jar, url):
+    plugin_source_file = test_env_dir / plugin_jar
+    if not plugin_source_file.is_file():
+        logger.info(f"Downloading {plugin_jar}")
+        response = requests.get(url)
+        response.raise_for_status()
+        try:
+            with open(plugin_source_file, "wb") as f:
+                f.write(response.content)
+        except Exception as e:
+            plugin_source_file.unlink(missing_ok=True)
+            raise e
+    logger.info(f"Copying {plugin_jar}")
+    copyfile(
+        plugin_source_file,
+        files_dir_of(server_name) / "plugins" / plugin_jar,
+    )
+
 
 if __name__ == "__main__":
     servers = [
@@ -391,22 +409,10 @@ if __name__ == "__main__":
                 'JVM_XX_OPTS=' + " ".join(jvm_opts)
             ]
         docker_compose_file_contents["services"][server_name] = server_desc
+
         if "protocollib" in version_info and version_info["protocollib"] == True:
-            protocollib_source_file = test_env_dir / "ProtocolLib.jar"
-            if not protocollib_source_file.is_file():
-                logger.info("Downloading ProtocolLib")
-                data = requests.get(f"https://github.com/dmulloy2/ProtocolLib/releases/download/{PROTOCOLLIB_VERSION}/ProtocolLib.jar").content
-                try:
-                    with open(protocollib_source_file, "wb") as f:
-                        f.write(data)
-                except Exception as e:
-                    protocollib_source_file.unlink(missing_ok=True)
-                    raise e
-            logger.info("Copying ProtocolLib")
-            copyfile(
-                protocollib_source_file,
-                files_dir_of(server_name) / "plugins" / "ProtocolLib.jar",
-            )
+            download_plugin("ProtocolLib.jar", f"https://github.com/dmulloy2/ProtocolLib/releases/download/{PROTOCOLLIB_VERSION}/ProtocolLib.jar")
+
         world_dir = files_dir_of(server_name) / "world"
         copy_clean(
             PARENT_DIR / "saves" / world_version / server_name,
