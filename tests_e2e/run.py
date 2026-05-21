@@ -417,10 +417,9 @@ if __name__ == "__main__":
         dl_packetevents = False
         if "packetevents" in version_info and version_info["packetevents"] == True:
             dl_packetevents = True
-        # TODO test
-        # elif server_type in ("folia",):
-        #     logger.info("Selected server type is Folia: downloading PacketEvents automatically")
-        #     dl_packetevents = True
+        elif server_type in ("folia",):
+            logger.info("Selected server type is Folia: downloading PacketEvents automatically")
+            dl_packetevents = True
         if dl_packetevents:
             download_plugin("PacketEvents.jar", f"https://github.com/retrooper/packetevents/releases/download/v{PACKETEVENTS_VERSION}/packetevents-spigot-{PACKETEVENTS_VERSION}.jar")
 
