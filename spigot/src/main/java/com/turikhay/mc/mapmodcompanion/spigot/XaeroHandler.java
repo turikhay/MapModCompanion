@@ -67,7 +67,7 @@ public class XaeroHandler implements Handler {
                     listener.init(neighbors);
                 } catch (Throwable t) {
                     if (t instanceof InitializationException) {
-                        logger.log(Level.INFO, "Listener is not available: " + t.getMessage());
+                        logger.log(Level.INFO, "One of the listeners will not be available: " + t.getMessage());
                     } else {
                         logger.log(Level.WARNING, "Failed to create or initialize a listener", t);
                     }
