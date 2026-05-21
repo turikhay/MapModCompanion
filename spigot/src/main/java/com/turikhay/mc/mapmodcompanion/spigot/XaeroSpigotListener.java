@@ -32,7 +32,7 @@ class XaeroSpigotListener implements Disposable, Listener {
     }
 
     @Override
-    public void init() throws InitializationException {
+    public void init(Set<String> neighbors) throws InitializationException {
         plugin.registerOutgoingChannel(channelName);
         plugin.getServer().getPluginManager().registerEvents(this, plugin);
         logger.fine("Event listener has been registered");
