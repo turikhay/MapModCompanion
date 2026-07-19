@@ -103,7 +103,6 @@ The configuration file reloads automatically if it's modified.
 - If you're running Forge or Fabric server, just install the map mod on your server: this will unlock all its
   features.
 - [JourneyMap-Paper] (Paper)
-- [worldnamepacket] (Velocity, Fabric, Spigot)
 - [journeymap-bukkit](https://github.com/TeamJM/journeymap-bukkit) (Spigot)
 - [JourneyMap Server](https://www.curseforge.com/minecraft/mc-mods/journeymap-server) (Spigot)
 - [Map Chameleon](https://modrinth.com/mod/map-chameleon) (Fabric)
