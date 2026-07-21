@@ -15,7 +15,7 @@ jobs:
       UPDATE_PAGES: true
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - name: Setup Gradle
         uses: ./.github/actions/setup_gradle
       - name: Run tasks
